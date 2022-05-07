@@ -700,3 +700,20 @@ D:\Sandhi Software New\sandhi\THC\CHC Backup Code - Copy\CHC\NovaNet\Utils\obj\D
 D:\Sandhi Software New\sandhi\THC\CHC Backup Code - Copy\CHC\NovaNet\Utils\obj\Debug\Utils.csproj.CoreCompileInputs.cache
 D:\Sandhi Software New\sandhi\THC\CHC Backup Code - Copy\CHC\NovaNet\Utils\obj\Debug\NovaNet.Utils.dll
 D:\Sandhi Software New\sandhi\THC\CHC Backup Code - Copy\CHC\NovaNet\Utils\obj\Debug\NovaNet.Utils.pdb
+D:\Sandhi Software\THC Updated\NovaNet\Utils\bin\Debug\NovaNet.Utils.dll.config
+D:\Sandhi Software\THC Updated\NovaNet\Utils\bin\Debug\NovaNet.Utils.dll
+D:\Sandhi Software\THC Updated\NovaNet\Utils\bin\Debug\NovaNet.Utils.pdb
+D:\Sandhi Software\THC Updated\NovaNet\Utils\bin\Debug\Interop.ClearImage.dll
+D:\Sandhi Software\THC Updated\NovaNet\Utils\obj\Debug\Utils.csproj.AssemblyReference.cache
+D:\Sandhi Software\THC Updated\NovaNet\Utils\obj\Debug\Interop.ClearImage.dll
+D:\Sandhi Software\THC Updated\NovaNet\Utils\obj\Debug\Utils.csproj.ResolveComReference.cache
+D:\Sandhi Software\THC Updated\NovaNet\Utils\obj\Debug\NovaNet.Utils.AddNewUser.resources
+D:\Sandhi Software\THC Updated\NovaNet\Utils\obj\Debug\NovaNet.Utils.frmConnection.resources
+D:\Sandhi Software\THC Updated\NovaNet\Utils\obj\Debug\ImageHeaven.frmLoggedUser.resources
+D:\Sandhi Software\THC Updated\NovaNet\Utils\obj\Debug\NovaNet.Utils.GetChallenge.resources
+D:\Sandhi Software\THC Updated\NovaNet\Utils\obj\Debug\NovaNet.Properties.Resources.resources
+D:\Sandhi Software\THC Updated\NovaNet\Utils\obj\Debug\NovaNet.Utils.PwdChange.resources
+D:\Sandhi Software\THC Updated\NovaNet\Utils\obj\Debug\Utils.csproj.GenerateResource.cache
+D:\Sandhi Software\THC Updated\NovaNet\Utils\obj\Debug\Utils.csproj.CoreCompileInputs.cache
+D:\Sandhi Software\THC Updated\NovaNet\Utils\obj\Debug\NovaNet.Utils.dll
+D:\Sandhi Software\THC Updated\NovaNet\Utils\obj\Debug\NovaNet.Utils.pdb

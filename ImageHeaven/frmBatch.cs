@@ -39,6 +39,7 @@ namespace ImageHeaven
 
         public string currentDate;
         public string handoverDate;
+        public string inwardDate;
 
         string old_path;
         public frmBatch()
@@ -97,6 +98,7 @@ namespace ImageHeaven
 
                 currentDate = DateTime.Now.ToString("yyyy-MM-dd");
                 handoverDate = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+                inwardDate = DateTime.Now.ToString("yyyy-MM-dd");
             }
             if(_mode == DataLayerDefs.Mode._Edit)
             {
@@ -121,6 +123,7 @@ namespace ImageHeaven
                 handoverDate = getBundleDetails(frmEntrySummary.projKey, frmEntrySummary.bundleKey).Rows[0][5].ToString();
 
                 old_path = getBundleDetails(frmEntrySummary.projKey, frmEntrySummary.bundleKey).Rows[0][6].ToString();
+                inwardDate = getBundleDetails(frmEntrySummary.projKey, frmEntrySummary.bundleKey).Rows[0][7].ToString();
 
                 txtCreateDate.Text = currentDate;
                 txtHandoverDate.Text = handoverDate;
@@ -129,6 +132,13 @@ namespace ImageHeaven
                 dateTimePicker1.CustomFormat = "yyyy-MM-dd";
                 dateTimePicker1.Value = Convert.ToDateTime(handoverDate.ToString());
                 dateTimePicker1.Enabled = true;
+
+                txtInwardDate.Text = inwardDate;
+                dateTimePicker2.Text = inwardDate;
+                dateTimePicker2.Format = DateTimePickerFormat.Custom;
+                dateTimePicker2.CustomFormat = "yyyy-MM-dd";
+                dateTimePicker2.Value = Convert.ToDateTime(inwardDate.ToString());
+                dateTimePicker2.Enabled = true;
 
                 textBox2.Focus();
                 textBox2.Select();
@@ -175,7 +185,7 @@ namespace ImageHeaven
         public DataTable getBundleDetails(string pcode, string bcode)
         {
             DataTable dt = new DataTable();
-            string sql = "select distinct bundle_code,bundle_name,establishment,bundle_no,date_format(creation_date,'%Y-%m-%d'),date_format(handover_date,'%Y-%m-%d'),bundle_path from bundle_master where proj_code = '" + pcode + "' and bundle_key = '"+bcode+"' ";
+            string sql = "select distinct bundle_code,bundle_name,establishment,bundle_no,date_format(creation_date,'%Y-%m-%d'),date_format(handover_date,'%Y-%m-%d'),bundle_path,inward_date from bundle_master where proj_code = '" + pcode + "' and bundle_key = '"+bcode+"' ";
             OdbcCommand cmd = new OdbcCommand(sql, sqlCon);
             OdbcDataAdapter odap = new OdbcDataAdapter(cmd);
             odap.Fill(dt);
@@ -215,6 +225,8 @@ namespace ImageHeaven
             dateTimePicker1.Format = DateTimePickerFormat.Custom;
             dateTimePicker1.CustomFormat = " ";
             //dateTimePicker1.Value = Convert.ToDateTime("");
+            dateTimePicker2.Format = DateTimePickerFormat.Custom;
+            dateTimePicker2.CustomFormat = " ";
             textBox3.Text = string.Empty;
             textBox4.Text = string.Empty;
             button2.Enabled = false;
@@ -245,6 +257,12 @@ namespace ImageHeaven
                 dateTimePicker1.Format = DateTimePickerFormat.Custom;
                 dateTimePicker1.CustomFormat = "yyyy-MM-dd";
                 dateTimePicker1.Value = Convert.ToDateTime(handoverDate.ToString());
+
+                txtInwardDate.Text = inwardDate;
+                dateTimePicker2.Text = inwardDate;
+                dateTimePicker2.Format = DateTimePickerFormat.Custom;
+                dateTimePicker2.CustomFormat = "yyyy-MM-dd";
+                dateTimePicker2.Value = Convert.ToDateTime(inwardDate.ToString());
             }
         }
 
@@ -272,6 +290,12 @@ namespace ImageHeaven
                 dateTimePicker1.Format = DateTimePickerFormat.Custom;
                 dateTimePicker1.CustomFormat = "yyyy-MM-dd";
                 dateTimePicker1.Value = Convert.ToDateTime(handoverDate.ToString());
+
+                txtInwardDate.Text = inwardDate;
+                dateTimePicker2.Text = inwardDate;
+                dateTimePicker2.Format = DateTimePickerFormat.Custom;
+                dateTimePicker2.CustomFormat = "yyyy-MM-dd";
+                dateTimePicker2.Value = Convert.ToDateTime(inwardDate.ToString());
             }
         }
 
@@ -281,6 +305,7 @@ namespace ImageHeaven
             {
                 DateTime temp;
                 string isDate = dateTimePicker1.Text;
+                string inDate = dateTimePicker2.Text;
                 string currDate = DateTime.Now.ToString("yyyy-MM-dd");
                 string curYear = DateTime.Now.ToString("yyyy");
                 int curIntYear = Convert.ToInt32(curYear);
@@ -321,8 +346,16 @@ namespace ImageHeaven
 
                     }
                 }
+                else if (!DateTime.TryParse(inDate, out temp))
+                { 
+                    //retval = false;
+                    MessageBox.Show("Please select a valid Inward Date", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    dateTimePicker2.Select();
+                    //validateBol = false;
+                }
                 else
-                {
+                    {
                     //retval = false;
                     MessageBox.Show("Please select a valid Handover Date", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -335,6 +368,7 @@ namespace ImageHeaven
             {
                 DateTime temp;
                 string isDate = dateTimePicker1.Text;
+                string inDate = dateTimePicker2.Text;
                 string currDate = DateTime.Now.ToString("yyyy-MM-dd");
 
                 string curYear = DateTime.Now.ToString("yyyy");
@@ -374,6 +408,14 @@ namespace ImageHeaven
 
 
                     }
+                }
+                else if (!DateTime.TryParse(inDate, out temp) && !(DateTime.Parse(inDate) > DateTime.Parse(currDate) || DateTime.Parse(inDate) <= DateTime.Parse(currDate)) && !(DateTime.Parse(inDate) > DateTime.Parse(currentDate)))
+                {
+                    //retval = false;
+                    MessageBox.Show("Please select a valid Inward Date", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    dateTimePicker2.Select();
+                    //validateBol = false;
                 }
                 else
                 {
@@ -470,10 +512,23 @@ namespace ImageHeaven
             {
                 DateTime temp;
                 string isDate = dateTimePicker1.Text;
+                string inDate = dateTimePicker2.Text;
                 string currDate = DateTime.Now.ToString("yyyy-MM-dd");
                 if (DateTime.TryParse(isDate, out temp))
                 {
-                    validateBol = true;
+                    if (DateTime.TryParse(inDate, out temp))
+                    {
+                        validateBol = true;
+                    }
+                    else
+                    {
+                        //retval = false;
+                        MessageBox.Show("Please select a valid Inward Date", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        dateTimePicker2.Select();
+                        validateBol = false;
+
+                    }
                 }
                 else
                 {
@@ -489,10 +544,23 @@ namespace ImageHeaven
             {
                 DateTime temp;
                 string isDate = dateTimePicker1.Text;
+                string inDate = dateTimePicker1.Text;
                 string currDate = DateTime.Now.ToString("yyyy-MM-dd");
                 if (DateTime.TryParse(isDate, out temp))
                 {
-                    validateBol = true;
+                    if (DateTime.TryParse(inDate, out temp))
+                    {
+                        validateBol = true;
+                    }
+                    else
+                    {
+                        //retval = false;
+                        MessageBox.Show("Please select a valid Inward Date", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        dateTimePicker2.Select();
+                        validateBol = false;
+
+                    }
                 }
                 else
                 {
@@ -509,7 +577,7 @@ namespace ImageHeaven
             return validateBol;
         }
 
-        public bool Commit_Bundle_Edit(string establishment, string bundle_no, string createDt, string handoverDt)
+        public bool Commit_Bundle_Edit(string establishment, string bundle_no, string createDt, string handoverDt, string inwardDt)
         {
             string sqlStr = null;
             OdbcTransaction sqlTrans = null;
@@ -527,7 +595,7 @@ namespace ImageHeaven
                 scanbatchPath = dsPath.Tables[0].Rows[0]["project_Path"] + "\\" + objBatch.batch_code;
             }
 
-            sqlStr = @"update bundle_master set bundle_code = '" + objBatch.batch_code.ToUpper() + "', bundle_name = '" + objBatch.batch_name + "',establishment='" + establishment + "',bundle_no='"+bundle_no+ "',creation_date='"+ createDt + "',handover_date='" + handoverDt + "',bundle_path='"+ scanbatchPath.Replace("\\", "\\\\") + "',modified_by = '" + objBatch.Created_By + "',modified_dttm = '" + objBatch.Created_DTTM + "' where proj_code = '"+frmEntrySummary.projKey+"' and bundle_key = '"+frmEntrySummary.bundleKey+"'";
+            sqlStr = @"update bundle_master set bundle_code = '" + objBatch.batch_code.ToUpper() + "', bundle_name = '" + objBatch.batch_name + "',establishment='" + establishment + "',bundle_no='"+bundle_no+ "',creation_date='"+ createDt + "',handover_date='" + handoverDt + "',bundle_path='"+ scanbatchPath.Replace("\\", "\\\\") + "',inward_date = '"+inwardDt+"',modified_by = '" + objBatch.Created_By + "',modified_dttm = '" + objBatch.Created_DTTM + "' where proj_code = '"+frmEntrySummary.projKey+"' and bundle_key = '"+frmEntrySummary.bundleKey+"'";
 
             //sqlStr = @"insert into bundle_master(proj_code,bundle_code,bundle_name,created_by" +
             //    ",Created_DTTM,establishment,bundle_no,creation_date,handover_date,bundle_path) values(" +
@@ -602,7 +670,7 @@ namespace ImageHeaven
             return commitBol;
         }
 
-        public bool Commit_Bundle(string estCode, string establishment, string bundle_no, string createDt, string handoverDt, string nature)
+        public bool Commit_Bundle(string estCode, string establishment, string bundle_no, string createDt, string handoverDt, string inwardDt, string nature)
         {
             string sqlStr = null;
             OdbcTransaction sqlTrans = null;
@@ -621,9 +689,9 @@ namespace ImageHeaven
             }
 
             sqlStr = @"insert into bundle_master(proj_code,bundle_code,bundle_name,created_by" +
-                ",Created_DTTM,establishment_code,establishment,bundle_no,case_nature,creation_date,handover_date,bundle_path) values(" +
+                ",Created_DTTM,establishment_code,establishment,bundle_no,case_nature,creation_date,handover_date,inward_date,bundle_path) values(" +
                 objBatch.proj_code + ",'" + objBatch.batch_code.ToUpper() + "','" + objBatch.batch_name + "'," +
-                "'" + objBatch.Created_By + "','" + objBatch.Created_DTTM + "','"+estCode+"','" + establishment + "','" + bundle_no + "','"+nature+"','" + createDt + "','" + handoverDt + "','" +
+                "'" + objBatch.Created_By + "','" + objBatch.Created_DTTM + "','"+estCode+"','" + establishment + "','" + bundle_no + "','"+nature+"','" + createDt + "','" + handoverDt + "','"+inwardDt+"','" +
                 scanbatchPath.Replace("\\", "\\\\") + "')";
             try
             {
@@ -757,7 +825,7 @@ namespace ImageHeaven
 
             return retval;
         }
-        public bool TransferValuesBundle(udtCmd cmd, string estCode, string est, string bundle, string creatdate, string handdate, string nature)
+        public bool TransferValuesBundle(udtCmd cmd, string estCode, string est, string bundle, string creatdate, string handdate, string inwarddate, string nature)
         {
 
             objBatch = (udtBatch)(cmd);
@@ -766,7 +834,7 @@ namespace ImageHeaven
                 if (Validate(objBatch) == true)
                 {
                     
-                    if (Commit_Bundle(estCode,est, bundle, creatdate, handdate,nature) == true)
+                    if (Commit_Bundle(estCode,est, bundle, creatdate, handdate, inwarddate, nature) == true)
                     {
                         return true;
                     }
@@ -795,7 +863,7 @@ namespace ImageHeaven
             }
         }
 
-        public bool TransferValuesBundleEdit(udtCmd cmd, string est, string bundle, string creatdate, string handdate)
+        public bool TransferValuesBundleEdit(udtCmd cmd, string est, string bundle, string creatdate, string handdate , string inwarddate)
         {
 
             objBatch = (udtBatch)(cmd);
@@ -804,7 +872,7 @@ namespace ImageHeaven
                 if (Validate(objBatch) == true)
                 {
 
-                    if (Commit_Bundle_Edit(est, bundle, creatdate, handdate) == true)
+                    if (Commit_Bundle_Edit(est, bundle, creatdate, handdate, inwarddate) == true)
                     {
                         return true;
                     }
@@ -870,7 +938,7 @@ namespace ImageHeaven
                             objBatch.Created_By = name;
                             objBatch.Created_DTTM = dbcon.GetCurrenctDTTM(1, sqlCon);
 
-                            if (TransferValuesBundle(objBatch, textBox1.SelectedValue.ToString(), textBox1.Text, textBox2.Text, txtCreateDate.Text, dateTimePicker1.Text,cmbCaseNature.Text.ToString().Trim()) == true)
+                            if (TransferValuesBundle(objBatch, textBox1.SelectedValue.ToString(), textBox1.Text, textBox2.Text, txtCreateDate.Text, dateTimePicker1.Text, dateTimePicker2.Text, cmbCaseNature.Text.ToString().Trim()) == true)
                             {
                                 MessageBox.Show("Bundle SucessFully Created");
                                 statusStrip1.Items.Add("Status: Data SucessFully Saved");
@@ -970,7 +1038,7 @@ namespace ImageHeaven
                                 objBatch.Created_By = name;
                                 objBatch.Created_DTTM = dbcon.GetCurrenctDTTM(1, sqlCon);
 
-                                if (TransferValuesBundleEdit(objBatch, textBox1.Text, textBox2.Text, txtCreateDate.Text, dateTimePicker1.Text) == true)
+                                if (TransferValuesBundleEdit(objBatch, textBox1.Text, textBox2.Text, txtCreateDate.Text, dateTimePicker1.Text, dateTimePicker2.Text) == true)
                                 {
                                     statusStrip1.Items.Add("Status: Data SucessFully Saved");
                                     statusStrip1.ForeColor = System.Drawing.Color.Black;
@@ -1112,6 +1180,48 @@ namespace ImageHeaven
                 if(textBox2.Text != frmEntrySummary.bundleNo)
                 {
                     _bundleExistsEdit(textBox2.Text);
+                }
+            }
+        }
+
+        private void dateTimePicker2_Leave(object sender, EventArgs e)
+        {
+            if (_mode == DataLayerDefs.Mode._Add)
+            {
+                DateTime temp;
+                string isDate = dateTimePicker2.Text;
+                string currDate = DateTime.Now.ToString("yyyy-MM-dd");
+                if (DateTime.TryParse(isDate, out temp))
+                {
+                    //validateBol = true;
+                }
+                else
+                {
+                    //retval = false;
+                    MessageBox.Show("Please select a valid Inward Date", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    dateTimePicker2.Select();
+                    //validateBol = false;
+
+                }
+            }
+            if (_mode == DataLayerDefs.Mode._Edit)
+            {
+                DateTime temp;
+                string isDate = dateTimePicker2.Text;
+                string currDate = DateTime.Now.ToString("yyyy-MM-dd");
+                if (DateTime.TryParse(isDate, out temp))
+                {
+                    //validateBol = true;
+                }
+                else
+                {
+                    //retval = false;
+                    MessageBox.Show("Please select a valid Inward Date", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    dateTimePicker2.Select();
+                    //validateBol = false;
+
                 }
             }
         }

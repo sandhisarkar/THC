@@ -40,3 +40,45 @@ D:\Sandhi Software New\sandhi\THC\CHC Backup Code - Copy\CHC\THC\bin\Debug\Twain
 D:\Sandhi Software New\sandhi\THC\CHC Backup Code - Copy\CHC\THC\bin\Debug\nControls.pdb
 D:\Sandhi Software New\sandhi\THC\CHC Backup Code - Copy\CHC\THC\bin\Debug\NovaNet.wfe.pdb
 D:\Sandhi Software New\sandhi\THC\CHC Backup Code - Copy\CHC\THC\bin\Debug\NovaNet.wfe.dll.config
+D:\Sandhi Software\THC Updated\THC\bin\Debug\THC.exe.config
+D:\Sandhi Software\THC Updated\THC\bin\Debug\THC.exe
+D:\Sandhi Software\THC Updated\THC\bin\Debug\THC.pdb
+D:\Sandhi Software\THC Updated\THC\bin\Debug\ImageHeaven.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\NovaNet.Utils.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\WeifenLuo.WinFormsUI.Docking.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\LItems.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\TwainUtils.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\nControls.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\NovaNet.wfe.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\ClearImageNet.70.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\AxInterop.AcroPDFLib.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\itextsharp.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\Zen.Barcode.Core.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\Syncfusion.Pdf.Base.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\Syncfusion.OCRProcessor.Base.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\Interop.ClearImage.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\DgvFilterPopup.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\Interop.AcroPDFLib.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\Syncfusion.Compression.Base.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\Microsoft.mshtml.dll
+D:\Sandhi Software\THC Updated\THC\bin\Debug\ImageHeaven.pdb
+D:\Sandhi Software\THC Updated\THC\bin\Debug\ImageHeaven.dll.config
+D:\Sandhi Software\THC Updated\THC\bin\Debug\NovaNet.Utils.pdb
+D:\Sandhi Software\THC Updated\THC\bin\Debug\NovaNet.Utils.dll.config
+D:\Sandhi Software\THC Updated\THC\bin\Debug\LItems.pdb
+D:\Sandhi Software\THC Updated\THC\bin\Debug\LItems.dll.config
+D:\Sandhi Software\THC Updated\THC\bin\Debug\TwainUtils.pdb
+D:\Sandhi Software\THC Updated\THC\bin\Debug\TwainUtils.dll.config
+D:\Sandhi Software\THC Updated\THC\bin\Debug\nControls.pdb
+D:\Sandhi Software\THC Updated\THC\bin\Debug\NovaNet.wfe.pdb
+D:\Sandhi Software\THC Updated\THC\bin\Debug\NovaNet.wfe.dll.config
+D:\Sandhi Software\THC Updated\THC\bin\Debug\Syncfusion.Pdf.Base.xml
+D:\Sandhi Software\THC Updated\THC\bin\Debug\Syncfusion.OCRProcessor.Base.xml
+D:\Sandhi Software\THC Updated\THC\bin\Debug\Syncfusion.Compression.Base.xml
+D:\Sandhi Software\THC Updated\THC\obj\Debug\THC.csproj.AssemblyReference.cache
+D:\Sandhi Software\THC Updated\THC\obj\Debug\THC.Properties.Resources.resources
+D:\Sandhi Software\THC Updated\THC\obj\Debug\THC.csproj.GenerateResource.cache
+D:\Sandhi Software\THC Updated\THC\obj\Debug\THC.csproj.CoreCompileInputs.cache
+D:\Sandhi Software\THC Updated\THC\obj\Debug\THC.csproj.CopyComplete
+D:\Sandhi Software\THC Updated\THC\obj\Debug\THC.exe
+D:\Sandhi Software\THC Updated\THC\obj\Debug\THC.pdb

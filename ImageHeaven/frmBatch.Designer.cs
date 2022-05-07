@@ -54,6 +54,9 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cmbProject = new nControls.deComboBox();
             this.deLabel1 = new nControls.deLabel();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.txtInwardDate = new nControls.deTextBox();
+            this.deLabel8 = new nControls.deLabel();
             this.panel4.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -93,7 +96,7 @@
             this.button2.Location = new System.Drawing.Point(443, 308);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(104, 44);
-            this.button2.TabIndex = 15;
+            this.button2.TabIndex = 18;
             this.button2.Text = "      &Save";
             this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -114,7 +117,7 @@
             this.button3.Location = new System.Drawing.Point(573, 307);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(118, 45);
-            this.button3.TabIndex = 16;
+            this.button3.TabIndex = 19;
             this.button3.Text = "     C&lose";
             this.button3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -145,7 +148,7 @@
             this.textBox4.Mandatory = true;
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(170, 23);
-            this.textBox4.TabIndex = 14;
+            this.textBox4.TabIndex = 17;
             // 
             // textBox3
             // 
@@ -157,7 +160,7 @@
             this.textBox3.Mandatory = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(170, 23);
-            this.textBox3.TabIndex = 12;
+            this.textBox3.TabIndex = 16;
             // 
             // deLabel6
             // 
@@ -181,6 +184,9 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.dateTimePicker2);
+            this.groupBox3.Controls.Add(this.txtInwardDate);
+            this.groupBox3.Controls.Add(this.deLabel8);
             this.groupBox3.Controls.Add(this.cmbCaseNature);
             this.groupBox3.Controls.Add(this.deLabel9);
             this.groupBox3.Controls.Add(this.dateTimePicker1);
@@ -227,7 +233,7 @@
             // 
             this.dateTimePicker1.CustomFormat = " ";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(321, 90);
+            this.dateTimePicker1.Location = new System.Drawing.Point(124, 90);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(170, 22);
             this.dateTimePicker1.TabIndex = 9;
@@ -245,7 +251,7 @@
             this.deButton1.Location = new System.Drawing.Point(255, 120);
             this.deButton1.Name = "deButton1";
             this.deButton1.Size = new System.Drawing.Size(224, 43);
-            this.deButton1.TabIndex = 10;
+            this.deButton1.TabIndex = 15;
             this.deButton1.Text = "         &Generate Bundle Code";
             this.deButton1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.deButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -259,7 +265,7 @@
             this.txtHandoverDate.Enabled = false;
             this.txtHandoverDate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHandoverDate.ForeColor = System.Drawing.Color.Black;
-            this.txtHandoverDate.Location = new System.Drawing.Point(322, 89);
+            this.txtHandoverDate.Location = new System.Drawing.Point(125, 89);
             this.txtHandoverDate.Mandatory = true;
             this.txtHandoverDate.Name = "txtHandoverDate";
             this.txtHandoverDate.Size = new System.Drawing.Size(170, 23);
@@ -272,7 +278,7 @@
             this.txtCreateDate.Enabled = false;
             this.txtCreateDate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCreateDate.ForeColor = System.Drawing.Color.Black;
-            this.txtCreateDate.Location = new System.Drawing.Point(497, 56);
+            this.txtCreateDate.Location = new System.Drawing.Point(497, 54);
             this.txtCreateDate.Mandatory = true;
             this.txtCreateDate.Name = "txtCreateDate";
             this.txtCreateDate.Size = new System.Drawing.Size(170, 23);
@@ -282,7 +288,7 @@
             // 
             this.deLabel5.AutoSize = true;
             this.deLabel5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deLabel5.Location = new System.Drawing.Point(220, 93);
+            this.deLabel5.Location = new System.Drawing.Point(23, 93);
             this.deLabel5.Name = "deLabel5";
             this.deLabel5.Size = new System.Drawing.Size(92, 15);
             this.deLabel5.TabIndex = 7;
@@ -292,7 +298,7 @@
             // 
             this.deLabel4.AutoSize = true;
             this.deLabel4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deLabel4.Location = new System.Drawing.Point(402, 59);
+            this.deLabel4.Location = new System.Drawing.Point(402, 57);
             this.deLabel4.Name = "deLabel4";
             this.deLabel4.Size = new System.Drawing.Size(85, 15);
             this.deLabel4.TabIndex = 6;
@@ -378,6 +384,39 @@
             this.deLabel1.TabIndex = 0;
             this.deLabel1.Text = "Project Name :";
             // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.CustomFormat = " ";
+            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker2.Location = new System.Drawing.Point(497, 86);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(170, 22);
+            this.dateTimePicker2.TabIndex = 14;
+            this.dateTimePicker2.Leave += new System.EventHandler(this.dateTimePicker2_Leave);
+            // 
+            // txtInwardDate
+            // 
+            this.txtInwardDate.BackColor = System.Drawing.Color.White;
+            this.txtInwardDate.Enabled = false;
+            this.txtInwardDate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtInwardDate.ForeColor = System.Drawing.Color.Black;
+            this.txtInwardDate.Location = new System.Drawing.Point(498, 85);
+            this.txtInwardDate.Mandatory = true;
+            this.txtInwardDate.Name = "txtInwardDate";
+            this.txtInwardDate.Size = new System.Drawing.Size(170, 23);
+            this.txtInwardDate.TabIndex = 13;
+            this.txtInwardDate.Visible = false;
+            // 
+            // deLabel8
+            // 
+            this.deLabel8.AutoSize = true;
+            this.deLabel8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deLabel8.Location = new System.Drawing.Point(411, 89);
+            this.deLabel8.Name = "deLabel8";
+            this.deLabel8.Size = new System.Drawing.Size(76, 15);
+            this.deLabel8.TabIndex = 12;
+            this.deLabel8.Text = "Inward Date :";
+            // 
             // frmBatch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -436,5 +475,8 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private nControls.deComboBox cmbCaseNature;
         private nControls.deLabel deLabel9;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private nControls.deTextBox txtInwardDate;
+        private nControls.deLabel deLabel8;
     }
 }
