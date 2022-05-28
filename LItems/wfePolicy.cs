@@ -1501,6 +1501,57 @@ namespace LItems
 
             return policyDs;
         }
+        public DataSet GetPolicyList99(eSTATES[] prmState)
+        {
+            string sqlStr = null;
+
+            DataSet policyDs = new DataSet();
+
+
+            try
+            {
+                if (prmState.Length == 0)
+                {
+                    sqlStr = "select a.filename from case_file_master a, bundle_master b where a.proj_code = b.proj_code and a.bundle_key = b.bundle_key and b.status >= 7 and ISNULL(b.outward_date) and b.proj_code=" + ctrlPolicy.ProjectKey + " and b.bundle_key=" + ctrlPolicy.BatchKey;
+                    //sqlStr = "select filename from case_file_master where proj_code=" + ctrlPolicy.ProjectKey + " and bundle_key=" + ctrlPolicy.BatchKey;
+                }
+                else
+                {
+                    if (ctrlPolicy.BoxNumber != "0")
+                    {
+                        sqlStr = "select a.filename from case_file_master a, bundle_master b where a.proj_code = b.proj_code and a.bundle_key = b.bundle_key and b.status >= 7 and ISNULL(b.outward_date) and b.proj_code=" + ctrlPolicy.ProjectKey + " and b.bundle_key=" + ctrlPolicy.BatchKey;
+                        //sqlStr = "select filename from case_file_master where proj_code=" + ctrlPolicy.ProjectKey + " and bundle_key=" + ctrlPolicy.BatchKey;
+                    }
+
+                    for (int j = 0; j < prmState.Length; j++)
+                    {
+                        if ((int)prmState[j] != 0)
+                        {
+                            if (j == 0)
+                            {
+                                sqlStr = sqlStr + " and (a.status=" + 4 + " or a.status=" + 5 + " or a.status =" + 31 + " or a.status =" + 40;
+                            }
+                            else
+                                sqlStr = sqlStr + " or a.status=" + 4 + " or a.status=" + 5 + " or a.status =" + 31 + " or a.status =" + 40;
+                        }
+                    }
+                    sqlStr = sqlStr + ")";
+                }
+
+                sqlAdap = new OdbcDataAdapter(sqlStr, sqlCon);
+                sqlAdap.Fill(policyDs);
+            }
+            catch (Exception ex)
+            {
+                sqlAdap.Dispose();
+                stateLog = new MemoryStream();
+                tmpWrite = new System.Text.ASCIIEncoding().GetBytes(sqlStr + "\n");
+                stateLog.Write(tmpWrite, 0, tmpWrite.Length);
+                exMailLog.Log(ex, this);
+            }
+
+            return policyDs;
+        }
         public DataSet GetPolicyList9(eSTATES[] prmState)
         {
             string sqlStr = null;
@@ -1533,6 +1584,57 @@ namespace LItems
                             }
                             else
                                 sqlStr = sqlStr + " or a.status=" + 4 + " or a.status=" + 5 + " or a.status =" + 31 + " or a.status =" + 40;
+                        }
+                    }
+                    sqlStr = sqlStr + ")";
+                }
+
+                sqlAdap = new OdbcDataAdapter(sqlStr, sqlCon);
+                sqlAdap.Fill(policyDs);
+            }
+            catch (Exception ex)
+            {
+                sqlAdap.Dispose();
+                stateLog = new MemoryStream();
+                tmpWrite = new System.Text.ASCIIEncoding().GetBytes(sqlStr + "\n");
+                stateLog.Write(tmpWrite, 0, tmpWrite.Length);
+                exMailLog.Log(ex, this);
+            }
+
+            return policyDs;
+        }
+        public DataSet GetPolicyList100(eSTATES[] prmState)
+        {
+            string sqlStr = null;
+
+            DataSet policyDs = new DataSet();
+
+
+            try
+            {
+                if (prmState.Length == 0)
+                {
+                    sqlStr = "select a.filename from case_file_master a, bundle_master b where a.proj_code = b.proj_code and a.bundle_key = b.bundle_key and b.outward_date <> '' and b.status >= 7 and b.proj_code=" + ctrlPolicy.ProjectKey + " and b.bundle_key=" + ctrlPolicy.BatchKey;
+                    //sqlStr = "select filename from case_file_master where proj_code=" + ctrlPolicy.ProjectKey + " and bundle_key=" + ctrlPolicy.BatchKey;
+                }
+                else
+                {
+                    if (ctrlPolicy.BoxNumber != "0")
+                    {
+                        sqlStr = "select a.filename from case_file_master a, bundle_master b where a.proj_code = b.proj_code and a.bundle_key = b.bundle_key and b.outward_date <> '' and b.status >= 7 and b.proj_code=" + ctrlPolicy.ProjectKey + " and b.bundle_key=" + ctrlPolicy.BatchKey;
+                        //sqlStr = "select filename from case_file_master where proj_code=" + ctrlPolicy.ProjectKey + " and bundle_key=" + ctrlPolicy.BatchKey;
+                    }
+
+                    for (int j = 0; j < prmState.Length; j++)
+                    {
+                        if ((int)prmState[j] != 0)
+                        {
+                            if (j == 0)
+                            {
+                                sqlStr = sqlStr + " and (a.status=" + 4 + " or a.status = " + 5 + " or a.status = " + 31 + " or a.status = " + 40 + " or a.status = " + 8;
+                            }
+                            else
+                                sqlStr = sqlStr + " or a.status=" + 4 + " or a.status = " + 5 + " or a.status = " + 31 + " or a.status = " + 40 + " or a.status = " + 8;
                         }
                     }
                     sqlStr = sqlStr + ")";

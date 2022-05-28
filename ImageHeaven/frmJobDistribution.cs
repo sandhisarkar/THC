@@ -89,6 +89,15 @@ namespace ImageHeaven
             return dt.Rows[0][0].ToString();
         }
 
+        public string checkCount()
+        {
+            System.Data.DataTable dt = new System.Data.DataTable();
+            string sql = "select * from  bundle_master where outward_date <> ''";
+            OdbcCommand cmd = new OdbcCommand(sql, sqlCon);
+            OdbcDataAdapter odap = new OdbcDataAdapter(cmd);
+            odap.Fill(dt);
+            return dt.Rows[0][0].ToString();
+        }
 
         public void initSummary()
         {
@@ -102,9 +111,9 @@ namespace ImageHeaven
             dt.Columns.Add("Submission");
             dt.Columns.Add("UAT");
             dt.Columns.Add("Export");
+            dt.Columns.Add("Outward");
 
-
-            dt.Rows.Add(checkCount(0), checkCount(1), checkCount(2), checkCount(3), checkCount(4), checkCount(5), checkCount(6), checkCount(7), checkCount(8));
+            dt.Rows.Add(checkCount(0), checkCount(1), checkCount(2), checkCount(3), checkCount(4), checkCount(5), checkCount(6), checkCount(7), checkCount(8), checkCount());
 
 
             grdAll.DataSource = dt;
@@ -270,6 +279,25 @@ namespace ImageHeaven
             label1.Text = "Total Bundle Pending for Export : " + Dt.Rows.Count;
         }
 
+        private void initPeOutward()
+        {
+            System.Data.DataTable Dt = new System.Data.DataTable();
+            Dt = _GetEntriesPeOutward();
+
+
+            dtGrdVol.DataSource = Dt;
+
+
+            FormatDataGridView();
+
+            this.dtGrdVol.Refresh();
+
+            this.textBox2.Text = "";
+            this.textBox2.Focus();
+
+            label1.Text = "Total Bundle Pending for Outward : " + Dt.Rows.Count;
+        }
+
         private void initExport()
         {
             System.Data.DataTable Dt = new System.Data.DataTable();
@@ -290,6 +318,25 @@ namespace ImageHeaven
 
         }
 
+        private void initOutward()
+        {
+            System.Data.DataTable Dt = new System.Data.DataTable();
+            Dt = _GetEntriesOutward();
+
+
+            dtGrdVol.DataSource = Dt;
+
+
+            FormatDataGridView();
+
+            this.dtGrdVol.Refresh();
+
+            this.textBox2.Text = "";
+            this.textBox2.Focus();
+
+            label1.Text = "Total Bundle Outwarded : " + Dt.Rows.Count;
+
+        }
         private void FormatDataGridView()
         {
             //Format the Data Grid View
@@ -417,10 +464,30 @@ namespace ImageHeaven
             return dt;
         }
 
+        public System.Data.DataTable _GetEntriesPeOutward()
+        {
+            System.Data.DataTable dt = new System.Data.DataTable();
+            string sql = "select  distinct proj_code,bundle_key,bundle_name as 'Bundle Name',bundle_no as 'Bundle Number' from bundle_master where status >= 7 and ISNULL(outward_date) group by proj_code,bundle_key";
+            OdbcCommand cmd = new OdbcCommand(sql, sqlCon);
+            OdbcDataAdapter odap = new OdbcDataAdapter(cmd);
+            odap.Fill(dt);
+            return dt;
+        }
+
         public System.Data.DataTable _GetEntriesExport()
         {
             System.Data.DataTable dt = new System.Data.DataTable();
             string sql = "select  distinct proj_code,bundle_key,bundle_name as 'Bundle Name',bundle_no as 'Bundle Number' from bundle_master where status = 8 group by proj_code,bundle_key";
+            OdbcCommand cmd = new OdbcCommand(sql, sqlCon);
+            OdbcDataAdapter odap = new OdbcDataAdapter(cmd);
+            odap.Fill(dt);
+            return dt;
+        }
+
+        public System.Data.DataTable _GetEntriesOutward()
+        {
+            System.Data.DataTable dt = new System.Data.DataTable();
+            string sql = "select  distinct proj_code,bundle_key,bundle_name as 'Bundle Name',bundle_no as 'Bundle Number' from bundle_master where status >= 7 and outward_date <> '' group by proj_code,bundle_key";
             OdbcCommand cmd = new OdbcCommand(sql, sqlCon);
             OdbcDataAdapter odap = new OdbcDataAdapter(cmd);
             odap.Fill(dt);
@@ -555,9 +622,11 @@ namespace ImageHeaven
             //DataSet dsAwtQc = new DataSet();
             DataSet dsIndexIncom = new DataSet();
             DataSet dsExport = new DataSet();
+            DataSet dsOutward = new DataSet();
             DataSet dsIncomplete = new DataSet();
             DataSet dsImgIncomplete = new DataSet();
             DataSet dsAwtExport = new DataSet();
+            DataSet dsAwtOutward = new DataSet();
             CtrlPolicy pPolicy = null;
             wfeBox tmpBox = new wfeBox(sqlCon);
             System.Data.DataTable dt = new System.Data.DataTable();
@@ -575,6 +644,7 @@ namespace ImageHeaven
             dt.Columns.Add("THCException");
             dt.Columns.Add("Entry_Incomplete");
             dt.Columns.Add("Image_Incomplete");
+            dt.Columns.Add("Awt_Outward");
             dt.Columns.Add("Awt_Export");
             //dt.Columns.Add("Index incomplete");
             
@@ -582,7 +652,8 @@ namespace ImageHeaven
             //dt.Columns.Add("Missing");
             
             dt.Columns.Add("Exported");
-			try
+            dt.Columns.Add("Outwarded");
+            try
 			{
                 //pPolicy = new CtrlPolicy(Convert.ToInt32(prmProjKey), Convert.ToInt32(prmBatchKey), prmBox, 0);
                 pPolicy = new CtrlPolicy(Convert.ToInt32(prmProjKey), Convert.ToInt32(prmBatchKey), "1");
@@ -647,6 +718,12 @@ namespace ImageHeaven
                 policyState[0] = NovaNet.wfe.eSTATES.POLICY_MISSING;
                 dsImgIncomplete = wPolicy.GetPolicyList13(policyState);
 
+
+                // awt outward
+                policyState = new NovaNet.wfe.eSTATES[1];
+                policyState[0] = NovaNet.wfe.eSTATES.POLICY_NOT_INDEXED;
+                dsAwtOutward = wPolicy.GetPolicyList99(policyState);
+
                 // awt export
                 policyState = new NovaNet.wfe.eSTATES[1];
                 policyState[0] = NovaNet.wfe.eSTATES.POLICY_NOT_INDEXED;
@@ -656,8 +733,11 @@ namespace ImageHeaven
                 policyState = new NovaNet.wfe.eSTATES[1];
 	            policyState[0] = NovaNet.wfe.eSTATES.POLICY_EXPORTED;
                 dsExport = wPolicy.GetPolicyList10(policyState);
-	            
-                
+
+                //exported
+                policyState = new NovaNet.wfe.eSTATES[1];
+                policyState[0] = NovaNet.wfe.eSTATES.POLICY_EXPORTED;
+                dsOutward = wPolicy.GetPolicyList100(policyState);
 
                 for (int i = 0; i < wPolicy.GetPolicyCount().Tables[0].Rows.Count; i++)
 	            {
@@ -741,6 +821,14 @@ namespace ImageHeaven
                     {
                         dr["Image_Incomplete"] = string.Empty;
                     }
+                    if ((i + 1) <= dsAwtOutward.Tables[0].Rows.Count)
+                    {
+                        dr["Awt_Outward"] = dsAwtOutward.Tables[0].Rows[i][0].ToString();
+                    }
+                    else
+                    {
+                        dr["Awt_Outward"] = string.Empty;
+                    }
                     if ((i + 1) <= dsAwtExport.Tables[0].Rows.Count)
                     {
                         dr["Awt_Export"] = dsAwtExport.Tables[0].Rows[i][0].ToString();
@@ -775,7 +863,16 @@ namespace ImageHeaven
 	                {
 	                	dr["Exported"] = string.Empty;
 	                }
-	                dt.Rows.Add(dr);
+
+                    if ((i + 1) <= dsOutward.Tables[0].Rows.Count)
+                    {
+                        dr["Outwarded"] = dsOutward.Tables[0].Rows[i][0].ToString();
+                    }
+                    else
+                    {
+                        dr["Outwarded"] = string.Empty;
+                    }
+                    dt.Rows.Add(dr);
 	            }
 	            grdStatus.DataSource = dt;
 	            grdStatus.ForeColor = Color.Black;
@@ -938,6 +1035,10 @@ namespace ImageHeaven
             {
                 initCert();
             }
+            if (bundle_status == "Pending for Outward")
+            {
+                initPeOutward();
+            }
             if (bundle_status == "Pending for Export")
             {
                 initPeExport();
@@ -946,7 +1047,10 @@ namespace ImageHeaven
             {
                 initExport();
             }
-
+            if (bundle_status == "Outwarded")
+            {
+                initOutward();
+            }
         }
         public int GetTotalImageCount()
         {
@@ -1057,8 +1161,8 @@ namespace ImageHeaven
 
                 worksheet.Name = "Dashboard Report";
 
-                worksheet.Cells[1, 3] = "File Status Report";
-                Range range44 = worksheet.get_Range("C1");
+                worksheet.Cells[1, 5] = "File Status Report";
+                Range range44 = worksheet.get_Range("E1");
                 range44.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.YellowGreen);
 
                 worksheet.Rows.AutoFit();
@@ -1081,14 +1185,14 @@ namespace ImageHeaven
                 range.Borders.Color = ColorTranslator.ToOle(Color.Black);
 
 
-                Range range1 = worksheet.get_Range("A6", "L6");
+                Range range1 = worksheet.get_Range("A6", "N6");
                 range1.Borders.Color = ColorTranslator.ToOle(Color.Black);
 
                 for (int i = 1; i < grdStatus.Columns.Count + 1; i++)
                 {
 
 
-                    Range range2 = worksheet.get_Range("A6", "L6");
+                    Range range2 = worksheet.get_Range("A6", "N6");
                     range2.Borders.Color = ColorTranslator.ToOle(Color.Black);
                     range2.EntireRow.AutoFit();
                     range2.EntireColumn.AutoFit();

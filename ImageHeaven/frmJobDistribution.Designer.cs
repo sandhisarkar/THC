@@ -28,10 +28,10 @@ namespace ImageHeaven
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmJobDistribution));
             this.grdStatus = new System.Windows.Forms.DataGridView();
             this.trv = new System.Windows.Forms.TreeView();
@@ -56,6 +56,10 @@ namespace ImageHeaven
             this.deLabel3 = new nControls.deLabel();
             this.cmdSearch = new nControls.deButton();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.grdAll = new System.Windows.Forms.DataGridView();
             this.panel4 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel6 = new System.Windows.Forms.Panel();
@@ -64,10 +68,6 @@ namespace ImageHeaven
             this.deButton21 = new nControls.deButton();
             this.panel3 = new System.Windows.Forms.Panel();
             this.sfdUAT = new System.Windows.Forms.SaveFileDialog();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.grdAll = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.grdStatus)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -78,11 +78,6 @@ namespace ImageHeaven
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel4.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.panel6.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -90,6 +85,11 @@ namespace ImageHeaven
             this.splitContainer1.SuspendLayout();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grdAll)).BeginInit();
+            this.panel4.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // grdStatus
@@ -165,8 +165,10 @@ namespace ImageHeaven
             "Pending for DOC Type Association",
             "Pending for Submission",
             "Pending for Certification",
+            "Pending for Outward",
             "Pending for Export",
-            "Exported"});
+            "Exported",
+            "Outwarded"});
             this.deComboBox1.Location = new System.Drawing.Point(60, 20);
             this.deComboBox1.Mandatory = false;
             this.deComboBox1.Name = "deComboBox1";
@@ -227,45 +229,45 @@ namespace ImageHeaven
             // 
             this.dtGrdVol.AllowUserToAddRows = false;
             this.dtGrdVol.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.White;
-            this.dtGrdVol.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            this.dtGrdVol.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dtGrdVol.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dtGrdVol.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dtGrdVol.BackgroundColor = System.Drawing.SystemColors.ControlDark;
             this.dtGrdVol.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dtGrdVol.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtGrdVol.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlDark;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtGrdVol.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dtGrdVol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.HotTrack;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dtGrdVol.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.HotTrack;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dtGrdVol.DefaultCellStyle = dataGridViewCellStyle3;
             this.dtGrdVol.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtGrdVol.Location = new System.Drawing.Point(3, 19);
             this.dtGrdVol.MultiSelect = false;
             this.dtGrdVol.Name = "dtGrdVol";
             this.dtGrdVol.ReadOnly = true;
             this.dtGrdVol.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dtGrdVol.RowHeadersDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dtGrdVol.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dtGrdVol.RowHeadersVisible = false;
             this.dtGrdVol.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dtGrdVol.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -427,6 +429,60 @@ namespace ImageHeaven
             this.panel2.Size = new System.Drawing.Size(613, 487);
             this.panel2.TabIndex = 12;
             // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.splitContainer1);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel8.Location = new System.Drawing.Point(0, 31);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(613, 405);
+            this.panel8.TabIndex = 9;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox7);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.panel4);
+            this.splitContainer1.Size = new System.Drawing.Size(613, 405);
+            this.splitContainer1.SplitterDistance = 73;
+            this.splitContainer1.TabIndex = 9;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.grdAll);
+            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox7.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox7.Location = new System.Drawing.Point(0, 0);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(613, 73);
+            this.groupBox7.TabIndex = 0;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Summary :";
+            // 
+            // grdAll
+            // 
+            this.grdAll.AllowUserToAddRows = false;
+            this.grdAll.AllowUserToDeleteRows = false;
+            this.grdAll.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdAll.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdAll.Location = new System.Drawing.Point(3, 19);
+            this.grdAll.MultiSelect = false;
+            this.grdAll.Name = "grdAll";
+            this.grdAll.ReadOnly = true;
+            this.grdAll.RowHeadersWidth = 62;
+            this.grdAll.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdAll.Size = new System.Drawing.Size(607, 51);
+            this.grdAll.TabIndex = 7;
+            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.groupBox2);
@@ -520,60 +576,6 @@ namespace ImageHeaven
             this.panel3.Size = new System.Drawing.Size(613, 31);
             this.panel3.TabIndex = 7;
             // 
-            // panel8
-            // 
-            this.panel8.Controls.Add(this.splitContainer1);
-            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(0, 31);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(613, 405);
-            this.panel8.TabIndex = 9;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.groupBox7);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.panel4);
-            this.splitContainer1.Size = new System.Drawing.Size(613, 405);
-            this.splitContainer1.SplitterDistance = 73;
-            this.splitContainer1.TabIndex = 9;
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.grdAll);
-            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox7.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox7.Location = new System.Drawing.Point(0, 0);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(613, 73);
-            this.groupBox7.TabIndex = 0;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Summary :";
-            // 
-            // grdAll
-            // 
-            this.grdAll.AllowUserToAddRows = false;
-            this.grdAll.AllowUserToDeleteRows = false;
-            this.grdAll.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdAll.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdAll.Location = new System.Drawing.Point(3, 19);
-            this.grdAll.MultiSelect = false;
-            this.grdAll.Name = "grdAll";
-            this.grdAll.ReadOnly = true;
-            this.grdAll.RowHeadersWidth = 62;
-            this.grdAll.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdAll.Size = new System.Drawing.Size(607, 51);
-            this.grdAll.TabIndex = 7;
-            // 
             // frmJobDistribution
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -605,12 +607,6 @@ namespace ImageHeaven
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.panel6.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -618,6 +614,12 @@ namespace ImageHeaven
             this.splitContainer1.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grdAll)).EndInit();
+            this.panel4.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }

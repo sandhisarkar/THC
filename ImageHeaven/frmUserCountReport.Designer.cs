@@ -1,7 +1,7 @@
 ﻿
 namespace ImageHeaven
 {
-    partial class frmUserReport
+    partial class frmUserCountReport
     {
         /// <summary>
         /// Required designer variable.
@@ -30,62 +30,47 @@ namespace ImageHeaven
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUserReport));
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmUserCountReport));
+            this.sfdUAT = new System.Windows.Forms.SaveFileDialog();
+            this.cmsDeeds = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.updateDeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.deButton1 = new nControls.deButton();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.deLabel3 = new nControls.deLabel();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.deLabel4 = new nControls.deLabel();
+            this.grdStatus = new System.Windows.Forms.DataGridView();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.deComboBox2 = new nControls.deComboBox();
             this.deLabel2 = new nControls.deLabel();
             this.deLabel1 = new nControls.deLabel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.grdStatus = new System.Windows.Forms.DataGridView();
-            this.cmsDeeds = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.updateDeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sfdUAT = new System.Windows.Forms.SaveFileDialog();
-            this.panel1.SuspendLayout();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.cmsDeeds.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.grdStatus)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.grdStatus)).BeginInit();
-            this.cmsDeeds.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panel1
+            // cmsDeeds
             // 
-            this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(972, 115);
-            this.panel1.TabIndex = 0;
+            this.cmsDeeds.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.updateDeedToolStripMenuItem});
+            this.cmsDeeds.Name = "cmsDeeds";
+            this.cmsDeeds.Size = new System.Drawing.Size(153, 26);
             // 
-            // groupBox1
+            // updateDeedToolStripMenuItem
             // 
-            this.groupBox1.Controls.Add(this.comboBox1);
-            this.groupBox1.Controls.Add(this.deButton1);
-            this.groupBox1.Controls.Add(this.dateTimePicker2);
-            this.groupBox1.Controls.Add(this.deLabel3);
-            this.groupBox1.Controls.Add(this.dateTimePicker1);
-            this.groupBox1.Controls.Add(this.deLabel4);
-            this.groupBox1.Controls.Add(this.deComboBox2);
-            this.groupBox1.Controls.Add(this.deLabel2);
-            this.groupBox1.Controls.Add(this.deLabel1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(972, 115);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Search Criteria";
+            this.updateDeedToolStripMenuItem.Name = "updateDeedToolStripMenuItem";
+            this.updateDeedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.updateDeedToolStripMenuItem.Text = "&Export to Excel";
+            this.updateDeedToolStripMenuItem.Click += new System.EventHandler(this.updateDeedToolStripMenuItem_Click);
             // 
             // comboBox1
             // 
@@ -155,6 +140,43 @@ namespace ImageHeaven
             this.deLabel4.TabIndex = 9;
             this.deLabel4.Text = "Date From :";
             // 
+            // grdStatus
+            // 
+            this.grdStatus.AllowUserToAddRows = false;
+            this.grdStatus.AllowUserToDeleteRows = false;
+            this.grdStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grdStatus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grdStatus.Location = new System.Drawing.Point(3, 21);
+            this.grdStatus.MultiSelect = false;
+            this.grdStatus.Name = "grdStatus";
+            this.grdStatus.ReadOnly = true;
+            this.grdStatus.RowHeadersWidth = 62;
+            this.grdStatus.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.grdStatus.Size = new System.Drawing.Size(966, 438);
+            this.grdStatus.TabIndex = 7;
+            this.grdStatus.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grdStatus_MouseClick);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.grdStatus);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(972, 462);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Summary :";
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.groupBox2);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(972, 462);
+            this.panel3.TabIndex = 0;
+            // 
             // deComboBox2
             // 
             this.deComboBox2.BackColor = System.Drawing.Color.White;
@@ -166,7 +188,6 @@ namespace ImageHeaven
             this.deComboBox2.Name = "deComboBox2";
             this.deComboBox2.Size = new System.Drawing.Size(204, 25);
             this.deComboBox2.TabIndex = 3;
-            this.deComboBox2.SelectedIndexChanged += new System.EventHandler(this.deComboBox2_SelectedIndexChanged);
             // 
             // deLabel2
             // 
@@ -188,6 +209,26 @@ namespace ImageHeaven
             this.deLabel1.TabIndex = 0;
             this.deLabel1.Text = "User Role :";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.deButton1);
+            this.groupBox1.Controls.Add(this.dateTimePicker2);
+            this.groupBox1.Controls.Add(this.deLabel3);
+            this.groupBox1.Controls.Add(this.dateTimePicker1);
+            this.groupBox1.Controls.Add(this.deLabel4);
+            this.groupBox1.Controls.Add(this.deComboBox2);
+            this.groupBox1.Controls.Add(this.deLabel2);
+            this.groupBox1.Controls.Add(this.deLabel1);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(972, 115);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Search Criteria";
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.panel3);
@@ -195,60 +236,18 @@ namespace ImageHeaven
             this.panel2.Location = new System.Drawing.Point(0, 115);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(972, 462);
-            this.panel2.TabIndex = 1;
+            this.panel2.TabIndex = 3;
             // 
-            // panel3
+            // panel1
             // 
-            this.panel3.Controls.Add(this.groupBox2);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(972, 462);
-            this.panel3.TabIndex = 0;
+            this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(972, 115);
+            this.panel1.TabIndex = 2;
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.grdStatus);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(972, 462);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Summary :";
-            // 
-            // grdStatus
-            // 
-            this.grdStatus.AllowUserToAddRows = false;
-            this.grdStatus.AllowUserToDeleteRows = false;
-            this.grdStatus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grdStatus.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grdStatus.Location = new System.Drawing.Point(3, 21);
-            this.grdStatus.MultiSelect = false;
-            this.grdStatus.Name = "grdStatus";
-            this.grdStatus.ReadOnly = true;
-            this.grdStatus.RowHeadersWidth = 62;
-            this.grdStatus.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.grdStatus.Size = new System.Drawing.Size(966, 438);
-            this.grdStatus.TabIndex = 7;
-            this.grdStatus.MouseClick += new System.Windows.Forms.MouseEventHandler(this.grdStatus_MouseClick);
-            // 
-            // cmsDeeds
-            // 
-            this.cmsDeeds.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.updateDeedToolStripMenuItem});
-            this.cmsDeeds.Name = "cmsDeeds";
-            this.cmsDeeds.Size = new System.Drawing.Size(153, 26);
-            // 
-            // updateDeedToolStripMenuItem
-            // 
-            this.updateDeedToolStripMenuItem.Name = "updateDeedToolStripMenuItem";
-            this.updateDeedToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.updateDeedToolStripMenuItem.Text = "&Export to Excel";
-            this.updateDeedToolStripMenuItem.Click += new System.EventHandler(this.updateDeedToolStripMenuItem_Click);
-            // 
-            // frmUserReport
+            // frmUserCountReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -258,43 +257,44 @@ namespace ImageHeaven
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "frmUserReport";
+            this.MinimizeBox = false;
+            this.Name = "frmUserCountReport";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "User Wise Report";
+            this.Text = "User Wise Count Report";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Load += new System.EventHandler(this.frmUserReport_Load);
-            this.panel1.ResumeLayout(false);
+            this.Load += new System.EventHandler(this.frmUserCountReport_Load);
+            this.cmsDeeds.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.grdStatus)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.grdStatus)).EndInit();
-            this.cmsDeeds.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private nControls.deLabel deLabel1;
-        private nControls.deComboBox deComboBox2;
-        private nControls.deLabel deLabel2;
+        private System.Windows.Forms.SaveFileDialog sfdUAT;
+        private System.Windows.Forms.ContextMenuStrip cmsDeeds;
+        private System.Windows.Forms.ToolStripMenuItem updateDeedToolStripMenuItem;
+        private System.Windows.Forms.ComboBox comboBox1;
         private nControls.deButton deButton1;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private nControls.deLabel deLabel3;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private nControls.deLabel deLabel4;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView grdStatus;
-        private System.Windows.Forms.ContextMenuStrip cmsDeeds;
-        private System.Windows.Forms.ToolStripMenuItem updateDeedToolStripMenuItem;
-        private System.Windows.Forms.SaveFileDialog sfdUAT;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Panel panel3;
+        private nControls.deComboBox deComboBox2;
+        private nControls.deLabel deLabel2;
+        private nControls.deLabel deLabel1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel1;
     }
 }

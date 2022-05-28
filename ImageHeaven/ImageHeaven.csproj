@@ -317,6 +317,18 @@
     <Compile Include="frmMandPolicyList.Designer.cs">
       <DependentUpon>frmMandPolicyList.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmOutwardReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOutwardReport.Designer.cs">
+      <DependentUpon>frmOutwardReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmOutwardSubmission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOutwardSubmission.Designer.cs">
+      <DependentUpon>frmOutwardSubmission.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPathConfig.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -503,6 +515,12 @@
     <Compile Include="frmTriggerReport.Designer.cs">
       <DependentUpon>frmTriggerReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmUserCountReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmUserCountReport.Designer.cs">
+      <DependentUpon>frmUserCountReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmUserReport.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -605,6 +623,12 @@
     <EmbeddedResource Include="frmMandPolicyList.resx">
       <DependentUpon>frmMandPolicyList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmOutwardReport.resx">
+      <DependentUpon>frmOutwardReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOutwardSubmission.resx">
+      <DependentUpon>frmOutwardSubmission.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPathConfig.resx">
       <DependentUpon>frmPathConfig.cs</DependentUpon>
     </EmbeddedResource>
@@ -697,6 +721,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmTriggerReport.resx">
       <DependentUpon>frmTriggerReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmUserCountReport.resx">
+      <DependentUpon>frmUserCountReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmUserReport.resx">
       <DependentUpon>frmUserReport.cs</DependentUpon>

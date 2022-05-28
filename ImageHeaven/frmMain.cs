@@ -139,6 +139,7 @@ namespace ImageHeaven
                         qualityControlFinalToolStripMenuItem.Visible = true;
                         toolStripButton4.Visible = true;
                         toolStripMenuItem1.Visible = true;
+                        outwardSubmissionToolStripMenuItem.Visible = true;
                         //generateBarcodeToolStripMenuItem.Visible = false;
                         reportToolStripMenuItem.Visible = true;
                         reportToolStripMenuItem.Enabled = true;
@@ -168,6 +169,9 @@ namespace ImageHeaven
                         auditToolStripMenuItem.Visible = true;
 
                         userWiseReportToolStripMenuItem.Visible = true;
+
+                        userWiseCountReportToolStripMenuItem.Visible = true;
+                        outwardReportToolStripMenuItem.Visible = true;
                     }
                     else if(crd.role == "Metadata Entry")
                     {
@@ -207,6 +211,7 @@ namespace ImageHeaven
                         exportToolStripMenuItem.Visible = false;
                         toolsToolStripMenuItem.Enabled = true;
                         toolsToolStripMenuItem.Visible = true;
+                        outwardSubmissionToolStripMenuItem.Visible = false;
                         newPasswordToolStripMenuItem.Visible = true;
                         newPasswordToolStripMenuItem.Enabled = true;
                         newUserToolStripMenuItem.Visible = false;
@@ -234,6 +239,10 @@ namespace ImageHeaven
 
                         auditToolStripMenuItem.Visible = false;
                         userWiseReportToolStripMenuItem.Visible = false;
+
+                        userWiseCountReportToolStripMenuItem.Visible = false;
+                        outwardReportToolStripMenuItem.Visible = false;
+
                     }
                     else if (crd.role == "Scan")
                     {
@@ -275,6 +284,8 @@ namespace ImageHeaven
                         exportToolStripMenuItem.Visible = false;
                         toolsToolStripMenuItem.Enabled = true;
                         toolsToolStripMenuItem.Visible = true;
+                        outwardSubmissionToolStripMenuItem.Visible = false;
+
                         newPasswordToolStripMenuItem.Visible = true;
                         newPasswordToolStripMenuItem.Enabled = true;
                         newUserToolStripMenuItem.Visible = false;
@@ -307,6 +318,11 @@ namespace ImageHeaven
 
                         auditToolStripMenuItem.Visible = false;
                         userWiseReportToolStripMenuItem.Visible = false;
+
+                        userWiseCountReportToolStripMenuItem.Visible = false;
+                        outwardReportToolStripMenuItem.Visible = false;
+
+
                     }
                     else if (crd.role == "QC")
                     {
@@ -348,6 +364,8 @@ namespace ImageHeaven
                         exportToolStripMenuItem.Visible = false;
                         toolsToolStripMenuItem.Enabled = true;
                         toolsToolStripMenuItem.Visible = true;
+                        outwardSubmissionToolStripMenuItem.Visible = false;
+
                         newPasswordToolStripMenuItem.Visible = true;
                         newPasswordToolStripMenuItem.Enabled = true;
                         newUserToolStripMenuItem.Visible = false;
@@ -380,6 +398,11 @@ namespace ImageHeaven
 
                         auditToolStripMenuItem.Visible = false;
                         userWiseReportToolStripMenuItem.Visible = false;
+
+                        userWiseCountReportToolStripMenuItem.Visible = false;
+                        outwardReportToolStripMenuItem.Visible = false;
+
+
                     }
                     else if (crd.role == "DOC Type Association")
                     {
@@ -421,6 +444,8 @@ namespace ImageHeaven
                         exportToolStripMenuItem.Visible = false;
                         toolsToolStripMenuItem.Enabled = true;
                         toolsToolStripMenuItem.Visible = true;
+                        outwardSubmissionToolStripMenuItem.Visible = false;
+
                         newPasswordToolStripMenuItem.Visible = true;
                         newPasswordToolStripMenuItem.Enabled = true;
                         newUserToolStripMenuItem.Visible = false;
@@ -453,6 +478,10 @@ namespace ImageHeaven
 
                         auditToolStripMenuItem.Visible = false;
                         userWiseReportToolStripMenuItem.Visible = false;
+                        userWiseCountReportToolStripMenuItem.Visible = false;
+                        outwardReportToolStripMenuItem.Visible = false;
+
+
                     }
                     else if (crd.role == "InventoryIn")
                     {
@@ -498,6 +527,8 @@ namespace ImageHeaven
                         exportToolStripMenuItem.Visible = false;
                         toolsToolStripMenuItem.Enabled = true;
                         toolsToolStripMenuItem.Visible = true;
+                        outwardSubmissionToolStripMenuItem.Visible = false;
+
                         newPasswordToolStripMenuItem.Visible = true;
                         newPasswordToolStripMenuItem.Enabled = true;
                         newUserToolStripMenuItem.Visible = false;
@@ -526,6 +557,10 @@ namespace ImageHeaven
                         auditToolStripMenuItem.Visible = false;
 
                         userWiseReportToolStripMenuItem.Visible = false;
+                        userWiseCountReportToolStripMenuItem.Visible = false;
+                        outwardReportToolStripMenuItem.Visible = false;
+
+
                     }
                     else if(crd.role == ihConstants._LIC_ROLE)
                     {
@@ -539,6 +574,8 @@ namespace ImageHeaven
                         masterUpdateToolStripMenuItem.Visible = false;
                         masterUpdateToolStripMenuItem.Enabled = false;
                         toolsToolStripMenuItem.Visible = true;
+                        outwardSubmissionToolStripMenuItem.Visible = false;
+
                         configurationToolStripMenuItem.Visible = false;
                         newPasswordToolStripMenuItem.Visible = true;
                         newUserToolStripMenuItem.Visible = false;
@@ -550,6 +587,10 @@ namespace ImageHeaven
                         userWiseReportToolStripMenuItem.Visible = false;
                         helpToolStripMenuItem.Visible = true;
                         logoutToolStripMenuItem.Visible = true;
+                        userWiseCountReportToolStripMenuItem.Visible = false;
+                        outwardReportToolStripMenuItem.Visible = false;
+
+
                     }
                     else
                     {
@@ -565,7 +606,8 @@ namespace ImageHeaven
                         exportToolStripMenuItem.Visible = false;
                         batchUploadToolStripMenuItem.Visible = false;
                         toolStrip1.Visible = false;
-                        
+                        outwardSubmissionToolStripMenuItem.Visible = false;
+
                         caseFileCreationToolStripMenuItem.Visible = false;
                         caseFileCreationToolStripMenuItem.Enabled = false;
                         reportToolStripMenuItem.Visible = false;
@@ -593,6 +635,10 @@ namespace ImageHeaven
                         aboutToolStripMenuItem.Visible = true;
 
                         auditToolStripMenuItem.Visible = true;
+                        userWiseCountReportToolStripMenuItem.Visible = false;
+                        outwardReportToolStripMenuItem.Visible = false;
+
+
                     }
                 }
             }
@@ -1217,6 +1263,24 @@ namespace ImageHeaven
         private void userWiseReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmUserReport frm = new frmUserReport(sqlCon);
+            frm.ShowDialog(this);
+        }
+
+        private void outwardSubmissionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmOutwardSubmission frm = new frmOutwardSubmission(sqlCon, crd);
+            frm.ShowDialog(this);
+        }
+
+        private void userWiseCountReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmUserCountReport frm = new frmUserCountReport(sqlCon);
+            frm.ShowDialog(this);
+        }
+
+        private void outwardReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmOutwardReport frm = new frmOutwardReport(sqlCon);
             frm.ShowDialog(this);
         }
     }
