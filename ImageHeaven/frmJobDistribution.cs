@@ -92,7 +92,7 @@ namespace ImageHeaven
         public string checkCount()
         {
             System.Data.DataTable dt = new System.Data.DataTable();
-            string sql = "select * from  bundle_master where outward_date <> ''";
+            string sql = "select COUNT(*) from  bundle_master where outward_date <> ''";
             OdbcCommand cmd = new OdbcCommand(sql, sqlCon);
             OdbcDataAdapter odap = new OdbcDataAdapter(cmd);
             odap.Fill(dt);
