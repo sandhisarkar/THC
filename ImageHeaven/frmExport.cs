@@ -2104,7 +2104,7 @@ namespace ImageHeaven
 
             sqlStr = "select c.establishment as 'Establishment',a.est_code as 'Establishment Code',c.bundle_name as 'BundleNumber',DATE_FORMAT(c.handover_date,'%d-%m-%Y') as 'HandoverDate',a.case_status as 'CaseStatus'," +
                      "b.case_category as 'CaseCategory',a.case_nature as 'CaseNature',a.case_type as 'CaseType',b.main_case_no as 'MainCaseNo',b.analogous_case_no as 'AnalogousCaseNo'," +
-                     "b.lead_case_no as 'LeadCaseNo',b.connected_case_no as 'ConnectedCaseNo',a.case_file_no as 'CaseNumber',a.filename as 'FileName',a.case_year as 'CaseYear'," +
+                     "b.lead_case_no as 'LeadCaseNo',b.connected_case_no as 'ConnectedCaseNo',a.case_file_no as 'CaseNumber',CONCAT(a.case_type,'/',a.case_file_no,'/',a.case_year) AS 'Temp_CaseNumber',a.filename as 'FileName',a.case_year as 'CaseYear'," +
                      "a.reg_date as 'RegistrationDate',a.act as 'Act',a.section as 'Section',a.cnr_no as 'CNRNumber',REPLACE(REPLACE(a.judge_name, '||', '|| '), ';', '; ') as 'JudgeName'," +
                      "a.disposal_type as 'DisposalType',a.disposal_nature as 'DisposalNature',a.disposal_date as 'DateofDisposal',a.district as 'District',REPLACE(REPLACE(a.petitioner_name, '||', '|| '), '||', '|| ') as 'PetitionerName'," +
                      "REPLACE(REPLACE(a.respondant_name, '||', '|| '), '||', '|| ') as 'RespondantName',REPLACE(REPLACE(a.petitioner_counsel_name, '||', '|| '), '||', '|| ') as 'PetitionerCounselName'," +
@@ -2113,7 +2113,7 @@ namespace ImageHeaven
                      " a.lc_order_date as 'LowerCourtOrderDate',REPLACE(REPLACE(a.lc_judge_name, '||', '|| '), '||', '|| ') as 'LowerCourtJudge',REPLACE(REPLACE(a.conn_app_case_no, '||', '|| '), '||', '|| ') as 'ConnectedApplicationCaseNumber',a.conn_disposal_type as 'ConnectedApplicationDisposalType'," +
                      "REPLACE(REPLACE(a.conn_main_case_no, '||', '|| '), '||', '|| ') as 'ConnectedMainCaseNumber',REPLACE(REPLACE(a.analogous_case_no, '||', '|| '), '||', '|| ') as 'AnalogousCaseNumber'," +
                      "a.dept_remark as 'DepartmentalNotes',REPLACE(REPLACE(b.entry_exception, '||', '||'), '||', '||') as 'entryEx',REPLACE(REPLACE(b.image_exception, '||', '||'), '||', '||') as 'imageEx'" +
-                     " from metadata_entry a,bundle_master c, case_file_master b where c.proj_code = a.proj_code and c.bundle_key = a.bundle_key and a.proj_code = '" + proj_key+"' and a.bundle_key = '"+batch_key+ "' and b.filename = a.filename ";
+                     " from metadata_entry a,bundle_master c, case_file_master b where c.proj_code = a.proj_code and c.bundle_key = a.bundle_key and a.proj_code = '" + proj_key + "' and a.bundle_key = '" + batch_key + "' and b.filename = a.filename ";
 
 
 
@@ -2126,16 +2126,21 @@ namespace ImageHeaven
                 //{
                 //    dsImage.Tables[0].Rows[i][26] = dsImage.Tables[0].Rows[i][26].ToString() + ".pdf";
                 //}
+                dsImage.Tables[0].Columns.Add("Temp_MainCaseNo");
+                dsImage.Tables[0].Columns.Add("Temp_AnalogousCaseNo");
+                dsImage.Tables[0].Columns.Add("Temp_LeadCaseNo");
+                dsImage.Tables[0].Columns.Add("Temp_ConnectedCaseNo");
+
                 dsImage.Tables[0].Columns.Add("Audit_By");
                 dsImage.Tables[0].Columns.Add("Audit_Datetime");
                 for (int i = 0; i < dsImage.Tables[0].Rows.Count; i++)
                 {
-                    string file = dsImage.Tables[0].Rows[i][13].ToString();
+                    string file = dsImage.Tables[0].Rows[i][14].ToString();
                     if (GetAuditDetails(proj_key, batch_key, file).Rows.Count > 0)
                     {
                         string cred_1 = GetAuditDetails(proj_key, batch_key, file).Rows[0][0].ToString();
                         string cred_1_date = GetAuditDetails(proj_key, batch_key, file).Rows[0][1].ToString();
-                        
+
                         dsImage.Tables[0].Rows[i]["Audit_By"] = dsImage.Tables[0].Rows[i]["Audit_By"] + cred_1;
                         dsImage.Tables[0].Rows[i]["Audit_Datetime"] = dsImage.Tables[0].Rows[i]["Audit_Datetime"] + cred_1_date;
                     }
@@ -2144,11 +2149,56 @@ namespace ImageHeaven
                         dsImage.Tables[0].Rows[i]["Audit_By"] = dsImage.Tables[0].Rows[i]["Audit_By"] + "";
                         dsImage.Tables[0].Rows[i]["Audit_Datetime"] = dsImage.Tables[0].Rows[i]["Audit_Datetime"] + "";
                     }
+
+
+                    if (dsImage.Tables[0].Rows[i]["MainCaseNo"].ToString() != "")
+                    {
+                        dsImage.Tables[0].Rows[i]["Temp_MainCaseNo"] = dsImage.Tables[0].Rows[i]["CaseType"] + "/" +
+                            dsImage.Tables[0].Rows[i]["MainCaseNo"] + "/" +
+                            dsImage.Tables[0].Rows[i]["CaseYear"];
+                    }
+                    else
+                    {
+                        dsImage.Tables[0].Rows[i]["Temp_MainCaseNo"] = "";
+                    }
+
+                    if (dsImage.Tables[0].Rows[i]["AnalogousCaseNo"].ToString() != "")
+                    {
+                        dsImage.Tables[0].Rows[i]["Temp_AnalogousCaseNo"] = dsImage.Tables[0].Rows[i]["CaseType"] + "/" +
+                            dsImage.Tables[0].Rows[i]["AnalogousCaseNo"] + "/" +
+                            dsImage.Tables[0].Rows[i]["CaseYear"];
+                    }
+                    else
+                    {
+                        dsImage.Tables[0].Rows[i]["Temp_AnalogousCaseNo"] = "";
+                    }
+
+                    if (dsImage.Tables[0].Rows[i]["LeadCaseNo"].ToString() != "")
+                    {
+                        dsImage.Tables[0].Rows[i]["Temp_LeadCaseNo"] = dsImage.Tables[0].Rows[i]["CaseType"] + "/" +
+                            dsImage.Tables[0].Rows[i]["LeadCaseNo"] + "/" +
+                            dsImage.Tables[0].Rows[i]["CaseYear"];
+                    }
+                    else
+                    {
+                        dsImage.Tables[0].Rows[i]["Temp_LeadCaseNo"] = "";
+                    }
+
+                    if (dsImage.Tables[0].Rows[i]["ConnectedCaseNo"].ToString() != "")
+                    {
+                        dsImage.Tables[0].Rows[i]["Temp_ConnectedCaseNo"] = dsImage.Tables[0].Rows[i]["CaseType"] + "/" +
+                            dsImage.Tables[0].Rows[i]["ConnectedCaseNo"] + "/" +
+                            dsImage.Tables[0].Rows[i]["CaseYear"];
+                    }
+                    else
+                    {
+                        dsImage.Tables[0].Rows[i]["Temp_ConnectedCaseNo"] = "";
+                    }
                 }
                 dsImage.Tables[0].Columns.Add("ImageCount");
                 for (int i = 0; i < dsImage.Tables[0].Rows.Count; i++)
                 {
-                    string filename = dsImage.Tables[0].Rows[i][13].ToString();
+                    string filename = dsImage.Tables[0].Rows[i][14].ToString();
                     string imgCount = string.Empty;
                     imgCount = GetTotalImageCount(proj_key, batch_key, filename).ToString();
                     dsImage.Tables[0].Rows[i]["ImageCount"] = imgCount;
@@ -2157,7 +2207,7 @@ namespace ImageHeaven
                 dsImage.Tables[0].Columns.Add("PdfPath");
                 for (int i = 0; i < dsImage.Tables[0].Rows.Count; i++)
                 {
-                    string casefile = dsImage.Tables[0].Rows[i][13].ToString();
+                    string casefile = dsImage.Tables[0].Rows[i][14].ToString();
                     string path = "C:" + "\\Nevaeh\\" + cmbBatch.Text + "\\" + casefile;
                     string[] array1 = Directory.GetFiles(path);
                     string pdfnames = "";
@@ -2173,16 +2223,16 @@ namespace ImageHeaven
                             //pdfnames = pdfnames + Path.GetFileName(array1[j]).ToString() + " || ";
                             pdfnames = pdfnames + array1[j].ToString() + " || ";
                         }
-                        
+
                     }
                     dsImage.Tables[0].Rows[i]["PdfPath"] = pdfnames;
 
                     string addexception = "";
-                    if(dsImage.Tables[0].Rows[i]["entryEx"].ToString() != null)
+                    if (dsImage.Tables[0].Rows[i]["entryEx"].ToString() != null)
                     {
                         string[] split = dsImage.Tables[0].Rows[i]["entryEx"].ToString().Split(new string[] { "||" }, StringSplitOptions.None);
 
-                        
+
 
                         foreach (string judge in split)
                         {
@@ -2192,20 +2242,20 @@ namespace ImageHeaven
                             }
                             else
                             {
-                                if(judge == "01")
+                                if (judge == "01")
                                 {
                                     addexception = addexception + "Petitioner Missing ;";
                                 }
-                                if(judge == "02")
+                                if (judge == "02")
                                 {
                                     addexception = addexception + "Respondant Missing ;";
                                 }
                             }
 
-                            
+
                         }
                     }
-                    
+
 
                     if (dsImage.Tables[0].Rows[i]["imageEx"].ToString() != null)
                     {
@@ -2258,10 +2308,10 @@ namespace ImageHeaven
                     //{
                     //    dsImage.Tables[0].Rows[i]["DepartmentalNotes"] = dsImage.Tables[0].Rows[i]["DepartmentalNotes"] + addexception;
                     //}
-                    
+
 
                 }
-                
+
                 dsImage.Tables[0].Columns.Remove("FileName");
                 dsImage.Tables[0].Columns.Remove("entryEx");
                 dsImage.Tables[0].Columns.Remove("imageEx");

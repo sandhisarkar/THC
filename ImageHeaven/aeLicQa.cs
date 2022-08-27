@@ -4170,5 +4170,140 @@ namespace ImageHeaven
         {
 
         }
+
+        private void deTextBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                string[] split;
+                string xyz = deTextBox1.Text.Replace("\r", "");
+                if (xyz != "")
+                {
+                    split = xyz.Split(new string[] { "," }, StringSplitOptions.None);
+
+
+                    if (split.Length > 0)
+                    {
+                        
+                        frmAuditShrt frm = new frmAuditShrt(split, "Petitioner");
+                        frm.ShowDialog(this);
+
+                        
+                    }
+                    else
+                    {
+                        
+                        return;
+                    }
+                }
+                else
+                {
+                    
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void deTextBox2_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                string[] split;
+                string xyz = deTextBox2.Text.Replace("\r", "");
+                if (xyz != "")
+                {
+                    split = xyz.Split(new string[] { "," }, StringSplitOptions.None);
+
+
+                    if (split.Length > 0)
+                    {
+                        frmAuditShrt frm = new frmAuditShrt(split, "Respondant");
+                        frm.ShowDialog(this);
+
+                        
+                    }
+                    else
+                    {
+                        
+                        return;
+                    }
+                }
+                else
+                {
+                    
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void deTextBox5_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                string[] split;
+                string xyz = deTextBox5.Text.Replace("\r", "");
+                if (xyz != "")
+                {
+                    split = xyz.Split(new string[] { "," }, StringSplitOptions.None);
+                    if (split.Length > 0)
+                    {
+                        frmAuditShrt frm = new frmAuditShrt(split, "Petitioner Counsel");
+                        frm.ShowDialog(this);
+                    }
+                    else
+                    {
+                        
+                        return;
+                    }
+                }
+                else
+                {
+                    
+                    return;
+                }
+
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void deTextBox6_MouseClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                string[] split;
+                string xyz = deTextBox6.Text.Replace("\r", "");
+                if (xyz != "")
+                {
+                    split = xyz.Split(new string[] { "," }, StringSplitOptions.None);
+
+                    if (split.Length > 0)
+                    {
+                        frmAuditShrt frm = new frmAuditShrt(split, "Respondant Counsel");
+                        frm.ShowDialog(this);
+                    }
+                    else
+                    {
+                       
+                        return;
+                    }
+                }
+                else
+                {
+                   
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
     }
 }

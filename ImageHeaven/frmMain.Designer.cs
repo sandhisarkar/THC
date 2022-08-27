@@ -63,6 +63,7 @@
             this.productionReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.siteReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.userWiseReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.userWiseCountReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outwardReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,7 +78,7 @@
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.userWiseCountReportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uATCertificateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -313,28 +314,28 @@
             // configurationToolStripMenuItem
             // 
             this.configurationToolStripMenuItem.Name = "configurationToolStripMenuItem";
-            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.configurationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.configurationToolStripMenuItem.Text = "Configuration";
             this.configurationToolStripMenuItem.Click += new System.EventHandler(this.configurationToolStripMenuItem_Click);
             // 
             // newPasswordToolStripMenuItem
             // 
             this.newPasswordToolStripMenuItem.Name = "newPasswordToolStripMenuItem";
-            this.newPasswordToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.newPasswordToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newPasswordToolStripMenuItem.Text = "Change Password";
             this.newPasswordToolStripMenuItem.Click += new System.EventHandler(this.newPasswordToolStripMenuItem_Click);
             // 
             // newUserToolStripMenuItem
             // 
             this.newUserToolStripMenuItem.Name = "newUserToolStripMenuItem";
-            this.newUserToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.newUserToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newUserToolStripMenuItem.Text = "New User";
             this.newUserToolStripMenuItem.Click += new System.EventHandler(this.newUserToolStripMenuItem_Click);
             // 
             // onlineUsersToolStripMenuItem
             // 
             this.onlineUsersToolStripMenuItem.Name = "onlineUsersToolStripMenuItem";
-            this.onlineUsersToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
+            this.onlineUsersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.onlineUsersToolStripMenuItem.Text = "Online Users";
             this.onlineUsersToolStripMenuItem.Click += new System.EventHandler(this.onlineUsersToolStripMenuItem_Click);
             // 
@@ -346,7 +347,8 @@
             this.siteReportToolStripMenuItem,
             this.userWiseReportToolStripMenuItem,
             this.userWiseCountReportToolStripMenuItem,
-            this.outwardReportToolStripMenuItem});
+            this.outwardReportToolStripMenuItem,
+            this.uATCertificateToolStripMenuItem});
             this.reportToolStripMenuItem.Name = "reportToolStripMenuItem";
             this.reportToolStripMenuItem.Size = new System.Drawing.Size(59, 22);
             this.reportToolStripMenuItem.Text = "Reports";
@@ -379,6 +381,13 @@
             this.userWiseReportToolStripMenuItem.Text = "User Wise Report";
             this.userWiseReportToolStripMenuItem.Click += new System.EventHandler(this.userWiseReportToolStripMenuItem_Click);
             // 
+            // userWiseCountReportToolStripMenuItem
+            // 
+            this.userWiseCountReportToolStripMenuItem.Name = "userWiseCountReportToolStripMenuItem";
+            this.userWiseCountReportToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.userWiseCountReportToolStripMenuItem.Text = "User Wise Count Report";
+            this.userWiseCountReportToolStripMenuItem.Click += new System.EventHandler(this.userWiseCountReportToolStripMenuItem_Click);
+            // 
             // outwardReportToolStripMenuItem
             // 
             this.outwardReportToolStripMenuItem.Name = "outwardReportToolStripMenuItem";
@@ -397,7 +406,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -517,12 +526,12 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // userWiseCountReportToolStripMenuItem
+            // uATCertificateToolStripMenuItem
             // 
-            this.userWiseCountReportToolStripMenuItem.Name = "userWiseCountReportToolStripMenuItem";
-            this.userWiseCountReportToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.userWiseCountReportToolStripMenuItem.Text = "User Wise Count Report";
-            this.userWiseCountReportToolStripMenuItem.Click += new System.EventHandler(this.userWiseCountReportToolStripMenuItem_Click);
+            this.uATCertificateToolStripMenuItem.Name = "uATCertificateToolStripMenuItem";
+            this.uATCertificateToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.uATCertificateToolStripMenuItem.Text = "UAT Certificate";
+            this.uATCertificateToolStripMenuItem.Click += new System.EventHandler(this.uATCertificateToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -606,6 +615,7 @@
         private System.Windows.Forms.ToolStripMenuItem outwardSubmissionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem outwardReportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem userWiseCountReportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uATCertificateToolStripMenuItem;
     }
 }
 

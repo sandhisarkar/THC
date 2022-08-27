@@ -561,7 +561,7 @@
             this.Name = "frmExport";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Export";
+            this.Text = "n";
             this.Load += new System.EventHandler(this.frmExport_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

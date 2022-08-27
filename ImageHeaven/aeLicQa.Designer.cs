@@ -29,6 +29,7 @@ namespace ImageHeaven
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(aeLicQa));
@@ -85,8 +86,15 @@ namespace ImageHeaven
             this.cmdZoomOut = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.deTextBox13 = new nControls.deTextBox();
+            this.deLabel25 = new nControls.deLabel();
+            this.deLabel21 = new nControls.deLabel();
+            this.deLabel24 = new nControls.deLabel();
+            this.textBox10 = new System.Windows.Forms.TextBox();
             this.deTextBox12 = new nControls.deTextBox();
+            this.deLabel20 = new nControls.deLabel();
             this.deLabel23 = new nControls.deLabel();
+            this.textBox9 = new System.Windows.Forms.TextBox();
             this.deTextBox11 = new nControls.deTextBox();
             this.deLabel22 = new nControls.deLabel();
             this.deTextBox10 = new nControls.deTextBox();
@@ -124,13 +132,17 @@ namespace ImageHeaven
             this.deLabel2 = new nControls.deLabel();
             this.deLabel1 = new nControls.deLabel();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label24 = new System.Windows.Forms.Label();
             this.txtCommDt = new System.Windows.Forms.TextBox();
+            this.deLabel19 = new nControls.deLabel();
             this.label6 = new System.Windows.Forms.Label();
             this.txtDOB = new System.Windows.Forms.TextBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -186,17 +198,7 @@ namespace ImageHeaven
             this.chkCropClean = new System.Windows.Forms.CheckBox();
             this.chkMissingImg = new System.Windows.Forms.CheckBox();
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.deLabel24 = new nControls.deLabel();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.label26 = new System.Windows.Forms.Label();
-            this.deLabel21 = new nControls.deLabel();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.deLabel20 = new nControls.deLabel();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.deLabel19 = new nControls.deLabel();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.deTextBox13 = new nControls.deTextBox();
-            this.deLabel25 = new nControls.deLabel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.tbSelection.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -920,6 +922,61 @@ namespace ImageHeaven
             this.groupBox4.TabIndex = 29;
             this.groupBox4.TabStop = false;
             // 
+            // deTextBox13
+            // 
+            this.deTextBox13.BackColor = System.Drawing.Color.White;
+            this.deTextBox13.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deTextBox13.ForeColor = System.Drawing.Color.Black;
+            this.deTextBox13.Location = new System.Drawing.Point(89, 517);
+            this.deTextBox13.Mandatory = false;
+            this.deTextBox13.Multiline = true;
+            this.deTextBox13.Name = "deTextBox13";
+            this.deTextBox13.ReadOnly = true;
+            this.deTextBox13.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.deTextBox13.Size = new System.Drawing.Size(137, 20);
+            this.deTextBox13.TabIndex = 72;
+            // 
+            // deLabel25
+            // 
+            this.deLabel25.AutoSize = true;
+            this.deLabel25.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deLabel25.Location = new System.Drawing.Point(-2, 520);
+            this.deLabel25.Name = "deLabel25";
+            this.deLabel25.Size = new System.Drawing.Size(95, 13);
+            this.deLabel25.TabIndex = 71;
+            this.deLabel25.Text = "Disposal Nature: ";
+            // 
+            // deLabel21
+            // 
+            this.deLabel21.AutoSize = true;
+            this.deLabel21.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deLabel21.Location = new System.Drawing.Point(200, 15);
+            this.deLabel21.Name = "deLabel21";
+            this.deLabel21.Size = new System.Drawing.Size(51, 13);
+            this.deLabel21.TabIndex = 69;
+            this.deLabel21.Text = "Section :";
+            // 
+            // deLabel24
+            // 
+            this.deLabel24.AutoSize = true;
+            this.deLabel24.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deLabel24.Location = new System.Drawing.Point(65, 270);
+            this.deLabel24.Name = "deLabel24";
+            this.deLabel24.Size = new System.Drawing.Size(53, 13);
+            this.deLabel24.TabIndex = 63;
+            this.deLabel24.Text = "CNR No :";
+            // 
+            // textBox10
+            // 
+            this.textBox10.Location = new System.Drawing.Point(251, 13);
+            this.textBox10.Multiline = true;
+            this.textBox10.Name = "textBox10";
+            this.textBox10.ReadOnly = true;
+            this.textBox10.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBox10.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox10.Size = new System.Drawing.Size(99, 28);
+            this.textBox10.TabIndex = 70;
+            // 
             // deTextBox12
             // 
             this.deTextBox12.BackColor = System.Drawing.Color.White;
@@ -934,6 +991,16 @@ namespace ImageHeaven
             this.deTextBox12.Size = new System.Drawing.Size(112, 42);
             this.deTextBox12.TabIndex = 62;
             // 
+            // deLabel20
+            // 
+            this.deLabel20.AutoSize = true;
+            this.deLabel20.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deLabel20.Location = new System.Drawing.Point(7, 15);
+            this.deLabel20.Name = "deLabel20";
+            this.deLabel20.Size = new System.Drawing.Size(29, 13);
+            this.deLabel20.TabIndex = 67;
+            this.deLabel20.Text = "Act :";
+            // 
             // deLabel23
             // 
             this.deLabel23.AutoSize = true;
@@ -943,6 +1010,17 @@ namespace ImageHeaven
             this.deLabel23.Size = new System.Drawing.Size(59, 13);
             this.deLabel23.TabIndex = 61;
             this.deLabel23.Text = "Remarks : ";
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(36, 12);
+            this.textBox9.Multiline = true;
+            this.textBox9.Name = "textBox9";
+            this.textBox9.ReadOnly = true;
+            this.textBox9.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBox9.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox9.Size = new System.Drawing.Size(164, 27);
+            this.textBox9.TabIndex = 68;
             // 
             // deTextBox11
             // 
@@ -1162,6 +1240,7 @@ namespace ImageHeaven
             this.deTextBox6.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.deTextBox6.Size = new System.Drawing.Size(225, 26);
             this.deTextBox6.TabIndex = 37;
+            this.deTextBox6.MouseClick += new System.Windows.Forms.MouseEventHandler(this.deTextBox6_MouseClick);
             // 
             // deLabel10
             // 
@@ -1196,6 +1275,7 @@ namespace ImageHeaven
             this.deTextBox5.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.deTextBox5.Size = new System.Drawing.Size(225, 29);
             this.deTextBox5.TabIndex = 35;
+            this.deTextBox5.MouseClick += new System.Windows.Forms.MouseEventHandler(this.deTextBox5_MouseClick);
             // 
             // deLabel8
             // 
@@ -1268,6 +1348,7 @@ namespace ImageHeaven
             this.deTextBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.deTextBox2.Size = new System.Drawing.Size(259, 30);
             this.deTextBox2.TabIndex = 5;
+            this.deTextBox2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.deTextBox2_MouseClick);
             // 
             // deTextBox1
             // 
@@ -1282,6 +1363,7 @@ namespace ImageHeaven
             this.deTextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.deTextBox1.Size = new System.Drawing.Size(259, 28);
             this.deTextBox1.TabIndex = 4;
+            this.deTextBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.deTextBox1_MouseClick);
             // 
             // deLabel5
             // 
@@ -1367,6 +1449,24 @@ namespace ImageHeaven
             this.groupBox6.TabIndex = 27;
             this.groupBox6.TabStop = false;
             // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(85, 86);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.ReadOnly = true;
+            this.textBox11.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBox11.Size = new System.Drawing.Size(115, 20);
+            this.textBox11.TabIndex = 24;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(0, 89);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(79, 13);
+            this.label26.TabIndex = 23;
+            this.label26.Text = "Case Category:";
+            // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(248, 14);
@@ -1412,6 +1512,16 @@ namespace ImageHeaven
             this.txtCommDt.Size = new System.Drawing.Size(104, 20);
             this.txtCommDt.TabIndex = 15;
             // 
+            // deLabel19
+            // 
+            this.deLabel19.AutoSize = true;
+            this.deLabel19.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deLabel19.Location = new System.Drawing.Point(186, 65);
+            this.deLabel19.Name = "deLabel19";
+            this.deLabel19.Size = new System.Drawing.Size(60, 13);
+            this.deLabel19.TabIndex = 65;
+            this.deLabel19.Text = "Reg Date :";
+            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -1429,6 +1539,15 @@ namespace ImageHeaven
             this.txtDOB.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtDOB.Size = new System.Drawing.Size(104, 20);
             this.txtDOB.TabIndex = 17;
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(248, 61);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.ReadOnly = true;
+            this.textBox8.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.textBox8.Size = new System.Drawing.Size(97, 20);
+            this.textBox8.TabIndex = 66;
             // 
             // label7
             // 
@@ -2093,119 +2212,6 @@ namespace ImageHeaven
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             // 
-            // deLabel24
-            // 
-            this.deLabel24.AutoSize = true;
-            this.deLabel24.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deLabel24.Location = new System.Drawing.Point(65, 270);
-            this.deLabel24.Name = "deLabel24";
-            this.deLabel24.Size = new System.Drawing.Size(53, 13);
-            this.deLabel24.TabIndex = 63;
-            this.deLabel24.Text = "CNR No :";
-            // 
-            // textBox11
-            // 
-            this.textBox11.Location = new System.Drawing.Point(85, 86);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.ReadOnly = true;
-            this.textBox11.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBox11.Size = new System.Drawing.Size(115, 20);
-            this.textBox11.TabIndex = 24;
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(0, 89);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(79, 13);
-            this.label26.TabIndex = 23;
-            this.label26.Text = "Case Category:";
-            // 
-            // deLabel21
-            // 
-            this.deLabel21.AutoSize = true;
-            this.deLabel21.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deLabel21.Location = new System.Drawing.Point(200, 15);
-            this.deLabel21.Name = "deLabel21";
-            this.deLabel21.Size = new System.Drawing.Size(51, 13);
-            this.deLabel21.TabIndex = 69;
-            this.deLabel21.Text = "Section :";
-            // 
-            // textBox10
-            // 
-            this.textBox10.Location = new System.Drawing.Point(251, 13);
-            this.textBox10.Multiline = true;
-            this.textBox10.Name = "textBox10";
-            this.textBox10.ReadOnly = true;
-            this.textBox10.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBox10.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox10.Size = new System.Drawing.Size(99, 28);
-            this.textBox10.TabIndex = 70;
-            // 
-            // deLabel20
-            // 
-            this.deLabel20.AutoSize = true;
-            this.deLabel20.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deLabel20.Location = new System.Drawing.Point(7, 15);
-            this.deLabel20.Name = "deLabel20";
-            this.deLabel20.Size = new System.Drawing.Size(29, 13);
-            this.deLabel20.TabIndex = 67;
-            this.deLabel20.Text = "Act :";
-            // 
-            // textBox9
-            // 
-            this.textBox9.Location = new System.Drawing.Point(36, 12);
-            this.textBox9.Multiline = true;
-            this.textBox9.Name = "textBox9";
-            this.textBox9.ReadOnly = true;
-            this.textBox9.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBox9.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox9.Size = new System.Drawing.Size(164, 27);
-            this.textBox9.TabIndex = 68;
-            // 
-            // deLabel19
-            // 
-            this.deLabel19.AutoSize = true;
-            this.deLabel19.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deLabel19.Location = new System.Drawing.Point(186, 65);
-            this.deLabel19.Name = "deLabel19";
-            this.deLabel19.Size = new System.Drawing.Size(60, 13);
-            this.deLabel19.TabIndex = 65;
-            this.deLabel19.Text = "Reg Date :";
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(248, 61);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.ReadOnly = true;
-            this.textBox8.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBox8.Size = new System.Drawing.Size(97, 20);
-            this.textBox8.TabIndex = 66;
-            // 
-            // deTextBox13
-            // 
-            this.deTextBox13.BackColor = System.Drawing.Color.White;
-            this.deTextBox13.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deTextBox13.ForeColor = System.Drawing.Color.Black;
-            this.deTextBox13.Location = new System.Drawing.Point(89, 517);
-            this.deTextBox13.Mandatory = false;
-            this.deTextBox13.Multiline = true;
-            this.deTextBox13.Name = "deTextBox13";
-            this.deTextBox13.ReadOnly = true;
-            this.deTextBox13.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.deTextBox13.Size = new System.Drawing.Size(137, 20);
-            this.deTextBox13.TabIndex = 72;
-            // 
-            // deLabel25
-            // 
-            this.deLabel25.AutoSize = true;
-            this.deLabel25.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deLabel25.Location = new System.Drawing.Point(-2, 520);
-            this.deLabel25.Name = "deLabel25";
-            this.deLabel25.Size = new System.Drawing.Size(95, 13);
-            this.deLabel25.TabIndex = 71;
-            this.deLabel25.Text = "Disposal Nature: ";
-            // 
             // aeLicQa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2440,5 +2446,6 @@ namespace ImageHeaven
         private System.Windows.Forms.TextBox textBox8;
         private nControls.deTextBox deTextBox13;
         private nControls.deLabel deLabel25;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

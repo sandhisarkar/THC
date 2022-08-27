@@ -617,3 +617,8 @@ D:\Sandhi Software\THC Updated\ImageHeaven\obj\x86\Debug\ImageHeaven.csproj.Core
 D:\Sandhi Software\THC Updated\ImageHeaven\obj\x86\Debug\ImageHeaven.csproj.CopyComplete
 D:\Sandhi Software\THC Updated\ImageHeaven\obj\x86\Debug\ImageHeaven.dll
 D:\Sandhi Software\THC Updated\ImageHeaven\obj\x86\Debug\ImageHeaven.pdb
+D:\Sandhi Software\THC Updated\ImageHeaven\obj\x86\Debug\ImageHeaven.frmOutwardSubmission.resources
+D:\Sandhi Software\THC Updated\ImageHeaven\obj\x86\Debug\ImageHeaven.frmUserCountReport.resources
+D:\Sandhi Software\THC Updated\ImageHeaven\obj\x86\Debug\ImageHeaven.frmOutwardReport.resources
+D:\Sandhi Software\THC Updated\ImageHeaven\obj\x86\Debug\ImageHeaven.frmAuditShrt.resources
+D:\Sandhi Software\THC Updated\ImageHeaven\obj\x86\Debug\ImageHeaven.frmUAT.resources

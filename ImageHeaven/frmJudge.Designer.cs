@@ -54,6 +54,7 @@
             this.deComboBox1.ForeColor = System.Drawing.Color.Black;
             this.deComboBox1.FormattingEnabled = true;
             this.deComboBox1.Items.AddRange(new object[] {
+            "JUDGE",
             "JUSTICE",
             "CHIEF JUSTICE",
             "CHIEF JUSTICE (ACTING)",

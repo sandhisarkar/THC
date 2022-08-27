@@ -157,8 +157,15 @@ namespace ImageHeaven
             deComboBox3.Text = deComboBox3.Text.Trim();
             if ((deComboBox3.Text.Trim() != "" || deComboBox3.Text.Trim() != null || !String.IsNullOrEmpty(deComboBox3.Text.Trim()) || !String.IsNullOrWhiteSpace(deComboBox3.Text.Trim())) && searchJudge(deComboBox3.Text.Trim()).Rows.Count > 0)
             {
-                string judge_name = "HON`BLE " + deComboBox3.SelectedValue.ToString() + " " + deComboBox3.Text.Trim();
-
+                string judge_name;
+                if (deComboBox3.Text.Trim() == "Judge name not available")
+                {
+                    judge_name = "Judge name not available";
+                }
+                else
+                {
+                    judge_name = "HON`BLE " + deComboBox3.SelectedValue.ToString() + " " + deComboBox3.Text.Trim();
+                }
                 for (int i = 0; i < listView1.Items.Count; i++)
                 {
                     if (listView1.Items[i].SubItems[0].Text == judge_name)

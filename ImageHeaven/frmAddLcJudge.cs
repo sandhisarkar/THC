@@ -239,8 +239,15 @@ namespace ImageHeaven
             }
             if ((deComboBox6.Text != "" || deComboBox6.Text != null) && searchJudge(deComboBox6.Text.Trim()).Rows.Count > 0)
             {
-                string judge_name = "HON`BLE " + deComboBox6.SelectedValue.ToString() + " " + deComboBox6.Text.Trim();
-
+                string judge_name;
+                if (deComboBox6.Text.Trim() == "Judge name not available")
+                {
+                    judge_name = "Judge name not available";
+                }
+                else
+                {
+                    judge_name = deComboBox6.Text.Trim() + ", Judge";
+                }
                 for (int i = 0; i < listView9.Items.Count; i++)
                 {
                     if (listView9.Items[i].SubItems[0].Text == judge_name)

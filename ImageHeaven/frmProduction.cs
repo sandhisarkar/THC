@@ -30,6 +30,7 @@ using iTextSharp.text.pdf;
 using Microsoft;
 using Microsoft.Office;
 using Microsoft.Office.Interop.Excel;
+using System.Linq;
 
 namespace ImageHeaven
 {
@@ -39,6 +40,9 @@ namespace ImageHeaven
         OdbcConnection sqlCon = null;
         public string stDate;
         public string endDate;
+        int i;
+        int j;
+        int k;
         public Credentials crd = new Credentials();
 
         public frmProduction(OdbcConnection prmCon, Credentials pcrd)
@@ -303,7 +307,7 @@ namespace ImageHeaven
         public System.Data.DataTable _GetEntriesAudit()
         {
             System.Data.DataTable dt = new System.Data.DataTable();
-            string sql = "select distinct date_format(created_dttm,'%Y-%m-%d') as 'Audit Date',created_by as 'Audit User' from lic_qa_log where (date_format(created_dttm,'%Y-%m-%d') >= '" + dateTimePicker1.Text + "' and date_format(created_dttm,'%Y-%m-%d') <= '" + dateTimePicker2.Text + "') or (date_format(modified_dttm,'%Y-%m-%d') >= '" + dateTimePicker1.Text + "' and date_format(modified_dttm,'%Y-%m-%d') <= '" + dateTimePicker2.Text + "') and (qa_status = 0 or qa_status = 1 or qa_status = 2) order by created_by asc";
+            string sql = "select distinct date_format(created_dttm,'%Y-%m-%d') as 'Audit Date',created_by as 'Audit User' from lic_qa_log where (date_format(created_dttm,'%Y-%m-%d') >= '" + dateTimePicker1.Text + "' and date_format(created_dttm,'%Y-%m-%d') <= '" + dateTimePicker2.Text + "') and (qa_status = 0 or qa_status = 1 or qa_status = 2)  order by created_by asc ";
             OdbcCommand cmd = new OdbcCommand(sql, sqlCon);
             OdbcDataAdapter odap = new OdbcDataAdapter(cmd);
             odap.Fill(dt);
@@ -358,7 +362,7 @@ namespace ImageHeaven
         public System.Data.DataTable _GetFileCountAudit(string date, string user)
         {
             System.Data.DataTable dt = new System.Data.DataTable();
-            string sql = "select distinct proj_key,batch_key,box_number,policy_number from lic_qa_log where (date_format(created_dttm,'%Y-%m-%d') = '" + date + "' or date_format(modified_dttm,'%Y-%m-%d') = '" + date + "') and (created_by = '" + user + "' or modified_by = '" + user + "') ";
+            string sql = "select distinct proj_key,batch_key,box_number,policy_number from lic_qa_log where (date_format(created_dttm,'%Y-%m-%d') = '" + date + "') and (created_by = '" + user + "') ";
             OdbcCommand cmd = new OdbcCommand(sql, sqlCon);
             OdbcDataAdapter odap = new OdbcDataAdapter(cmd);
             odap.Fill(dt);
@@ -394,7 +398,7 @@ namespace ImageHeaven
         public System.Data.DataTable _GetFileDetailsAudit(string date, string user)
         {
             System.Data.DataTable dt = new System.Data.DataTable();
-            string sql = "select distinct proj_key, batch_key, policy_number from lic_qa_log where (date_format(created_dttm,'%Y-%m-%d') = '" + date + "' or date_format(modified_dttm,'%Y-%m-%d') = '" + date + "') and (created_by = '" + user + "' or modified_by = '" + user + "') ";
+            string sql = "select distinct proj_key, batch_key, policy_number from lic_qa_log where (date_format(created_dttm,'%Y-%m-%d') = '" + date + "') and (created_by = '" + user + "') ";
             OdbcCommand cmd = new OdbcCommand(sql, sqlCon);
             OdbcDataAdapter odap = new OdbcDataAdapter(cmd);
             odap.Fill(dt);
@@ -786,6 +790,13 @@ namespace ImageHeaven
 
         private void deButton20_Click(object sender, EventArgs e)
         {
+            int sub_total;
+            int all_total;
+            int sub_total_2;
+            int all_total_2;
+            int row_count = 6;
+            int sub_row_count = 6;
+
             Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
             Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
 
@@ -823,94 +834,261 @@ namespace ImageHeaven
             Range range = worksheet.get_Range("A3", "A4");
             range.Borders.Color = ColorTranslator.ToOle(Color.Black);
 
-
-
             if (deComboBox1.Text == "Metadata Entry")
             {
-                Range range1 = worksheet.get_Range("A6", "C6");
-                range1.Borders.Color = ColorTranslator.ToOle(Color.Black);
-                int i;
-                for (i = 1; i < grdStatus.Columns.Count + 1; i++)
+                worksheet.Cells[6, 1] = grdStatus.Columns[0].HeaderText;
+                worksheet.Cells[6, 2] = grdStatus.Columns[1].HeaderText;
+                worksheet.Cells[6, 3] = grdStatus.Columns[2].HeaderText;
+                // worksheet.Cells[7, i + 1].EntireRow.Font.Bold = true;
+                worksheet.Cells[6, 1].EntireRow.Font.Bold = true;
+                worksheet.Cells[6, 2].EntireRow.Font.Bold = true;
+                worksheet.Cells[6, 3].EntireRow.Font.Bold = true;
+
+                worksheet.Rows.AutoFit();
+                worksheet.Columns.AutoFit();
+
+                //  worksheet.Cells[6, 1] = "Date";
+                //  worksheet.Cells[6, 2] = "User";
+                //  worksheet.Cells[6, 3] = "Count";
+                sub_total = 0;
+                all_total = 0;
+
+                for (i = 0; i < grdStatus.Rows.Count; i++)
                 {
+                    for (j = 0; j < grdStatus.Columns.Count; j++)
+                    {
+                        Range range3 = worksheet.Cells;
+                        range3.Borders.Color = ColorTranslator.ToOle(Color.Black);
+                        range3.EntireRow.AutoFit();
+                        range3.EntireColumn.AutoFit();
+                        worksheet.Cells[sub_row_count + 1, j + 1] = grdStatus.Rows[i].Cells[j].Value.ToString();
+                        worksheet.Cells[sub_row_count + 1, j + 1].Borders.Color = ColorTranslator.ToOle(Color.Black);
 
 
-                    Range range2 = worksheet.get_Range("A6", "C6");
-                    range2.Borders.Color = ColorTranslator.ToOle(Color.Black);
-                    range2.EntireRow.AutoFit();
-                    range2.EntireColumn.AutoFit();
-                    worksheet.Cells[6, i] = grdStatus.Columns[i - 1].HeaderText;
+                    }
+
+
+                    sub_total = sub_total + Convert.ToInt32(grdStatus.Rows[i].Cells[2].Value);
+                    all_total = all_total + Convert.ToInt32(grdStatus.Rows[i].Cells[2].Value);
+
+                    row_count = row_count + 1;
+                    sub_row_count = sub_row_count + 1;
+
+                    if(grdStatus.Rows.Count == 1)
+                    {
+                        worksheet.Cells[sub_row_count + 1, 2] = "Total :";
+                        worksheet.Cells[sub_row_count + 1, 3] = sub_total;
+
+                        worksheet.Cells[sub_row_count + 1, 2].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                        worksheet.Cells[sub_row_count + 1, 3].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+
+                        sub_total = 0;
+
+                        sub_row_count = sub_row_count + 1;
+                        row_count = row_count + 1;
+                    }
+                    else if (i < grdStatus.Rows.Count - 1)
+                    {
+                        if (grdStatus.Rows[i].Cells[1].Value.ToString() != grdStatus.Rows[i + 1].Cells[1].Value.ToString())
+                        {
+
+                            //worksheet.Cells[6 + grdStatus.row] = 
+                            //  worksheet.Cells[i + 7, 4] = "Total ="+ sub_total;
+                            worksheet.Cells[sub_row_count + 1, 2] = "Total :";
+                            worksheet.Cells[sub_row_count + 1, 3] = sub_total;
+
+                            worksheet.Cells[sub_row_count + 1, 2].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                            worksheet.Cells[sub_row_count + 1, 3].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+
+                            sub_total = 0;
+
+                            sub_row_count = sub_row_count + 1;
+                            row_count = row_count + 1;
+                        }
+
+                    }
+                    else if (i == grdStatus.Rows.Count - 1)
+                    {
+                        if (grdStatus.Rows[i].Cells[1].Value.ToString() != grdStatus.Rows[i - 1].Cells[1].Value.ToString())
+                        {
+
+                            //worksheet.Cells[6 + grdStatus.row] = 
+                            // worksheet.Cells[i + 7, 4] = "Total =" + sub_total;
+
+                            worksheet.Cells[sub_row_count + 1, 2] = "Total :";
+                            worksheet.Cells[sub_row_count + 1, 3] = sub_total;
+
+                            worksheet.Cells[sub_row_count + 1, 2].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                            worksheet.Cells[sub_row_count + 1, 3].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+
+                            sub_total = 0;
+
+                            sub_row_count = sub_row_count + 1;
+                            row_count = row_count + 1;
+                        }
+                        if (grdStatus.Rows[i].Cells[1].Value.ToString() == grdStatus.Rows[i - 1].Cells[1].Value.ToString())
+                        {
+
+                            //worksheet.Cells[6 + grdStatus.row] = 
+                            // worksheet.Cells[i + 7, 4] = "Total =" + sub_total;
+                            // sub_total = 0;
+                            worksheet.Cells[sub_row_count + 1, 2] = "Total :";
+                            worksheet.Cells[sub_row_count + 1, 3] = sub_total;
+
+                            worksheet.Cells[sub_row_count + 1, 2].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                            worksheet.Cells[sub_row_count + 1, 3].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+
+                            sub_row_count = sub_row_count + 1;
+                            row_count = row_count + 1;
+                        }
+                    }
+
                 }
 
-                worksheet.Cells[8 + grdStatus.Rows.Count, 2] = "Total";
+                //  worksheet.Cells[8 + grdStatus.Rows.Count, 3] = "Total" + all_total;
+                worksheet.Cells[2 + row_count, 2] = "Grand Total : ";
+                worksheet.Cells[2 + row_count, 3] = all_total;
 
+                //  worksheet.Cells[8 + grdStatus.Rows.Count, 3] = "=SUM(C" + 7 + ":C" + (grdStatus.Rows.Count + 7) + ")";
+                worksheet.Cells[2 + row_count, 2].Interior.Color = ColorTranslator.ToOle(Color.YellowGreen);
+                worksheet.Cells[2 + row_count, 3].Interior.Color = ColorTranslator.ToOle(Color.YellowGreen);
             }
             else
             {
-                Range range1 = worksheet.get_Range("A6", "D6");
-                range1.Borders.Color = ColorTranslator.ToOle(Color.Black);
-                int i;
-                for (i = 1; i < grdStatus.Columns.Count + 1; i++)
+                worksheet.Cells[6, 1] = grdStatus.Columns[0].HeaderText;
+                worksheet.Cells[6, 2] = grdStatus.Columns[1].HeaderText;
+                worksheet.Cells[6, 3] = grdStatus.Columns[2].HeaderText;
+                worksheet.Cells[6, 4] = grdStatus.Columns[3].HeaderText;
+                worksheet.Cells[6, 1].EntireRow.Font.Bold = true;
+                // worksheet.Cells[6, 2].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                //worksheet.Cells[6, 3].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                //worksheet.Cells[6, 4].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+
+                worksheet.Rows.AutoFit();
+                worksheet.Columns.AutoFit();
+
+                //  worksheet.Cells[6, 1] = "Date";
+                //  worksheet.Cells[6, 2] = "User";
+                //  worksheet.Cells[6, 3] = "Count";
+                sub_total = 0;
+                all_total = 0;
+                sub_total_2 = 0;
+                all_total_2 = 0;
+                for (i = 0; i < grdStatus.Rows.Count; i++)
                 {
+                    for (j = 0; j < grdStatus.Columns.Count; j++)
+                    {
+                        Range range3 = worksheet.Cells;
+                        range3.Borders.Color = ColorTranslator.ToOle(Color.Black);
+                        range3.EntireRow.AutoFit();
+                        range3.EntireColumn.AutoFit();
+                        worksheet.Cells[sub_row_count + 1, j + 1] = grdStatus.Rows[i].Cells[j].Value.ToString();
+                        worksheet.Cells[sub_row_count + 1, j + 1].Borders.Color = ColorTranslator.ToOle(Color.Black);
+
+                    }
 
 
-                    Range range2 = worksheet.get_Range("A6", "D6");
-                    range2.Borders.Color = ColorTranslator.ToOle(Color.Black);
-                    range2.EntireRow.AutoFit();
-                    range2.EntireColumn.AutoFit();
-                    worksheet.Cells[6, i] = grdStatus.Columns[i - 1].HeaderText;
+                    sub_total = sub_total + Convert.ToInt32(grdStatus.Rows[i].Cells[2].Value);
+                    all_total = all_total + Convert.ToInt32(grdStatus.Rows[i].Cells[2].Value);
+                    sub_total_2 = sub_total_2 + Convert.ToInt32(grdStatus.Rows[i].Cells[3].Value);
+                    all_total_2 = all_total_2 + Convert.ToInt32(grdStatus.Rows[i].Cells[3].Value);
+
+                    row_count = row_count + 1;
+                    sub_row_count = sub_row_count + 1;
+
+                    if (grdStatus.Rows.Count == 1)
+                    {
+                        worksheet.Cells[sub_row_count + 1, 2] = "Total :";
+                        worksheet.Cells[sub_row_count + 1, 3] = sub_total;
+                        worksheet.Cells[sub_row_count + 1, 4] = sub_total_2;
+
+                        worksheet.Cells[sub_row_count + 1, 2].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                        worksheet.Cells[sub_row_count + 1, 3].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                        worksheet.Cells[sub_row_count + 1, 4].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                        sub_total = 0;
+                        sub_total_2 = 0;
+                        sub_row_count = sub_row_count + 1;
+                        row_count = row_count + 1;
+                    }
+                    else if (i < grdStatus.Rows.Count - 1)
+                    {
+                        if (grdStatus.Rows[i].Cells[1].Value.ToString() != grdStatus.Rows[i + 1].Cells[1].Value.ToString())
+                        {
+
+                            //worksheet.Cells[6 + grdStatus.row] = 
+                            //  worksheet.Cells[i + 7, 4] = "Total ="+ sub_total;
+                            worksheet.Cells[sub_row_count + 1, 2] = "Total :";
+                            worksheet.Cells[sub_row_count + 1, 3] = sub_total;
+                            worksheet.Cells[sub_row_count + 1, 4] = sub_total_2;
+
+                            worksheet.Cells[sub_row_count + 1, 2].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                            worksheet.Cells[sub_row_count + 1, 3].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                            worksheet.Cells[sub_row_count + 1, 4].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                            sub_total = 0;
+                            sub_total_2 = 0;
+                            sub_row_count = sub_row_count + 1;
+                            row_count = row_count + 1;
+                        }
+
+                    }
+                    else if (i == grdStatus.Rows.Count - 1)
+                    {
+                        if (grdStatus.Rows[i].Cells[1].Value.ToString() != grdStatus.Rows[i - 1].Cells[1].Value.ToString())
+                        {
+
+                            //worksheet.Cells[6 + grdStatus.row] = 
+                            // worksheet.Cells[i + 7, 4] = "Total =" + sub_total;
+
+                            worksheet.Cells[sub_row_count + 1, 2] = "Total :";
+                            worksheet.Cells[sub_row_count + 1, 3] = sub_total;
+                            worksheet.Cells[sub_row_count + 1, 4] = sub_total_2;
+
+                            worksheet.Cells[sub_row_count + 1, 2].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                            worksheet.Cells[sub_row_count + 1, 3].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                            worksheet.Cells[sub_row_count + 1, 4].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                            sub_total = 0;
+                            sub_total_2 = 0;
+                            sub_row_count = sub_row_count + 1;
+                            row_count = row_count + 1;
+
+                        }
+                        if (grdStatus.Rows[i].Cells[1].Value.ToString() == grdStatus.Rows[i - 1].Cells[1].Value.ToString())
+                        {
+
+                            //worksheet.Cells[6 + grdStatus.row] = 
+                            // worksheet.Cells[i + 7, 4] = "Total =" + sub_total;
+                            // sub_total = 0;
+                            worksheet.Cells[sub_row_count + 1, 2] = "Total :";
+                            worksheet.Cells[sub_row_count + 1, 3] = sub_total;
+                            worksheet.Cells[sub_row_count + 1, 4] = sub_total_2;
+
+                            worksheet.Cells[sub_row_count + 1, 2].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                            worksheet.Cells[sub_row_count + 1, 3].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                            worksheet.Cells[sub_row_count + 1, 4].Interior.Color = ColorTranslator.ToOle(Color.Yellow);
+                            sub_row_count = sub_row_count + 1;
+                            row_count = row_count + 1;
+                        }
+                    }
+
+
+
+
                 }
 
-                worksheet.Cells[8 + grdStatus.Rows.Count, 2] = "Total";
-
+                //  worksheet.Cells[8 + grdStatus.Rows.Count, 3] = "Total" + all_total;                
+                //  worksheet.Cells[8 + grdStatus.Rows.Count, 3] = "=SUM(C" + 7 + ":C" + (grdStatus.Rows.Count + 7) + ")";
+                //  worksheet.Cells[8 + grdStatus.Rows.Count, 3] = "Tota
+                //  l" + all_total;
+                worksheet.Cells[2 + row_count, 2] = "Grand Total : ";
+                worksheet.Cells[2 + row_count, 3] = all_total;
+                worksheet.Cells[2 + row_count, 4] = all_total_2;
+                //  worksheet.Cells[8 + grdStatus.Rows.Count, 3] = "=SUM(C" + 7 + ":C" + (grdStatus.Rows.Count + 7) + ")";
+                worksheet.Cells[2 + row_count, 2].Interior.Color = ColorTranslator.ToOle(Color.YellowGreen);
+                worksheet.Cells[2 + row_count, 3].Interior.Color = ColorTranslator.ToOle(Color.YellowGreen);
+                worksheet.Cells[2 + row_count, 4].Interior.Color = ColorTranslator.ToOle(Color.YellowGreen);
             }
 
-            int filecount = 0;
-            int imgcount = 0;
-            for (int i = 0; i < grdStatus.Rows.Count; i++)
-            {
-                for (int j = 0; j < grdStatus.Columns.Count; j++)
-                {
-                    Range range3 = worksheet.Cells;
-                    //range3.Borders.Color = ColorTranslator.ToOle(Color.Black);
-                    range3.EntireRow.AutoFit();
-                    range3.EntireColumn.AutoFit();
-                    worksheet.Cells[i + 7, j + 1] = grdStatus.Rows[i].Cells[j].Value.ToString();
-                    worksheet.Cells[i + 7, j + 1].Borders.Color = ColorTranslator.ToOle(Color.Black);
-                    
-                }
-                if (deComboBox1.Text == "Metadata Entry")
-                {
-                    filecount = filecount + Convert.ToInt32(grdStatus.Rows[i].Cells[2].Value);
-                }
-                else
-                {
-                    filecount = filecount + Convert.ToInt32(grdStatus.Rows[i].Cells[2].Value);
-                    imgcount = imgcount + Convert.ToInt32(grdStatus.Rows[i].Cells[3].Value);
-                }
-            }
 
-            if (deComboBox1.Text == "Metadata Entry")
-            {
-                Range range3 = worksheet.Cells;
-                //range3.Borders.Color = ColorTranslator.ToOle(Color.Black);
-                range3.EntireRow.AutoFit();
-                range3.EntireColumn.AutoFit();
-                worksheet.Cells[8 + grdStatus.Rows.Count, 3] = filecount.ToString();
-                worksheet.Cells[8 + grdStatus.Rows.Count, 2].Borders.Color = ColorTranslator.ToOle(Color.Black);
-                worksheet.Cells[8 + grdStatus.Rows.Count, 3].Borders.Color = ColorTranslator.ToOle(Color.Black);
-            }
-            else
-            {
-                Range range3 = worksheet.Cells;
-                //range3.Borders.Color = ColorTranslator.ToOle(Color.Black);
-                range3.EntireRow.AutoFit();
-                range3.EntireColumn.AutoFit();
-                worksheet.Cells[8 + grdStatus.Rows.Count, 3] = filecount.ToString(); 
-                worksheet.Cells[8 + grdStatus.Rows.Count, 4] = imgcount.ToString();
-                worksheet.Cells[8 + grdStatus.Rows.Count, 2].Borders.Color = ColorTranslator.ToOle(Color.Black);
-                worksheet.Cells[8 + grdStatus.Rows.Count, 3].Borders.Color = ColorTranslator.ToOle(Color.Black);
-                worksheet.Cells[8 + grdStatus.Rows.Count, 4].Borders.Color = ColorTranslator.ToOle(Color.Black);
-            }
 
             string namexls = "Production_Report" + ".xls";
             string path = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
@@ -923,6 +1101,159 @@ namespace ImageHeaven
             workbook.SaveAs(sfdUAT.FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
 
             app.Quit();
+
+            //Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+            //Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
+
+            //Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
+
+            //app.Visible = false;
+
+            //worksheet = (Microsoft.Office.Interop.Excel._Worksheet)workbook.Sheets["Sheet1"];
+
+
+            //worksheet = (Microsoft.Office.Interop.Excel._Worksheet)workbook.ActiveSheet;
+
+            //worksheet.Name = "Production Report";
+
+            //worksheet.Cells[1, 3] = "Production Report";
+            //Range range44 = worksheet.get_Range("C1");
+            //range44.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.YellowGreen);
+
+            //worksheet.Rows.AutoFit();
+            //worksheet.Columns.AutoFit();
+
+
+            //worksheet.Cells[3, 1] = "User Role : " + grdStatus.Columns[1].HeaderText.ToString();
+            //Range range43 = worksheet.get_Range("A3");
+            //range43.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
+            //worksheet.Rows.AutoFit();
+            //worksheet.Columns.AutoFit();
+
+            //worksheet.Cells[4, 1] = "Time : " + dateTimePicker1.Text + " - " + dateTimePicker2.Text;
+            //Range range33 = worksheet.get_Range("A4");
+            //range33.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
+            //worksheet.Rows.AutoFit();
+            //worksheet.Columns.AutoFit();
+
+            //Range range = worksheet.get_Range("A3", "A4");
+            //range.Borders.Color = ColorTranslator.ToOle(Color.Black);
+
+
+
+            //if (deComboBox1.Text == "Metadata Entry")
+            //{
+            //    Range range1 = worksheet.get_Range("A6", "C6");
+            //    range1.Borders.Color = ColorTranslator.ToOle(Color.Black);
+            //    int i;
+            //    for (i = 1; i < grdStatus.Columns.Count + 1; i++)
+            //    {
+
+
+            //        Range range2 = worksheet.get_Range("A6", "C6");
+            //        range2.Borders.Color = ColorTranslator.ToOle(Color.Black);
+            //        range2.EntireRow.AutoFit();
+            //        range2.EntireColumn.AutoFit();
+            //        worksheet.Cells[6, i] = grdStatus.Columns[i - 1].HeaderText;
+            //    }
+
+            //    worksheet.Cells[8 + grdStatus.Rows.Count, 2] = "Total";
+
+            //}
+            //else
+            //{
+            //    Range range1 = worksheet.get_Range("A6", "D6");
+            //    range1.Borders.Color = ColorTranslator.ToOle(Color.Black);
+            //    int i;
+
+            //    for (i = 1; i < grdStatus.Columns.Count + 1; i++)
+            //    {
+
+
+            //        Range range2 = worksheet.get_Range("A6", "D6");
+            //        range2.Borders.Color = ColorTranslator.ToOle(Color.Black);
+            //        range2.EntireRow.AutoFit();
+            //        range2.EntireColumn.AutoFit();
+            //        worksheet.Cells[6, i] = grdStatus.Columns[i - 1].HeaderText;
+            //    }
+
+            //    worksheet.Cells[8 + grdStatus.Rows.Count, 2] = "Total";
+
+            //}
+
+            //int filecount = 0;
+            //int imgcount = 0;
+            //for ( i = 0; i < grdStatus.Rows.Count; i++)
+            //{
+            //    for ( j = 0; j < grdStatus.Columns.Count; j++)
+            //    {
+            //        Range range3 = worksheet.Cells;
+            //        //range3.Borders.Color = ColorTranslator.ToOle(Color.Black);
+            //        range3.EntireRow.AutoFit();
+            //        range3.EntireColumn.AutoFit();
+            //        worksheet.Cells[i + 7, j + 1] = grdStatus.Rows[i].Cells[j].Value.ToString();                  
+            //        worksheet.Cells[i + 7, j + 1].Borders.Color = ColorTranslator.ToOle(Color.Black);
+            //       //for (k=0; k <grdStatus.Rows.Count; k++ )
+            //       // {
+            //       //     Range range55 = worksheet.Cells;
+            //       //     range55.EntireRow.AutoFit();
+            //       //     range55.EntireColumn.AutoFit();
+            //       //     worksheet.Cells[8 + grdStatus.Rows.Count, 2] = "Total";
+            //       // }
+
+            //    }
+
+            //    if (deComboBox1.Text == "Metadata Entry")
+            //    {
+            //        filecount = filecount + Convert.ToInt32(grdStatus.Rows[i].Cells[2].Value);
+            //    }
+            //    else
+            //    {
+
+            //        filecount = filecount + Convert.ToInt32(grdStatus.Rows[i].Cells[2].Value);
+            //        imgcount = imgcount + Convert.ToInt32(grdStatus.Rows[i].Cells[3].Value);
+            //        for (int k = 0; k < grdStatus.Columns.Count; k++)
+            //        {
+            //            worksheet.Cells[i + 7, j + 1] = "Total  " + filecount;
+            //            worksheet.Cells[i + 7, j + 1] = "Total  " + imgcount;
+            //        }
+            //    }
+            //}
+
+            //if (deComboBox1.Text == "Metadata Entry")
+            //{
+            //    Range range3 = worksheet.Cells;
+            //    //range3.Borders.Color = ColorTranslator.ToOle(Color.Black);
+            //    range3.EntireRow.AutoFit();
+            //    range3.EntireColumn.AutoFit();
+            //    worksheet.Cells[8 + grdStatus.Rows.Count, 3] = filecount.ToString();
+            //    worksheet.Cells[8 + grdStatus.Rows.Count, 2].Borders.Color = ColorTranslator.ToOle(Color.Black);
+            //    worksheet.Cells[8 + grdStatus.Rows.Count, 3].Borders.Color = ColorTranslator.ToOle(Color.Black);
+            //}
+            //else
+            //{
+            //    Range range3 = worksheet.Cells;
+            //    //range3.Borders.Color = ColorTranslator.ToOle(Color.Black);
+            //    range3.EntireRow.AutoFit();
+            //    range3.EntireColumn.AutoFit();
+            //    worksheet.Cells[8 + grdStatus.Rows.Count, 3] = filecount.ToString(); 
+            //    worksheet.Cells[8 + grdStatus.Rows.Count, 4] = imgcount.ToString();
+            //    worksheet.Cells[8 + grdStatus.Rows.Count, 2].Borders.Color = ColorTranslator.ToOle(Color.Black);
+            //    worksheet.Cells[8 + grdStatus.Rows.Count, 3].Borders.Color = ColorTranslator.ToOle(Color.Black);
+            //    worksheet.Cells[8 + grdStatus.Rows.Count, 4].Borders.Color = ColorTranslator.ToOle(Color.Black);
+            //}
+
+            //string namexls = "Production_Report" + ".xls";
+            //string path = Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
+            //sfdUAT.Filter = "Xls files (*.xls)|*.xls";
+            //sfdUAT.FilterIndex = 2;
+            //sfdUAT.RestoreDirectory = true;
+            //sfdUAT.FileName = namexls;
+            //sfdUAT.ShowDialog();
+
+            //workbook.SaveAs(sfdUAT.FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+
+            //app.Quit();
         }
     }
 }
