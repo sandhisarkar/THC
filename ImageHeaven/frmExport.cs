@@ -2111,7 +2111,7 @@ namespace ImageHeaven
                      "REPLACE(REPLACE(a.respondant_counsel_name, '||', '|| '), '||', '|| ') as 'RespondantCounselName',a.case_filling_date as 'DateOfFilling'," +
                      "a.ps_name as 'PoliceStation',a.ps_case_no as 'PoliceStationCaseNo',REPLACE(REPLACE(a.lc_case_no, '||', '|| '), '||', '|| ') as 'LowerCourtCaseNo'," +
                      " a.lc_order_date as 'LowerCourtOrderDate',REPLACE(REPLACE(a.lc_judge_name, '||', '|| '), '||', '|| ') as 'LowerCourtJudge',REPLACE(REPLACE(a.conn_app_case_no, '||', '|| '), '||', '|| ') as 'ConnectedApplicationCaseNumber',a.conn_disposal_type as 'ConnectedApplicationDisposalType'," +
-                     "REPLACE(REPLACE(a.conn_main_case_no, '||', '|| '), '||', '|| ') as 'ConnectedMainCaseNumber',REPLACE(REPLACE(a.analogous_case_no, '||', '|| '), '||', '|| ') as 'AnalogousCaseNumber'," +
+                     "REPLACE(REPLACE(a.conn_main_case_no, '||', '|| '), '||', '|| ') as 'ConnectedMainCaseNumber',REPLACE(REPLACE(a.analogous_case_no, '||', '|| '), '||', '|| ') as 'IA/CM'," +
                      "a.dept_remark as 'DepartmentalNotes',REPLACE(REPLACE(b.entry_exception, '||', '||'), '||', '||') as 'entryEx',REPLACE(REPLACE(b.image_exception, '||', '||'), '||', '||') as 'imageEx'" +
                      " from metadata_entry a,bundle_master c, case_file_master b where c.proj_code = a.proj_code and c.bundle_key = a.bundle_key and a.proj_code = '" + proj_key + "' and a.bundle_key = '" + batch_key + "' and b.filename = a.filename ";
 
