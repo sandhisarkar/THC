@@ -127,7 +127,7 @@ namespace ImageHeaven
 
             int pendBundle = pendingBundle().Rows.Count;
 
-            if(pendBundle == 0)
+            if (pendBundle == 0)
             {
                 deLabel1.Text = "No bundle is pending for barcode generate";
             }
@@ -207,7 +207,7 @@ namespace ImageHeaven
                 deComboBox2.DisplayMember = "";
                 deComboBox2.ValueMember = "";
                 deComboBox1.Select();
-                
+
 
             }
 
@@ -218,7 +218,7 @@ namespace ImageHeaven
             DataSet ds = new DataSet();
             DataTable dt = new DataTable();
 
-            string sql = "select a.bundle_key, a.bundle_code from bundle_master a, project_master b where a.proj_code = b.proj_key and a.status <> '0'  and a.proj_code = '" + deComboBox1.SelectedValue.ToString() + "' and a.bundle_key NOT IN (select distinct bundle_key from barcode_log where proj_key = '"+deComboBox1.SelectedValue.ToString()+"')";
+            string sql = "select a.bundle_key, a.bundle_code from bundle_master a, project_master b where a.proj_code = b.proj_key and a.status <> '0'  and a.proj_code = '" + deComboBox1.SelectedValue.ToString() + "' and a.bundle_key NOT IN (select distinct bundle_key from barcode_log where proj_key = '" + deComboBox1.SelectedValue.ToString() + "')";
 
             OdbcDataAdapter odap = new OdbcDataAdapter(sql, sqlCon);
             odap.Fill(dt);
@@ -240,7 +240,7 @@ namespace ImageHeaven
                 deComboBox2.DisplayMember = "";
                 deComboBox2.ValueMember = "";
                 deComboBox1.Select();
-                
+
             }
 
         }
@@ -264,7 +264,7 @@ namespace ImageHeaven
             }
             if (arrPolicy.Count > 0)
             {
-                button1.Enabled = true; 
+                button1.Enabled = true;
                 deButton20.Enabled = true;
                 //lblCount.Text = "Pending: " + GetItems1(eITEMS.POLICY, currState).Count;
             }
@@ -318,7 +318,7 @@ namespace ImageHeaven
         }
         void DisplayValues()
         {
-            
+
         }
 
         public string GetProjectName(int prmProjectKey)
@@ -381,18 +381,18 @@ namespace ImageHeaven
             return projName;
         }
 
-        private bool insertIntoDB(string pk,string bk, string bn)
+        private bool insertIntoDB(string pk, string bk, string bn)
         {
             bool commitBol = true;
 
 
-           
+
 
             string sqlStr = string.Empty;
 
             OdbcCommand sqlCmd = new OdbcCommand();
 
-            sqlStr = @"insert into barcode_log(proj_key,bundle_key,bundle_no,created_dttm,created_by) values('" + pk + "','" + bk + "','"+bn+"','"+crd.created_dttm+"','"+crd.created_by+"')";
+            sqlStr = @"insert into barcode_log(proj_key,bundle_key,bundle_no,created_dttm,created_by) values('" + pk + "','" + bk + "','" + bn + "','" + crd.created_dttm + "','" + crd.created_by + "')";
 
             sqlCmd.Connection = sqlCon;
             //sqlCmd.Transaction = trans;
@@ -468,7 +468,7 @@ namespace ImageHeaven
         private void deButton1_Click(object sender, EventArgs e)
         {
 
-            if(_GetGenCount(projKey,bundleKey).Rows.Count > 0)
+            if (_GetGenCount(projKey, bundleKey).Rows.Count > 0)
             {
                 button1.Enabled = false;
                 deButton20.Enabled = false;
@@ -552,524 +552,561 @@ namespace ImageHeaven
                     }
                     if (lstImage.Items.Count > 36)
                     {
-                        
-                            sfdUAT.Filter = "Pdf files (*.pdf)|*.pdf";
-                            sfdUAT.FilterIndex = 2;
-                            sfdUAT.RestoreDirectory = true;
-                            sfdUAT.FileName = deComboBox2.Text;
-                            sfdUAT.ShowDialog();
 
-                            FileStream fs = new FileStream(sfdUAT.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
-                            Document doc = new Document();
-                            PdfWriter writer = PdfWriter.GetInstance(doc, fs);
-                            doc.SetPageSize(iTextSharp.text.PageSize.A4);
-                            PdfPTable table = new PdfPTable(7);
-                            table.TotalWidth = 500f;
-                            table.LockedWidth = true;
-                            float[] widths = new float[] { 4f, 1.66f, 4f, 1.66f, 4f, 1.66f, 4f };
+                        sfdUAT.Filter = "Pdf files (*.pdf)|*.pdf";
+                        sfdUAT.FilterIndex = 2;
+                        sfdUAT.RestoreDirectory = true;
+                        sfdUAT.FileName = deComboBox2.Text;
+                        sfdUAT.ShowDialog();
 
-                            table.SetWidths(widths);
-                            table.HorizontalAlignment = 0;
+                        FileStream fs = new FileStream(sfdUAT.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+                        Document doc = new Document();
+                        PdfWriter writer = PdfWriter.GetInstance(doc, fs);
+                        doc.SetPageSize(iTextSharp.text.PageSize.A4);
+                        PdfPTable table = new PdfPTable(7);
+                        table.TotalWidth = 500f;
+                        table.LockedWidth = true;
+                        float[] widths = new float[] { 4f, 1.66f, 4f, 1.66f, 4f, 1.66f, 4f };
 
-                            table.SpacingBefore = 10f;
-                            table.SpacingAfter = 5f;
-                            PdfPTable table1 = new PdfPTable(7);
-                            table1.TotalWidth = 500f;
-                            table1.LockedWidth = true;
-                            float[] widths1 = new float[] { 4f, 1.66f, 4f, 1.66f, 4f, 1.66f, 4f };
+                        table.SetWidths(widths);
+                        table.HorizontalAlignment = 0;
 
-                            table1.SetWidths(widths1);
-                            table1.HorizontalAlignment = 0;
+                        table.SpacingBefore = 10f;
+                        table.SpacingAfter = 5f;
+                        PdfPTable table1 = new PdfPTable(7);
+                        table1.TotalWidth = 500f;
+                        table1.LockedWidth = true;
+                        float[] widths1 = new float[] { 4f, 1.66f, 4f, 1.66f, 4f, 1.66f, 4f };
 
-                            table1.SpacingBefore = 10f;
-                            table1.SpacingAfter = 10f;
-                            doc.Open();
-                            BaseFont bf = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            iTextSharp.text.Font font = new iTextSharp.text.Font(bf, 8, iTextSharp.text.Font.NORMAL);
-                            //DirectoryInfo dir_info = new DirectoryInfo(folderPath);
-                            //string directory = dir_info.Name;
-                            para = new Paragraph("Bundle name: " + GetBundleName(Convert.ToInt32(projKey), Convert.ToInt32(bundleKey)) + ", No. of Barcode: " + lstImage.Items.Count + " ,Generated : " + _GetGenCount(projKey,bundleKey).Rows.Count +1 + " times", font);
+                        table1.SetWidths(widths1);
+                        table1.HorizontalAlignment = 0;
 
-                            para.Alignment = Element.ALIGN_RIGHT;
+                        table1.SpacingBefore = 10f;
+                        table1.SpacingAfter = 10f;
+                        doc.Open();
+                        BaseFont bf = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        iTextSharp.text.Font font = new iTextSharp.text.Font(bf, 8, iTextSharp.text.Font.NORMAL);
+                        //DirectoryInfo dir_info = new DirectoryInfo(folderPath);
+                        //string directory = dir_info.Name;
+                        //para = new Paragraph("Bundle name: " + GetBundleName(Convert.ToInt32(projKey), Convert.ToInt32(bundleKey)) + ", No. of Barcode: " + lstImage.Items.Count + " ,Generated : " + _GetGenCount(projKey,bundleKey).Rows.Count +1 + " times", font);
+                        para = new Paragraph("Bundle name: " + GetBundleName(Convert.ToInt32(projKey), Convert.ToInt32(bundleKey)) + ", No. of Barcode: " + lstImage.Items.Count + " ,Generated : " + Convert.ToString(Convert.ToInt32(_GetGenCount(projKey, bundleKey).Rows.Count) + 1) + " times", font);
+
+                        para.Alignment = Element.ALIGN_RIGHT;
 
 
-                            if (lstImage.Items.Count % 4 == 0)
+                        if (lstImage.Items.Count % 4 == 0)
+                        {
+                            int k = 0;
+                            for (int i = 0; i < lstImage.Items.Count / 4; i++)
                             {
-                                int k = 0;
-                                for (int i = 0; i < lstImage.Items.Count / 4; i++)
-                                {
-                                    iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[i]);
-                                    jpg1.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar = new PdfPCell(jpg1);
-                                    bar.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar);
-
-                                    k++;
-
-
-                                    PdfPCell empty = new PdfPCell(new Phrase("  "));
-                                    empty.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty);
-
-
-                                    iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[i]);
-                                    jpg2.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar1 = new PdfPCell(jpg2);
-                                    bar1.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar1);
-
-                                    k++;
-
-
-                                    PdfPCell empty8 = new PdfPCell(new Phrase("  "));
-                                    empty8.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty8);
-
-
-                                    iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[i]);
-                                    jpg3.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar2 = new PdfPCell(jpg3);
-                                    bar2.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar2);
-                                    k++;
-
-
-                                    PdfPCell empty9 = new PdfPCell(new Phrase("  "));
-                                    empty9.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty9);
-
-                                    iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[i]);
-                                    jpg4.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar3 = new PdfPCell(jpg4);
-                                    bar3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar3);
-                                    k++;
-
-                                    PdfPCell empty14 = new PdfPCell(new Phrase("  "));
-                                    empty14.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty14);
-
-                                    PdfPCell empty15 = new PdfPCell(new Phrase("  "));
-                                    empty15.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty15);
-
-                                    PdfPCell empty16 = new PdfPCell(new Phrase("  "));
-                                    empty16.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty16);
-
-
-                                    PdfPCell empty3 = new PdfPCell(new Phrase("  "));
-                                    empty3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty3);
-
-
-                                    PdfPCell empty4 = new PdfPCell(new Phrase("  "));
-                                    empty4.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty4);
-
-                                    PdfPCell empty5 = new PdfPCell(new Phrase("  "));
-                                    empty5.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty5);
-
-                                    PdfPCell empty10 = new PdfPCell(new Phrase("  "));
-                                    empty10.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty10);
-
-
-                                    PdfPCell empty11 = new PdfPCell(new Phrase("  "));
-                                    empty11.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty11);
-
-                                    PdfPCell empty12 = new PdfPCell(new Phrase("  "));
-                                    empty12.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty12);
-
-                                    PdfPCell empty13 = new PdfPCell(new Phrase("  "));
-                                    empty13.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty13);
-
-                                    PdfPCell empty21 = new PdfPCell(new Phrase("  "));
-                                    empty21.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty21);
-
-                                    PdfPCell empty22 = new PdfPCell(new Phrase("  "));
-                                    empty22.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty22);
-
-                                    PdfPCell empty23 = new PdfPCell(new Phrase("  "));
-                                    empty23.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty23);
-                                }
-                            }
-                            else if (lstImage.Items.Count % 4 == 1)
-                            {
-                                int k = 0;
-                                int i;
-                                for (i = 0; i < lstImage.Items.Count / 4; i++)
-                                {
-                                    iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg1.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar = new PdfPCell(jpg1);
-                                    bar.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar);
-
-                                    k++;
-
-
-                                    PdfPCell empty = new PdfPCell(new Phrase("  "));
-                                    empty.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty);
-
-
-                                    iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg2.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar1 = new PdfPCell(jpg2);
-                                    bar1.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar1);
-
-                                    k++;
-
-
-                                    PdfPCell empty8 = new PdfPCell(new Phrase("  "));
-                                    empty8.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty8);
-
-
-                                    iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg3.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar2 = new PdfPCell(jpg3);
-                                    bar2.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar2);
-                                    k++;
-
-
-                                    PdfPCell empty9 = new PdfPCell(new Phrase("  "));
-                                    empty9.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty9);
-
-                                    iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg4.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar3 = new PdfPCell(jpg4);
-                                    bar3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar3);
-                                    k++;
-
-                                    PdfPCell empty14 = new PdfPCell(new Phrase("  "));
-                                    empty14.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty14);
-
-                                    PdfPCell empty15 = new PdfPCell(new Phrase("  "));
-                                    empty15.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty15);
-
-                                    PdfPCell empty16 = new PdfPCell(new Phrase("  "));
-                                    empty16.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty16);
-
-
-                                    PdfPCell empty3 = new PdfPCell(new Phrase("  "));
-                                    empty3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty3);
-
-
-                                    PdfPCell empty4 = new PdfPCell(new Phrase("  "));
-                                    empty4.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty4);
-
-                                    PdfPCell empty5 = new PdfPCell(new Phrase("  "));
-                                    empty5.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty5);
-
-                                    PdfPCell empty10 = new PdfPCell(new Phrase("  "));
-                                    empty10.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty10);
-
-
-                                }
-                                iTextSharp.text.Image jpg5 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                jpg5.ScaleAbsolute(110f, 60f);
-                                PdfPCell bar4 = new PdfPCell(jpg5);
-                                bar4.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(bar4);
-
-                                PdfPCell empty31 = new PdfPCell(new Phrase("  "));
-                                empty31.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty31);
-
-                                PdfPCell empty32 = new PdfPCell(new Phrase("  "));
-                                empty32.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty32);
-
-                                PdfPCell empty33 = new PdfPCell(new Phrase("  "));
-                                empty33.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty33);
-
-                                PdfPCell empty34 = new PdfPCell(new Phrase("  "));
-                                empty34.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty34);
-
-                                PdfPCell empty35 = new PdfPCell(new Phrase("  "));
-                                empty35.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty35);
-
-                                PdfPCell empty36 = new PdfPCell(new Phrase("  "));
-                                empty36.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty36);
-                            }
-                            else if (lstImage.Items.Count % 4 == 2)
-                            {
-                                int k = 0;
-                                for (int i = 0; i < lstImage.Items.Count / 4; i++)
-                                {
-                                    iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg1.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar = new PdfPCell(jpg1);
-                                    bar.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar);
-
-                                    k++;
-
-
-                                    PdfPCell empty = new PdfPCell(new Phrase("  "));
-                                    empty.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty);
-
-
-                                    iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg2.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar1 = new PdfPCell(jpg2);
-                                    bar1.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar1);
-
-                                    k++;
-
-
-                                    PdfPCell empty8 = new PdfPCell(new Phrase("  "));
-                                    empty8.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty8);
-
-
-                                    iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg3.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar2 = new PdfPCell(jpg3);
-                                    bar2.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar2);
-                                    k++;
-
-
-                                    PdfPCell empty9 = new PdfPCell(new Phrase("  "));
-                                    empty9.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty9);
-
-                                    iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg4.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar3 = new PdfPCell(jpg4);
-                                    bar3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar3);
-                                    k++;
-
-                                    PdfPCell empty14 = new PdfPCell(new Phrase("  "));
-                                    empty14.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty14);
-
-                                    PdfPCell empty15 = new PdfPCell(new Phrase("  "));
-                                    empty15.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty15);
-
-                                    PdfPCell empty16 = new PdfPCell(new Phrase("  "));
-                                    empty16.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty16);
-
-
-                                    PdfPCell empty3 = new PdfPCell(new Phrase("  "));
-                                    empty3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty3);
-
-
-                                    PdfPCell empty4 = new PdfPCell(new Phrase("  "));
-                                    empty4.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty4);
-
-                                    PdfPCell empty5 = new PdfPCell(new Phrase("  "));
-                                    empty5.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty5);
-
-                                    PdfPCell empty10 = new PdfPCell(new Phrase("  "));
-                                    empty10.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty10);
-
-
-
-                                }
-                                iTextSharp.text.Image jpg5 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                jpg5.ScaleAbsolute(110f, 60f);
-                                PdfPCell bar4 = new PdfPCell(jpg5);
-                                bar4.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(bar4);
-
-                                k++;
-
-                                PdfPCell empty31 = new PdfPCell(new Phrase("  "));
-                                empty31.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty31);
-
-                                iTextSharp.text.Image jpg6 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                jpg6.ScaleAbsolute(110f, 60f);
-                                PdfPCell bar6 = new PdfPCell(jpg6);
-                                bar6.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(bar6);
-
-                                PdfPCell empty33 = new PdfPCell(new Phrase("  "));
-                                empty33.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty33);
-
-                                PdfPCell empty34 = new PdfPCell(new Phrase("  "));
-                                empty34.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty34);
-
-                                PdfPCell empty35 = new PdfPCell(new Phrase("  "));
-                                empty35.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty35);
-
-                                PdfPCell empty36 = new PdfPCell(new Phrase("  "));
-                                empty36.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty36);
-                            }
-                            else if (lstImage.Items.Count % 4 == 3)
-                            {
-
-                                int k = 0;
-                                int i;
-                                for (i = 0; i < lstImage.Items.Count / 4; i++)
-                                {
-
-                                    iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg1.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar = new PdfPCell(jpg1);
-                                    bar.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar);
-
-                                    k++;
-
-
-                                    PdfPCell empty = new PdfPCell(new Phrase("  "));
-                                    empty.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty);
-
-
-                                    iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg2.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar1 = new PdfPCell(jpg2);
-                                    bar1.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar1);
-
-                                    k++;
-
-
-                                    PdfPCell empty8 = new PdfPCell(new Phrase("  "));
-                                    empty8.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty8);
-
-
-                                    iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg3.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar2 = new PdfPCell(jpg3);
-                                    bar2.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar2);
-
-                                    k++;
-
-
-                                    PdfPCell empty9 = new PdfPCell(new Phrase("  "));
-                                    empty9.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty9);
-
-                                    iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg4.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar3 = new PdfPCell(jpg4);
-                                    bar3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar3);
-
-                                    k++;
-
-                                    PdfPCell empty14 = new PdfPCell(new Phrase("  "));
-                                    empty14.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty14);
-
-                                    PdfPCell empty15 = new PdfPCell(new Phrase("  "));
-                                    empty15.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty15);
-
-                                    PdfPCell empty16 = new PdfPCell(new Phrase("  "));
-                                    empty16.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty16);
-
-
-                                    PdfPCell empty3 = new PdfPCell(new Phrase("  "));
-                                    empty3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty3);
-
-
-                                    PdfPCell empty4 = new PdfPCell(new Phrase("  "));
-                                    empty4.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty4);
-
-                                    PdfPCell empty5 = new PdfPCell(new Phrase("  "));
-                                    empty5.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty5);
-
-                                    PdfPCell empty10 = new PdfPCell(new Phrase("  "));
-                                    empty10.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty10);
-
-
-
-                                }
-                                iTextSharp.text.Image jpg5 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                jpg5.ScaleAbsolute(110f, 60f);
-                                PdfPCell bar4 = new PdfPCell(jpg5);
-                                bar4.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(bar4);
-
-                                k++;
-
-                                PdfPCell empty31 = new PdfPCell(new Phrase("  "));
-                                empty31.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty31);
-
-                                iTextSharp.text.Image jpg99 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                jpg99.ScaleAbsolute(110f, 60f);
-                                PdfPCell bar99 = new PdfPCell(jpg99);
-                                bar99.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(bar99);
-
-                                k++;
-
-                                PdfPCell empty33 = new PdfPCell(new Phrase("  "));
-                                empty33.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty33);
-
-                                iTextSharp.text.Image jpg54 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                jpg54.ScaleAbsolute(110f, 60f);
-                                PdfPCell bar54 = new PdfPCell(jpg54);
-                                bar54.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(bar54);
-
-                                PdfPCell empty35 = new PdfPCell(new Phrase("  "));
-                                empty35.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty35);
-
-                                PdfPCell empty36 = new PdfPCell(new Phrase("  "));
-                                empty36.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty36);
-                            }
-                            else if (lstImage.Items.Count == 1)
-                            {
-                                int k = 0;
                                 iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg1.ScaleAbsolute(110f, 60f);
                                 PdfPCell bar = new PdfPCell(jpg1);
                                 bar.Border = PdfPCell.NO_BORDER;
                                 table.AddCell(bar);
+
+                                k++;
+
+
+                                PdfPCell empty = new PdfPCell(new Phrase("  "));
+                                empty.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty);
+
+
+                                iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg2.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar1 = new PdfPCell(jpg2);
+                                bar1.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar1);
+
+                                k++;
+
+
+                                PdfPCell empty8 = new PdfPCell(new Phrase("  "));
+                                empty8.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty8);
+
+
+                                iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg3.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar2 = new PdfPCell(jpg3);
+                                bar2.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar2);
+                                k++;
+
+
+                                PdfPCell empty9 = new PdfPCell(new Phrase("  "));
+                                empty9.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty9);
+
+                                iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg4.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar3 = new PdfPCell(jpg4);
+                                bar3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar3);
+                                k++;
+
+                                //PdfPCell empty14 = new PdfPCell(new Phrase("  "));
+                                //empty14.Border = PdfPCell.NO_BORDER;
+                                //table.AddCell(empty14);
+
+                                //PdfPCell empty15 = new PdfPCell(new Phrase("  "));
+                                //empty15.Border = PdfPCell.NO_BORDER;
+                                //table.AddCell(empty15);
+
+                                //PdfPCell empty16 = new PdfPCell(new Phrase("  "));
+                                //empty16.Border = PdfPCell.NO_BORDER;
+                                //table.AddCell(empty16);
+
+
+                                //PdfPCell empty3 = new PdfPCell(new Phrase("  "));
+                                //empty3.Border = PdfPCell.NO_BORDER;
+                                //table.AddCell(empty3);
+
+
+                                //PdfPCell empty4 = new PdfPCell(new Phrase("  "));
+                                //empty4.Border = PdfPCell.NO_BORDER;
+                                //table.AddCell(empty4);
+
+                                //PdfPCell empty5 = new PdfPCell(new Phrase("  "));
+                                //empty5.Border = PdfPCell.NO_BORDER;
+                                //table.AddCell(empty5);
+
+                                //PdfPCell empty10 = new PdfPCell(new Phrase("  "));
+                                //empty10.Border = PdfPCell.NO_BORDER;
+                                //table.AddCell(empty10);
+
+
+                                //PdfPCell empty11 = new PdfPCell(new Phrase("  "));
+                                //empty11.Border = PdfPCell.NO_BORDER;
+                                //table.AddCell(empty11);
+
+                                //PdfPCell empty12 = new PdfPCell(new Phrase("  "));
+                                //empty12.Border = PdfPCell.NO_BORDER;
+                                //table.AddCell(empty12);
+
+                                //PdfPCell empty13 = new PdfPCell(new Phrase("  "));
+                                //empty13.Border = PdfPCell.NO_BORDER;
+                                //table.AddCell(empty13);
+
+                                //PdfPCell empty21 = new PdfPCell(new Phrase("  "));
+                                //empty21.Border = PdfPCell.NO_BORDER;
+                                //table.AddCell(empty21);
+
+                                //PdfPCell empty22 = new PdfPCell(new Phrase("  "));
+                                //empty22.Border = PdfPCell.NO_BORDER;
+                                //table.AddCell(empty22);
+
+                                //PdfPCell empty23 = new PdfPCell(new Phrase("  "));
+                                //empty23.Border = PdfPCell.NO_BORDER;
+                                //table.AddCell(empty23);
+                            }
+                        }
+                        else if (lstImage.Items.Count % 4 == 1)
+                        {
+                            int k = 0;
+                            int i;
+                            for (i = 0; i < lstImage.Items.Count / 4; i++)
+                            {
+                                iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg1.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar = new PdfPCell(jpg1);
+                                bar.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar);
+
+                                k++;
+
+
+                                PdfPCell empty = new PdfPCell(new Phrase("  "));
+                                empty.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty);
+
+
+                                iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg2.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar1 = new PdfPCell(jpg2);
+                                bar1.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar1);
+
+                                k++;
+
+
+                                PdfPCell empty8 = new PdfPCell(new Phrase("  "));
+                                empty8.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty8);
+
+
+                                iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg3.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar2 = new PdfPCell(jpg3);
+                                bar2.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar2);
+                                k++;
+
+
+                                PdfPCell empty9 = new PdfPCell(new Phrase("  "));
+                                empty9.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty9);
+
+                                iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg4.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar3 = new PdfPCell(jpg4);
+                                bar3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar3);
+                                k++;
+
+                                PdfPCell empty14 = new PdfPCell(new Phrase("  "));
+                                empty14.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty14);
+
+                                PdfPCell empty15 = new PdfPCell(new Phrase("  "));
+                                empty15.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty15);
+
+                                PdfPCell empty16 = new PdfPCell(new Phrase("  "));
+                                empty16.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty16);
+
+
+                                PdfPCell empty3 = new PdfPCell(new Phrase("  "));
+                                empty3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty3);
+
+
+                                PdfPCell empty4 = new PdfPCell(new Phrase("  "));
+                                empty4.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty4);
+
+                                PdfPCell empty5 = new PdfPCell(new Phrase("  "));
+                                empty5.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty5);
+
+                                PdfPCell empty10 = new PdfPCell(new Phrase("  "));
+                                empty10.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty10);
+
+
+                            }
+                            iTextSharp.text.Image jpg5 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            jpg5.ScaleAbsolute(110f, 60f);
+                            PdfPCell bar4 = new PdfPCell(jpg5);
+                            bar4.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar4);
+
+                            PdfPCell empty31 = new PdfPCell(new Phrase("  "));
+                            empty31.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty31);
+
+                            PdfPCell empty32 = new PdfPCell(new Phrase("  "));
+                            empty32.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty32);
+
+                            PdfPCell empty33 = new PdfPCell(new Phrase("  "));
+                            empty33.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty33);
+
+                            PdfPCell empty34 = new PdfPCell(new Phrase("  "));
+                            empty34.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty34);
+
+                            PdfPCell empty35 = new PdfPCell(new Phrase("  "));
+                            empty35.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty35);
+
+                            PdfPCell empty36 = new PdfPCell(new Phrase("  "));
+                            empty36.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty36);
+                        }
+                        else if (lstImage.Items.Count % 4 == 2)
+                        {
+                            int k = 0;
+                            for (int i = 0; i < lstImage.Items.Count / 4; i++)
+                            {
+                                iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg1.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar = new PdfPCell(jpg1);
+                                bar.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar);
+
+                                k++;
+
+
+                                PdfPCell empty = new PdfPCell(new Phrase("  "));
+                                empty.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty);
+
+
+                                iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg2.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar1 = new PdfPCell(jpg2);
+                                bar1.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar1);
+
+                                k++;
+
+
+                                PdfPCell empty8 = new PdfPCell(new Phrase("  "));
+                                empty8.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty8);
+
+
+                                iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg3.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar2 = new PdfPCell(jpg3);
+                                bar2.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar2);
+                                k++;
+
+
+                                PdfPCell empty9 = new PdfPCell(new Phrase("  "));
+                                empty9.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty9);
+
+                                iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg4.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar3 = new PdfPCell(jpg4);
+                                bar3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar3);
+                                k++;
+
+                                PdfPCell empty14 = new PdfPCell(new Phrase("  "));
+                                empty14.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty14);
+
+                                PdfPCell empty15 = new PdfPCell(new Phrase("  "));
+                                empty15.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty15);
+
+                                PdfPCell empty16 = new PdfPCell(new Phrase("  "));
+                                empty16.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty16);
+
+
+                                PdfPCell empty3 = new PdfPCell(new Phrase("  "));
+                                empty3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty3);
+
+
+                                PdfPCell empty4 = new PdfPCell(new Phrase("  "));
+                                empty4.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty4);
+
+                                PdfPCell empty5 = new PdfPCell(new Phrase("  "));
+                                empty5.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty5);
+
+                                PdfPCell empty10 = new PdfPCell(new Phrase("  "));
+                                empty10.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty10);
+
+
+
+                            }
+                            iTextSharp.text.Image jpg5 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            jpg5.ScaleAbsolute(110f, 60f);
+                            PdfPCell bar4 = new PdfPCell(jpg5);
+                            bar4.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar4);
+
+                            k++;
+
+                            PdfPCell empty31 = new PdfPCell(new Phrase("  "));
+                            empty31.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty31);
+
+                            iTextSharp.text.Image jpg6 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            jpg6.ScaleAbsolute(110f, 60f);
+                            PdfPCell bar6 = new PdfPCell(jpg6);
+                            bar6.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar6);
+
+                            PdfPCell empty33 = new PdfPCell(new Phrase("  "));
+                            empty33.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty33);
+
+                            PdfPCell empty34 = new PdfPCell(new Phrase("  "));
+                            empty34.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty34);
+
+                            PdfPCell empty35 = new PdfPCell(new Phrase("  "));
+                            empty35.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty35);
+
+                            PdfPCell empty36 = new PdfPCell(new Phrase("  "));
+                            empty36.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty36);
+                        }
+                        else if (lstImage.Items.Count % 4 == 3)
+                        {
+
+                            int k = 0;
+                            int i;
+                            for (i = 0; i < lstImage.Items.Count / 4; i++)
+                            {
+
+                                iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg1.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar = new PdfPCell(jpg1);
+                                bar.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar);
+
+                                k++;
+
+
+                                PdfPCell empty = new PdfPCell(new Phrase("  "));
+                                empty.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty);
+
+
+                                iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg2.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar1 = new PdfPCell(jpg2);
+                                bar1.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar1);
+
+                                k++;
+
+
+                                PdfPCell empty8 = new PdfPCell(new Phrase("  "));
+                                empty8.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty8);
+
+
+                                iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg3.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar2 = new PdfPCell(jpg3);
+                                bar2.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar2);
+
+                                k++;
+
+
+                                PdfPCell empty9 = new PdfPCell(new Phrase("  "));
+                                empty9.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty9);
+
+                                iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg4.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar3 = new PdfPCell(jpg4);
+                                bar3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar3);
+
+                                k++;
+
+                                PdfPCell empty14 = new PdfPCell(new Phrase("  "));
+                                empty14.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty14);
+
+                                PdfPCell empty15 = new PdfPCell(new Phrase("  "));
+                                empty15.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty15);
+
+                                PdfPCell empty16 = new PdfPCell(new Phrase("  "));
+                                empty16.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty16);
+
+
+                                PdfPCell empty3 = new PdfPCell(new Phrase("  "));
+                                empty3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty3);
+
+
+                                PdfPCell empty4 = new PdfPCell(new Phrase("  "));
+                                empty4.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty4);
+
+                                PdfPCell empty5 = new PdfPCell(new Phrase("  "));
+                                empty5.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty5);
+
+                                PdfPCell empty10 = new PdfPCell(new Phrase("  "));
+                                empty10.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty10);
+
+
+
+                            }
+                            iTextSharp.text.Image jpg5 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            jpg5.ScaleAbsolute(110f, 60f);
+                            PdfPCell bar4 = new PdfPCell(jpg5);
+                            bar4.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar4);
+
+                            k++;
+
+                            PdfPCell empty31 = new PdfPCell(new Phrase("  "));
+                            empty31.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty31);
+
+                            iTextSharp.text.Image jpg99 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            jpg99.ScaleAbsolute(110f, 60f);
+                            PdfPCell bar99 = new PdfPCell(jpg99);
+                            bar99.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar99);
+
+                            k++;
+
+                            PdfPCell empty33 = new PdfPCell(new Phrase("  "));
+                            empty33.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty33);
+
+                            iTextSharp.text.Image jpg54 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            jpg54.ScaleAbsolute(110f, 60f);
+                            PdfPCell bar54 = new PdfPCell(jpg54);
+                            bar54.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar54);
+
+                            PdfPCell empty35 = new PdfPCell(new Phrase("  "));
+                            empty35.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty35);
+
+                            PdfPCell empty36 = new PdfPCell(new Phrase("  "));
+                            empty36.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty36);
+                        }
+                        else if (lstImage.Items.Count == 1)
+                        {
+                            int k = 0;
+                            iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            PdfPCell bar = new PdfPCell(jpg1);
+                            bar.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar);
+
+                            PdfPCell empty3 = new PdfPCell(new Phrase("  "));
+                            empty3.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty3);
+                            PdfPCell empty4 = new PdfPCell(new Phrase("  "));
+                            empty4.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty4);
+
+                        }
+                        else
+                        {
+                            int k = 0;
+                            for (int i = 0; i < (lstImage.Items.Count) / 2; i++)
+                            {
+
+
+
+
+                                iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg1.Alignment = iTextSharp.text.Image.ALIGN_MIDDLE;
+
+                                PdfPCell bar = new PdfPCell(jpg1);
+                                bar.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar);
+
+                                k++;
+
+                                PdfPCell empty = new PdfPCell();
+                                empty.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty);
+                                iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                PdfPCell bar1 = new PdfPCell(jpg2);
+                                bar1.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar1);
+
+                                k++;
 
                                 PdfPCell empty3 = new PdfPCell(new Phrase("  "));
                                 empty3.Border = PdfPCell.NO_BORDER;
@@ -1077,101 +1114,65 @@ namespace ImageHeaven
                                 PdfPCell empty4 = new PdfPCell(new Phrase("  "));
                                 empty4.Border = PdfPCell.NO_BORDER;
                                 table.AddCell(empty4);
+                                PdfPCell empty5 = new PdfPCell(new Phrase("  "));
+                                empty5.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty5);
+
+
+
+
 
                             }
-                            else
-                            {
-                                int k = 0;
-                                for (int i = 0; i < (lstImage.Items.Count) / 2; i++)
-                                {
-
-
-
-
-                                    iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg1.Alignment = iTextSharp.text.Image.ALIGN_MIDDLE;
-
-                                    PdfPCell bar = new PdfPCell(jpg1);
-                                    bar.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar);
-
-                                    k++;
-
-                                    PdfPCell empty = new PdfPCell();
-                                    empty.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty);
-                                    iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    PdfPCell bar1 = new PdfPCell(jpg2);
-                                    bar1.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar1);
-
-                                    k++;
-
-                                    PdfPCell empty3 = new PdfPCell(new Phrase("  "));
-                                    empty3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty3);
-                                    PdfPCell empty4 = new PdfPCell(new Phrase("  "));
-                                    empty4.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty4);
-                                    PdfPCell empty5 = new PdfPCell(new Phrase("  "));
-                                    empty5.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty5);
-
-
-
-
-
-                                }
-                                iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                PdfPCell bar3 = new PdfPCell(jpg3);
-                                bar3.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(bar3);
-                                PdfPCell empty1 = new PdfPCell();
-                                empty1.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty1);
-                                PdfPCell empty2 = new PdfPCell();
-                                empty2.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty2);
-                            }
-
-                            doc.Add(para);
-                            if (lstImage.Items.Count > 32 && lstImage.Items.Count <= 36)
-                            {
-                                doc.Add(new Paragraph("\n"));
-
-                                table.SpacingAfter = 70f;
-                            }
-                            doc.Add(table);
-
-                            //DirectoryInfo dir_info1 = new DirectoryInfo(folderPath1);
-                            //string directory1 = dir_info1.Name;
-                            para1 = new Paragraph("Bundle name: " + GetBundleName(Convert.ToInt32(projKey), Convert.ToInt32(bundleKey)) + ", No. of Barcode: " + lstImage.Items.Count + " ,Generated : " + Convert.ToString(Convert.ToInt32(_GetGenCount(projKey, bundleKey).Rows.Count) + 1) + " times", font);
-
-                            para1.Alignment = Element.ALIGN_RIGHT;
-                            doc.Add(para1);
-
-                            doc.Add(table1);
-                            doc.Close();
-
-
-                            Directory.Delete(expFolder + "\\Barcode", true);
-                            bool insertlog = insertIntoDB(projKey, bundleKey, deComboBox2.Text);
-                            if (insertlog == true)
-                            {
-                                
-                                MessageBox.Show(this, "Barcode Generated Successfully...", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                button1.Enabled = true;
-                                deButton20.Enabled = true;
-                                int pendBundle = pendingBundle().Rows.Count;
-
-                                if (pendBundle == 0)
-                                {
-                                    deLabel1.Text = "No bundle is pending for barcode generate";
-                                }
-                                else { deLabel1.Text = "Pending bundle : " + pendBundle; }
+                            iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            PdfPCell bar3 = new PdfPCell(jpg3);
+                            bar3.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar3);
+                            PdfPCell empty1 = new PdfPCell();
+                            empty1.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty1);
+                            PdfPCell empty2 = new PdfPCell();
+                            empty2.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty2);
                         }
-                        
-                        
+
+                        doc.Add(para);
+                        if (lstImage.Items.Count > 32 && lstImage.Items.Count <= 36)
+                        {
+                            doc.Add(new Paragraph("\n"));
+
+                            table.SpacingAfter = 70f;
+                        }
+                        doc.Add(table);
+
+                        //DirectoryInfo dir_info1 = new DirectoryInfo(folderPath1);
+                        //string directory1 = dir_info1.Name;
+                        //para1 = new Paragraph("Bundle name: " + GetBundleName(Convert.ToInt32(projKey), Convert.ToInt32(bundleKey)) + ", No. of Barcode: " + lstImage.Items.Count + " ,Generated : " + Convert.ToString(Convert.ToInt32(_GetGenCount(projKey, bundleKey).Rows.Count) + 1) + " times", font);
+
+                        //para1.Alignment = Element.ALIGN_RIGHT;
+                        //doc.Add(para1);
+
+                        doc.Add(table1);
+                        doc.Close();
+
+
+                        Directory.Delete(expFolder + "\\Barcode", true);
+                        bool insertlog = insertIntoDB(projKey, bundleKey, deComboBox2.Text);
+                        if (insertlog == true)
+                        {
+
+                            MessageBox.Show(this, "Barcode Generated Successfully...", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            button1.Enabled = true;
+                            deButton20.Enabled = true;
+                            int pendBundle = pendingBundle().Rows.Count;
+
+                            if (pendBundle == 0)
+                            {
+                                deLabel1.Text = "No bundle is pending for barcode generate";
+                            }
+                            else { deLabel1.Text = "Pending bundle : " + pendBundle; }
+                        }
+
+
                     }
                     else
                     {
@@ -1275,60 +1276,60 @@ namespace ImageHeaven
 
                                         k++;
 
-                                        PdfPCell empty14 = new PdfPCell(new Phrase("  "));
-                                        empty14.Border = PdfPCell.NO_BORDER;
-                                        table.AddCell(empty14);
+                                        //PdfPCell empty14 = new PdfPCell(new Phrase("  "));
+                                        //empty14.Border = PdfPCell.NO_BORDER;
+                                        //table.AddCell(empty14);
 
-                                        PdfPCell empty15 = new PdfPCell(new Phrase("  "));
-                                        empty15.Border = PdfPCell.NO_BORDER;
-                                        table.AddCell(empty15);
+                                        //PdfPCell empty15 = new PdfPCell(new Phrase("  "));
+                                        //empty15.Border = PdfPCell.NO_BORDER;
+                                        //table.AddCell(empty15);
 
-                                        PdfPCell empty16 = new PdfPCell(new Phrase("  "));
-                                        empty16.Border = PdfPCell.NO_BORDER;
-                                        table.AddCell(empty16);
-
-
-                                        PdfPCell empty3 = new PdfPCell(new Phrase("  "));
-                                        empty3.Border = PdfPCell.NO_BORDER;
-                                        table.AddCell(empty3);
+                                        //PdfPCell empty16 = new PdfPCell(new Phrase("  "));
+                                        //empty16.Border = PdfPCell.NO_BORDER;
+                                        //table.AddCell(empty16);
 
 
-                                        PdfPCell empty4 = new PdfPCell(new Phrase("  "));
-                                        empty4.Border = PdfPCell.NO_BORDER;
-                                        table.AddCell(empty4);
-
-                                        PdfPCell empty5 = new PdfPCell(new Phrase("  "));
-                                        empty5.Border = PdfPCell.NO_BORDER;
-                                        table.AddCell(empty5);
-
-                                        PdfPCell empty10 = new PdfPCell(new Phrase("  "));
-                                        empty10.Border = PdfPCell.NO_BORDER;
-                                        table.AddCell(empty10);
+                                        //PdfPCell empty3 = new PdfPCell(new Phrase("  "));
+                                        //empty3.Border = PdfPCell.NO_BORDER;
+                                        //table.AddCell(empty3);
 
 
-                                        PdfPCell empty11 = new PdfPCell(new Phrase("  "));
-                                        empty11.Border = PdfPCell.NO_BORDER;
-                                        table.AddCell(empty11);
+                                        //PdfPCell empty4 = new PdfPCell(new Phrase("  "));
+                                        //empty4.Border = PdfPCell.NO_BORDER;
+                                        //table.AddCell(empty4);
 
-                                        PdfPCell empty12 = new PdfPCell(new Phrase("  "));
-                                        empty12.Border = PdfPCell.NO_BORDER;
-                                        table.AddCell(empty12);
+                                        //PdfPCell empty5 = new PdfPCell(new Phrase("  "));
+                                        //empty5.Border = PdfPCell.NO_BORDER;
+                                        //table.AddCell(empty5);
 
-                                        PdfPCell empty13 = new PdfPCell(new Phrase("  "));
-                                        empty13.Border = PdfPCell.NO_BORDER;
-                                        table.AddCell(empty13);
+                                        //PdfPCell empty10 = new PdfPCell(new Phrase("  "));
+                                        //empty10.Border = PdfPCell.NO_BORDER;
+                                        //table.AddCell(empty10);
 
-                                        PdfPCell empty21 = new PdfPCell(new Phrase("  "));
-                                        empty21.Border = PdfPCell.NO_BORDER;
-                                        table.AddCell(empty21);
 
-                                        PdfPCell empty22 = new PdfPCell(new Phrase("  "));
-                                        empty22.Border = PdfPCell.NO_BORDER;
-                                        table.AddCell(empty22);
+                                        //PdfPCell empty11 = new PdfPCell(new Phrase("  "));
+                                        //empty11.Border = PdfPCell.NO_BORDER;
+                                        //table.AddCell(empty11);
 
-                                        PdfPCell empty23 = new PdfPCell(new Phrase("  "));
-                                        empty23.Border = PdfPCell.NO_BORDER;
-                                        table.AddCell(empty23);
+                                        //PdfPCell empty12 = new PdfPCell(new Phrase("  "));
+                                        //empty12.Border = PdfPCell.NO_BORDER;
+                                        //table.AddCell(empty12);
+
+                                        //PdfPCell empty13 = new PdfPCell(new Phrase("  "));
+                                        //empty13.Border = PdfPCell.NO_BORDER;
+                                        //table.AddCell(empty13);
+
+                                        //PdfPCell empty21 = new PdfPCell(new Phrase("  "));
+                                        //empty21.Border = PdfPCell.NO_BORDER;
+                                        //table.AddCell(empty21);
+
+                                        //PdfPCell empty22 = new PdfPCell(new Phrase("  "));
+                                        //empty22.Border = PdfPCell.NO_BORDER;
+                                        //table.AddCell(empty22);
+
+                                        //PdfPCell empty23 = new PdfPCell(new Phrase("  "));
+                                        //empty23.Border = PdfPCell.NO_BORDER;
+                                        //table.AddCell(empty23);
                                     }
                                 }
                                 else if (lstImage.Items.Count % 4 == 1)
@@ -1885,524 +1886,560 @@ namespace ImageHeaven
                     }
                     if (lstImage.Items.Count > 36)
                     {
-                        
-                            sfdUAT.Filter = "Pdf files (*.pdf)|*.pdf";
-                            sfdUAT.FilterIndex = 2;
-                            sfdUAT.RestoreDirectory = true;
-                            sfdUAT.FileName = deComboBox2.Text;
-                            sfdUAT.ShowDialog();
 
-                            FileStream fs = new FileStream(sfdUAT.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
-                            Document doc = new Document();
-                            PdfWriter writer = PdfWriter.GetInstance(doc, fs);
-                            doc.SetPageSize(iTextSharp.text.PageSize.A4);
-                            PdfPTable table = new PdfPTable(7);
-                            table.TotalWidth = 500f;
-                            table.LockedWidth = true;
-                            float[] widths = new float[] { 4f, 1.66f, 4f, 1.66f, 4f, 1.66f, 4f };
+                        sfdUAT.Filter = "Pdf files (*.pdf)|*.pdf";
+                        sfdUAT.FilterIndex = 2;
+                        sfdUAT.RestoreDirectory = true;
+                        sfdUAT.FileName = deComboBox2.Text;
+                        sfdUAT.ShowDialog();
 
-                            table.SetWidths(widths);
-                            table.HorizontalAlignment = 0;
+                        FileStream fs = new FileStream(sfdUAT.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+                        Document doc = new Document();
+                        PdfWriter writer = PdfWriter.GetInstance(doc, fs);
+                        doc.SetPageSize(iTextSharp.text.PageSize.A4);
+                        PdfPTable table = new PdfPTable(7);
+                        table.TotalWidth = 500f;
+                        table.LockedWidth = true;
+                        float[] widths = new float[] { 4f, 1.66f, 4f, 1.66f, 4f, 1.66f, 4f };
 
-                            table.SpacingBefore = 10f;
-                            table.SpacingAfter = 5f;
-                            PdfPTable table1 = new PdfPTable(7);
-                            table1.TotalWidth = 500f;
-                            table1.LockedWidth = true;
-                            float[] widths1 = new float[] { 4f, 1.66f, 4f, 1.66f, 4f, 1.66f, 4f };
+                        table.SetWidths(widths);
+                        table.HorizontalAlignment = 0;
 
-                            table1.SetWidths(widths1);
-                            table1.HorizontalAlignment = 0;
+                        table.SpacingBefore = 10f;
+                        table.SpacingAfter = 5f;
+                        PdfPTable table1 = new PdfPTable(7);
+                        table1.TotalWidth = 500f;
+                        table1.LockedWidth = true;
+                        float[] widths1 = new float[] { 4f, 1.66f, 4f, 1.66f, 4f, 1.66f, 4f };
 
-                            table1.SpacingBefore = 10f;
-                            table1.SpacingAfter = 10f;
-                            doc.Open();
-                            BaseFont bf = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-                            iTextSharp.text.Font font = new iTextSharp.text.Font(bf, 8, iTextSharp.text.Font.NORMAL);
-                            //DirectoryInfo dir_info = new DirectoryInfo(folderPath);
-                            //string directory = dir_info.Name;
-                            para = new Paragraph("Bundle name: " + GetBundleName(Convert.ToInt32(projKey), Convert.ToInt32(bundleKey)) + ", No. of Barcode: " + lstImage.Items.Count, font);
+                        table1.SetWidths(widths1);
+                        table1.HorizontalAlignment = 0;
 
-                            para.Alignment = Element.ALIGN_RIGHT;
+                        table1.SpacingBefore = 10f;
+                        table1.SpacingAfter = 10f;
+                        doc.Open();
+                        BaseFont bf = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+                        iTextSharp.text.Font font = new iTextSharp.text.Font(bf, 8, iTextSharp.text.Font.NORMAL);
+                        //DirectoryInfo dir_info = new DirectoryInfo(folderPath);
+                        //string directory = dir_info.Name;
+                        para = new Paragraph("Bundle name: " + GetBundleName(Convert.ToInt32(projKey), Convert.ToInt32(bundleKey)) + ", No. of Barcode: " + lstImage.Items.Count, font);
+
+                        para.Alignment = Element.ALIGN_RIGHT;
 
 
-                            if (lstImage.Items.Count % 4 == 0)
+                        if (lstImage.Items.Count % 4 == 0)
+                        {
+                            int k = 0;
+                            for (int i = 0; i < lstImage.Items.Count / 4; i++)
                             {
-                                int k = 0;
-                                for (int i = 0; i < lstImage.Items.Count / 4; i++)
-                                {
-                                    iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[i]);
-                                    jpg1.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar = new PdfPCell(jpg1);
-                                    bar.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar);
-
-                                    k++;
-
-
-                                    PdfPCell empty = new PdfPCell(new Phrase("  "));
-                                    empty.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty);
-
-
-                                    iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[i]);
-                                    jpg2.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar1 = new PdfPCell(jpg2);
-                                    bar1.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar1);
-
-                                    k++;
-
-
-                                    PdfPCell empty8 = new PdfPCell(new Phrase("  "));
-                                    empty8.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty8);
-
-
-                                    iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[i]);
-                                    jpg3.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar2 = new PdfPCell(jpg3);
-                                    bar2.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar2);
-                                    k++;
-
-
-                                    PdfPCell empty9 = new PdfPCell(new Phrase("  "));
-                                    empty9.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty9);
-
-                                    iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[i]);
-                                    jpg4.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar3 = new PdfPCell(jpg4);
-                                    bar3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar3);
-                                    k++;
-
-                                    PdfPCell empty14 = new PdfPCell(new Phrase("  "));
-                                    empty14.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty14);
-
-                                    PdfPCell empty15 = new PdfPCell(new Phrase("  "));
-                                    empty15.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty15);
-
-                                    PdfPCell empty16 = new PdfPCell(new Phrase("  "));
-                                    empty16.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty16);
-
-
-                                    PdfPCell empty3 = new PdfPCell(new Phrase("  "));
-                                    empty3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty3);
-
-
-                                    PdfPCell empty4 = new PdfPCell(new Phrase("  "));
-                                    empty4.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty4);
-
-                                    PdfPCell empty5 = new PdfPCell(new Phrase("  "));
-                                    empty5.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty5);
-
-                                    PdfPCell empty10 = new PdfPCell(new Phrase("  "));
-                                    empty10.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty10);
-
-
-                                    PdfPCell empty11 = new PdfPCell(new Phrase("  "));
-                                    empty11.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty11);
-
-                                    PdfPCell empty12 = new PdfPCell(new Phrase("  "));
-                                    empty12.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty12);
-
-                                    PdfPCell empty13 = new PdfPCell(new Phrase("  "));
-                                    empty13.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty13);
-
-                                    PdfPCell empty21 = new PdfPCell(new Phrase("  "));
-                                    empty21.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty21);
-
-                                    PdfPCell empty22 = new PdfPCell(new Phrase("  "));
-                                    empty22.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty22);
-
-                                    PdfPCell empty23 = new PdfPCell(new Phrase("  "));
-                                    empty23.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty23);
-                                }
-                            }
-                            else if (lstImage.Items.Count % 4 == 1)
-                            {
-                                int k = 0;
-                                int i;
-                                for (i = 0; i < lstImage.Items.Count / 4; i++)
-                                {
-                                    iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg1.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar = new PdfPCell(jpg1);
-                                    bar.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar);
-
-                                    k++;
-
-
-                                    PdfPCell empty = new PdfPCell(new Phrase("  "));
-                                    empty.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty);
-
-
-                                    iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg2.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar1 = new PdfPCell(jpg2);
-                                    bar1.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar1);
-
-                                    k++;
-
-
-                                    PdfPCell empty8 = new PdfPCell(new Phrase("  "));
-                                    empty8.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty8);
-
-
-                                    iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg3.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar2 = new PdfPCell(jpg3);
-                                    bar2.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar2);
-                                    k++;
-
-
-                                    PdfPCell empty9 = new PdfPCell(new Phrase("  "));
-                                    empty9.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty9);
-
-                                    iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg4.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar3 = new PdfPCell(jpg4);
-                                    bar3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar3);
-                                    k++;
-
-                                    PdfPCell empty14 = new PdfPCell(new Phrase("  "));
-                                    empty14.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty14);
-
-                                    PdfPCell empty15 = new PdfPCell(new Phrase("  "));
-                                    empty15.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty15);
-
-                                    PdfPCell empty16 = new PdfPCell(new Phrase("  "));
-                                    empty16.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty16);
-
-
-                                    PdfPCell empty3 = new PdfPCell(new Phrase("  "));
-                                    empty3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty3);
-
-
-                                    PdfPCell empty4 = new PdfPCell(new Phrase("  "));
-                                    empty4.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty4);
-
-                                    PdfPCell empty5 = new PdfPCell(new Phrase("  "));
-                                    empty5.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty5);
-
-                                    PdfPCell empty10 = new PdfPCell(new Phrase("  "));
-                                    empty10.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty10);
-
-
-                                }
-                                iTextSharp.text.Image jpg5 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                jpg5.ScaleAbsolute(110f, 60f);
-                                PdfPCell bar4 = new PdfPCell(jpg5);
-                                bar4.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(bar4);
-
-                                PdfPCell empty31 = new PdfPCell(new Phrase("  "));
-                                empty31.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty31);
-
-                                PdfPCell empty32 = new PdfPCell(new Phrase("  "));
-                                empty32.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty32);
-
-                                PdfPCell empty33 = new PdfPCell(new Phrase("  "));
-                                empty33.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty33);
-
-                                PdfPCell empty34 = new PdfPCell(new Phrase("  "));
-                                empty34.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty34);
-
-                                PdfPCell empty35 = new PdfPCell(new Phrase("  "));
-                                empty35.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty35);
-
-                                PdfPCell empty36 = new PdfPCell(new Phrase("  "));
-                                empty36.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty36);
-                            }
-                            else if (lstImage.Items.Count % 4 == 2)
-                            {
-                                int k = 0;
-                                for (int i = 0; i < lstImage.Items.Count / 4; i++)
-                                {
-                                    iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg1.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar = new PdfPCell(jpg1);
-                                    bar.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar);
-
-                                    k++;
-
-
-                                    PdfPCell empty = new PdfPCell(new Phrase("  "));
-                                    empty.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty);
-
-
-                                    iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg2.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar1 = new PdfPCell(jpg2);
-                                    bar1.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar1);
-
-                                    k++;
-
-
-                                    PdfPCell empty8 = new PdfPCell(new Phrase("  "));
-                                    empty8.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty8);
-
-
-                                    iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg3.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar2 = new PdfPCell(jpg3);
-                                    bar2.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar2);
-                                    k++;
-
-
-                                    PdfPCell empty9 = new PdfPCell(new Phrase("  "));
-                                    empty9.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty9);
-
-                                    iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg4.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar3 = new PdfPCell(jpg4);
-                                    bar3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar3);
-                                    k++;
-
-                                    PdfPCell empty14 = new PdfPCell(new Phrase("  "));
-                                    empty14.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty14);
-
-                                    PdfPCell empty15 = new PdfPCell(new Phrase("  "));
-                                    empty15.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty15);
-
-                                    PdfPCell empty16 = new PdfPCell(new Phrase("  "));
-                                    empty16.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty16);
-
-
-                                    PdfPCell empty3 = new PdfPCell(new Phrase("  "));
-                                    empty3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty3);
-
-
-                                    PdfPCell empty4 = new PdfPCell(new Phrase("  "));
-                                    empty4.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty4);
-
-                                    PdfPCell empty5 = new PdfPCell(new Phrase("  "));
-                                    empty5.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty5);
-
-                                    PdfPCell empty10 = new PdfPCell(new Phrase("  "));
-                                    empty10.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty10);
-
-
-
-                                }
-                                iTextSharp.text.Image jpg5 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                jpg5.ScaleAbsolute(110f, 60f);
-                                PdfPCell bar4 = new PdfPCell(jpg5);
-                                bar4.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(bar4);
-
-                                k++;
-
-                                PdfPCell empty31 = new PdfPCell(new Phrase("  "));
-                                empty31.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty31);
-
-                                iTextSharp.text.Image jpg6 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                jpg6.ScaleAbsolute(110f, 60f);
-                                PdfPCell bar6 = new PdfPCell(jpg6);
-                                bar6.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(bar6);
-
-                                PdfPCell empty33 = new PdfPCell(new Phrase("  "));
-                                empty33.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty33);
-
-                                PdfPCell empty34 = new PdfPCell(new Phrase("  "));
-                                empty34.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty34);
-
-                                PdfPCell empty35 = new PdfPCell(new Phrase("  "));
-                                empty35.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty35);
-
-                                PdfPCell empty36 = new PdfPCell(new Phrase("  "));
-                                empty36.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty36);
-                            }
-                            else if (lstImage.Items.Count % 4 == 3)
-                            {
-
-                                int k = 0;
-                                int i;
-                                for (i = 0; i < lstImage.Items.Count / 4; i++)
-                                {
-
-                                    iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg1.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar = new PdfPCell(jpg1);
-                                    bar.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar);
-
-                                    k++;
-
-
-                                    PdfPCell empty = new PdfPCell(new Phrase("  "));
-                                    empty.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty);
-
-
-                                    iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg2.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar1 = new PdfPCell(jpg2);
-                                    bar1.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar1);
-
-                                    k++;
-
-
-                                    PdfPCell empty8 = new PdfPCell(new Phrase("  "));
-                                    empty8.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty8);
-
-
-                                    iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg3.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar2 = new PdfPCell(jpg3);
-                                    bar2.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar2);
-
-                                    k++;
-
-
-                                    PdfPCell empty9 = new PdfPCell(new Phrase("  "));
-                                    empty9.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty9);
-
-                                    iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg4.ScaleAbsolute(110f, 60f);
-                                    PdfPCell bar3 = new PdfPCell(jpg4);
-                                    bar3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar3);
-
-                                    k++;
-
-                                    PdfPCell empty14 = new PdfPCell(new Phrase("  "));
-                                    empty14.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty14);
-
-                                    PdfPCell empty15 = new PdfPCell(new Phrase("  "));
-                                    empty15.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty15);
-
-                                    PdfPCell empty16 = new PdfPCell(new Phrase("  "));
-                                    empty16.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty16);
-
-
-                                    PdfPCell empty3 = new PdfPCell(new Phrase("  "));
-                                    empty3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty3);
-
-
-                                    PdfPCell empty4 = new PdfPCell(new Phrase("  "));
-                                    empty4.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty4);
-
-                                    PdfPCell empty5 = new PdfPCell(new Phrase("  "));
-                                    empty5.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty5);
-
-                                    PdfPCell empty10 = new PdfPCell(new Phrase("  "));
-                                    empty10.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty10);
-
-
-
-                                }
-                                iTextSharp.text.Image jpg5 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                jpg5.ScaleAbsolute(110f, 60f);
-                                PdfPCell bar4 = new PdfPCell(jpg5);
-                                bar4.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(bar4);
-
-                                k++;
-
-                                PdfPCell empty31 = new PdfPCell(new Phrase("  "));
-                                empty31.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty31);
-
-                                iTextSharp.text.Image jpg99 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                jpg99.ScaleAbsolute(110f, 60f);
-                                PdfPCell bar99 = new PdfPCell(jpg99);
-                                bar99.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(bar99);
-
-                                k++;
-
-                                PdfPCell empty33 = new PdfPCell(new Phrase("  "));
-                                empty33.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty33);
-
-                                iTextSharp.text.Image jpg54 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                jpg54.ScaleAbsolute(110f, 60f);
-                                PdfPCell bar54 = new PdfPCell(jpg54);
-                                bar54.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(bar54);
-
-                                PdfPCell empty35 = new PdfPCell(new Phrase("  "));
-                                empty35.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty35);
-
-                                PdfPCell empty36 = new PdfPCell(new Phrase("  "));
-                                empty36.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty36);
-                            }
-                            else if (lstImage.Items.Count == 1)
-                            {
-                                int k = 0;
                                 iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg1.ScaleAbsolute(110f, 60f);
                                 PdfPCell bar = new PdfPCell(jpg1);
                                 bar.Border = PdfPCell.NO_BORDER;
                                 table.AddCell(bar);
+
+                                k++;
+
+
+                                PdfPCell empty = new PdfPCell(new Phrase("  "));
+                                empty.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty);
+
+
+                                iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg2.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar1 = new PdfPCell(jpg2);
+                                bar1.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar1);
+
+                                k++;
+
+
+                                PdfPCell empty8 = new PdfPCell(new Phrase("  "));
+                                empty8.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty8);
+
+
+                                iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg3.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar2 = new PdfPCell(jpg3);
+                                bar2.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar2);
+                                k++;
+
+
+                                PdfPCell empty9 = new PdfPCell(new Phrase("  "));
+                                empty9.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty9);
+
+                                iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg4.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar3 = new PdfPCell(jpg4);
+                                bar3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar3);
+                                k++;
+
+                                PdfPCell empty14 = new PdfPCell(new Phrase("  "));
+                                empty14.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty14);
+
+                                PdfPCell empty15 = new PdfPCell(new Phrase("  "));
+                                empty15.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty15);
+
+                                PdfPCell empty16 = new PdfPCell(new Phrase("  "));
+                                empty16.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty16);
+
+
+                                PdfPCell empty3 = new PdfPCell(new Phrase("  "));
+                                empty3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty3);
+
+
+                                PdfPCell empty4 = new PdfPCell(new Phrase("  "));
+                                empty4.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty4);
+
+                                PdfPCell empty5 = new PdfPCell(new Phrase("  "));
+                                empty5.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty5);
+
+                                PdfPCell empty10 = new PdfPCell(new Phrase("  "));
+                                empty10.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty10);
+
+
+                                PdfPCell empty11 = new PdfPCell(new Phrase("  "));
+                                empty11.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty11);
+
+                                PdfPCell empty12 = new PdfPCell(new Phrase("  "));
+                                empty12.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty12);
+
+                                PdfPCell empty13 = new PdfPCell(new Phrase("  "));
+                                empty13.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty13);
+
+                                PdfPCell empty21 = new PdfPCell(new Phrase("  "));
+                                empty21.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty21);
+
+                                PdfPCell empty22 = new PdfPCell(new Phrase("  "));
+                                empty22.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty22);
+
+                                PdfPCell empty23 = new PdfPCell(new Phrase("  "));
+                                empty23.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty23);
+                            }
+                        }
+                        else if (lstImage.Items.Count % 4 == 1)
+                        {
+                            int k = 0;
+                            int i;
+                            for (i = 0; i < lstImage.Items.Count / 4; i++)
+                            {
+                                iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg1.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar = new PdfPCell(jpg1);
+                                bar.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar);
+
+                                k++;
+
+
+                                PdfPCell empty = new PdfPCell(new Phrase("  "));
+                                empty.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty);
+
+
+                                iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg2.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar1 = new PdfPCell(jpg2);
+                                bar1.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar1);
+
+                                k++;
+
+
+                                PdfPCell empty8 = new PdfPCell(new Phrase("  "));
+                                empty8.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty8);
+
+
+                                iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg3.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar2 = new PdfPCell(jpg3);
+                                bar2.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar2);
+                                k++;
+
+
+                                PdfPCell empty9 = new PdfPCell(new Phrase("  "));
+                                empty9.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty9);
+
+                                iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg4.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar3 = new PdfPCell(jpg4);
+                                bar3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar3);
+                                k++;
+
+                                PdfPCell empty14 = new PdfPCell(new Phrase("  "));
+                                empty14.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty14);
+
+                                PdfPCell empty15 = new PdfPCell(new Phrase("  "));
+                                empty15.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty15);
+
+                                PdfPCell empty16 = new PdfPCell(new Phrase("  "));
+                                empty16.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty16);
+
+
+                                PdfPCell empty3 = new PdfPCell(new Phrase("  "));
+                                empty3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty3);
+
+
+                                PdfPCell empty4 = new PdfPCell(new Phrase("  "));
+                                empty4.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty4);
+
+                                PdfPCell empty5 = new PdfPCell(new Phrase("  "));
+                                empty5.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty5);
+
+                                PdfPCell empty10 = new PdfPCell(new Phrase("  "));
+                                empty10.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty10);
+
+
+                            }
+                            iTextSharp.text.Image jpg5 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            jpg5.ScaleAbsolute(110f, 60f);
+                            PdfPCell bar4 = new PdfPCell(jpg5);
+                            bar4.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar4);
+
+                            PdfPCell empty31 = new PdfPCell(new Phrase("  "));
+                            empty31.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty31);
+
+                            PdfPCell empty32 = new PdfPCell(new Phrase("  "));
+                            empty32.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty32);
+
+                            PdfPCell empty33 = new PdfPCell(new Phrase("  "));
+                            empty33.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty33);
+
+                            PdfPCell empty34 = new PdfPCell(new Phrase("  "));
+                            empty34.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty34);
+
+                            PdfPCell empty35 = new PdfPCell(new Phrase("  "));
+                            empty35.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty35);
+
+                            PdfPCell empty36 = new PdfPCell(new Phrase("  "));
+                            empty36.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty36);
+                        }
+                        else if (lstImage.Items.Count % 4 == 2)
+                        {
+                            int k = 0;
+                            for (int i = 0; i < lstImage.Items.Count / 4; i++)
+                            {
+                                iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg1.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar = new PdfPCell(jpg1);
+                                bar.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar);
+
+                                k++;
+
+
+                                PdfPCell empty = new PdfPCell(new Phrase("  "));
+                                empty.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty);
+
+
+                                iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg2.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar1 = new PdfPCell(jpg2);
+                                bar1.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar1);
+
+                                k++;
+
+
+                                PdfPCell empty8 = new PdfPCell(new Phrase("  "));
+                                empty8.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty8);
+
+
+                                iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg3.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar2 = new PdfPCell(jpg3);
+                                bar2.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar2);
+                                k++;
+
+
+                                PdfPCell empty9 = new PdfPCell(new Phrase("  "));
+                                empty9.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty9);
+
+                                iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg4.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar3 = new PdfPCell(jpg4);
+                                bar3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar3);
+                                k++;
+
+                                PdfPCell empty14 = new PdfPCell(new Phrase("  "));
+                                empty14.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty14);
+
+                                PdfPCell empty15 = new PdfPCell(new Phrase("  "));
+                                empty15.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty15);
+
+                                PdfPCell empty16 = new PdfPCell(new Phrase("  "));
+                                empty16.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty16);
+
+
+                                PdfPCell empty3 = new PdfPCell(new Phrase("  "));
+                                empty3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty3);
+
+
+                                PdfPCell empty4 = new PdfPCell(new Phrase("  "));
+                                empty4.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty4);
+
+                                PdfPCell empty5 = new PdfPCell(new Phrase("  "));
+                                empty5.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty5);
+
+                                PdfPCell empty10 = new PdfPCell(new Phrase("  "));
+                                empty10.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty10);
+
+
+
+                            }
+                            iTextSharp.text.Image jpg5 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            jpg5.ScaleAbsolute(110f, 60f);
+                            PdfPCell bar4 = new PdfPCell(jpg5);
+                            bar4.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar4);
+
+                            k++;
+
+                            PdfPCell empty31 = new PdfPCell(new Phrase("  "));
+                            empty31.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty31);
+
+                            iTextSharp.text.Image jpg6 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            jpg6.ScaleAbsolute(110f, 60f);
+                            PdfPCell bar6 = new PdfPCell(jpg6);
+                            bar6.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar6);
+
+                            PdfPCell empty33 = new PdfPCell(new Phrase("  "));
+                            empty33.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty33);
+
+                            PdfPCell empty34 = new PdfPCell(new Phrase("  "));
+                            empty34.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty34);
+
+                            PdfPCell empty35 = new PdfPCell(new Phrase("  "));
+                            empty35.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty35);
+
+                            PdfPCell empty36 = new PdfPCell(new Phrase("  "));
+                            empty36.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty36);
+                        }
+                        else if (lstImage.Items.Count % 4 == 3)
+                        {
+
+                            int k = 0;
+                            int i;
+                            for (i = 0; i < lstImage.Items.Count / 4; i++)
+                            {
+
+                                iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg1.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar = new PdfPCell(jpg1);
+                                bar.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar);
+
+                                k++;
+
+
+                                PdfPCell empty = new PdfPCell(new Phrase("  "));
+                                empty.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty);
+
+
+                                iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg2.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar1 = new PdfPCell(jpg2);
+                                bar1.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar1);
+
+                                k++;
+
+
+                                PdfPCell empty8 = new PdfPCell(new Phrase("  "));
+                                empty8.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty8);
+
+
+                                iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg3.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar2 = new PdfPCell(jpg3);
+                                bar2.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar2);
+
+                                k++;
+
+
+                                PdfPCell empty9 = new PdfPCell(new Phrase("  "));
+                                empty9.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty9);
+
+                                iTextSharp.text.Image jpg4 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg4.ScaleAbsolute(110f, 60f);
+                                PdfPCell bar3 = new PdfPCell(jpg4);
+                                bar3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar3);
+
+                                k++;
+
+                                PdfPCell empty14 = new PdfPCell(new Phrase("  "));
+                                empty14.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty14);
+
+                                PdfPCell empty15 = new PdfPCell(new Phrase("  "));
+                                empty15.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty15);
+
+                                PdfPCell empty16 = new PdfPCell(new Phrase("  "));
+                                empty16.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty16);
+
+
+                                PdfPCell empty3 = new PdfPCell(new Phrase("  "));
+                                empty3.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty3);
+
+
+                                PdfPCell empty4 = new PdfPCell(new Phrase("  "));
+                                empty4.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty4);
+
+                                PdfPCell empty5 = new PdfPCell(new Phrase("  "));
+                                empty5.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty5);
+
+                                PdfPCell empty10 = new PdfPCell(new Phrase("  "));
+                                empty10.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty10);
+
+
+
+                            }
+                            iTextSharp.text.Image jpg5 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            jpg5.ScaleAbsolute(110f, 60f);
+                            PdfPCell bar4 = new PdfPCell(jpg5);
+                            bar4.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar4);
+
+                            k++;
+
+                            PdfPCell empty31 = new PdfPCell(new Phrase("  "));
+                            empty31.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty31);
+
+                            iTextSharp.text.Image jpg99 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            jpg99.ScaleAbsolute(110f, 60f);
+                            PdfPCell bar99 = new PdfPCell(jpg99);
+                            bar99.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar99);
+
+                            k++;
+
+                            PdfPCell empty33 = new PdfPCell(new Phrase("  "));
+                            empty33.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty33);
+
+                            iTextSharp.text.Image jpg54 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            jpg54.ScaleAbsolute(110f, 60f);
+                            PdfPCell bar54 = new PdfPCell(jpg54);
+                            bar54.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar54);
+
+                            PdfPCell empty35 = new PdfPCell(new Phrase("  "));
+                            empty35.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty35);
+
+                            PdfPCell empty36 = new PdfPCell(new Phrase("  "));
+                            empty36.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty36);
+                        }
+                        else if (lstImage.Items.Count == 1)
+                        {
+                            int k = 0;
+                            iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            PdfPCell bar = new PdfPCell(jpg1);
+                            bar.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar);
+
+                            PdfPCell empty3 = new PdfPCell(new Phrase("  "));
+                            empty3.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty3);
+                            PdfPCell empty4 = new PdfPCell(new Phrase("  "));
+                            empty4.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty4);
+
+                        }
+                        else
+                        {
+                            int k = 0;
+                            for (int i = 0; i < (lstImage.Items.Count) / 2; i++)
+                            {
+
+
+
+
+                                iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                jpg1.Alignment = iTextSharp.text.Image.ALIGN_MIDDLE;
+
+                                PdfPCell bar = new PdfPCell(jpg1);
+                                bar.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar);
+
+                                k++;
+
+                                PdfPCell empty = new PdfPCell();
+                                empty.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty);
+                                iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                                PdfPCell bar1 = new PdfPCell(jpg2);
+                                bar1.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(bar1);
+
+                                k++;
 
                                 PdfPCell empty3 = new PdfPCell(new Phrase("  "));
                                 empty3.Border = PdfPCell.NO_BORDER;
@@ -2410,99 +2447,63 @@ namespace ImageHeaven
                                 PdfPCell empty4 = new PdfPCell(new Phrase("  "));
                                 empty4.Border = PdfPCell.NO_BORDER;
                                 table.AddCell(empty4);
+                                PdfPCell empty5 = new PdfPCell(new Phrase("  "));
+                                empty5.Border = PdfPCell.NO_BORDER;
+                                table.AddCell(empty5);
+
+
+
+
 
                             }
-                            else
+                            iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
+                            PdfPCell bar3 = new PdfPCell(jpg3);
+                            bar3.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(bar3);
+                            PdfPCell empty1 = new PdfPCell();
+                            empty1.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty1);
+                            PdfPCell empty2 = new PdfPCell();
+                            empty2.Border = PdfPCell.NO_BORDER;
+                            table.AddCell(empty2);
+                        }
+
+                        doc.Add(para);
+                        if (lstImage.Items.Count > 32 && lstImage.Items.Count <= 36)
+                        {
+                            doc.Add(new Paragraph("\n"));
+
+                            table.SpacingAfter = 70f;
+                        }
+                        doc.Add(table);
+
+                        //DirectoryInfo dir_info1 = new DirectoryInfo(folderPath1);
+                        //string directory1 = dir_info1.Name;
+                        para1 = new Paragraph("Bundle name: " + GetBundleName(Convert.ToInt32(projKey), Convert.ToInt32(bundleKey)) + ", No. of Barcode: " + lstImage.Items.Count, font);
+
+                        para1.Alignment = Element.ALIGN_RIGHT;
+                        doc.Add(para1);
+
+                        doc.Add(table1);
+                        doc.Close();
+
+
+                        Directory.Delete(expFolder + "\\Barcode", true);
+
+                        bool insertlog = insertIntoDB(projKey, bundleKey, deComboBox2.Text);
+                        if (insertlog == true)
+                        {
+                            MessageBox.Show(this, "Barcode Generated Successfully...", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            button1.Enabled = true;
+                            deButton20.Enabled = true;
+
+                            int pendBundle = pendingBundle().Rows.Count;
+
+                            if (pendBundle == 0)
                             {
-                                int k = 0;
-                                for (int i = 0; i < (lstImage.Items.Count) / 2; i++)
-                                {
-
-
-
-
-                                    iTextSharp.text.Image jpg1 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    jpg1.Alignment = iTextSharp.text.Image.ALIGN_MIDDLE;
-
-                                    PdfPCell bar = new PdfPCell(jpg1);
-                                    bar.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar);
-
-                                    k++;
-
-                                    PdfPCell empty = new PdfPCell();
-                                    empty.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty);
-                                    iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                    PdfPCell bar1 = new PdfPCell(jpg2);
-                                    bar1.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(bar1);
-
-                                    k++;
-
-                                    PdfPCell empty3 = new PdfPCell(new Phrase("  "));
-                                    empty3.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty3);
-                                    PdfPCell empty4 = new PdfPCell(new Phrase("  "));
-                                    empty4.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty4);
-                                    PdfPCell empty5 = new PdfPCell(new Phrase("  "));
-                                    empty5.Border = PdfPCell.NO_BORDER;
-                                    table.AddCell(empty5);
-
-
-
-
-
-                                }
-                                iTextSharp.text.Image jpg3 = iTextSharp.text.Image.GetInstance(imageList[k]);
-                                PdfPCell bar3 = new PdfPCell(jpg3);
-                                bar3.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(bar3);
-                                PdfPCell empty1 = new PdfPCell();
-                                empty1.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty1);
-                                PdfPCell empty2 = new PdfPCell();
-                                empty2.Border = PdfPCell.NO_BORDER;
-                                table.AddCell(empty2);
+                                deLabel1.Text = "No bundle is pending for barcode generate";
                             }
-
-                            doc.Add(para);
-                            if (lstImage.Items.Count > 32 && lstImage.Items.Count <= 36)
-                            {
-                                doc.Add(new Paragraph("\n"));
-
-                                table.SpacingAfter = 70f;
-                            }
-                            doc.Add(table);
-
-                            //DirectoryInfo dir_info1 = new DirectoryInfo(folderPath1);
-                            //string directory1 = dir_info1.Name;
-                            para1 = new Paragraph("Bundle name: " + GetBundleName(Convert.ToInt32(projKey), Convert.ToInt32(bundleKey)) + ", No. of Barcode: " + lstImage.Items.Count, font);
-
-                            para1.Alignment = Element.ALIGN_RIGHT;
-                            doc.Add(para1);
-
-                            doc.Add(table1);
-                            doc.Close();
-
-
-                            Directory.Delete(expFolder + "\\Barcode", true);
-
-                            bool insertlog = insertIntoDB(projKey, bundleKey, deComboBox2.Text);
-                            if (insertlog == true)
-                            {
-                                MessageBox.Show(this, "Barcode Generated Successfully...", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                button1.Enabled = true;
-                                deButton20.Enabled = true;
-
-                                int pendBundle = pendingBundle().Rows.Count;
-
-                                if (pendBundle == 0)
-                                {
-                                    deLabel1.Text = "No bundle is pending for barcode generate";
-                                }
-                                else { deLabel1.Text = "Pending bundle : " + pendBundle; }
+                            else { deLabel1.Text = "Pending bundle : " + pendBundle; }
                         }
 
                     }
@@ -3137,7 +3138,7 @@ namespace ImageHeaven
                 }
             }
 
-            
+
         }
 
         private void deComboBox1_Leave(object sender, EventArgs e)
@@ -3156,7 +3157,7 @@ namespace ImageHeaven
         {
             button1.Enabled = false;
             deButton20.Enabled = false;
-            if(deComboBox1.Text != "" && deComboBox2.Text != "")
+            if (deComboBox1.Text != "" && deComboBox2.Text != "")
             {
                 projKey = deComboBox1.SelectedValue.ToString();
                 bundleKey = deComboBox2.SelectedValue.ToString();
@@ -3167,12 +3168,12 @@ namespace ImageHeaven
                 bundleKey = null;
             }
 
-            if(projKey != null && bundleKey != null)
+            if (projKey != null && bundleKey != null)
             {
                 int boxNumber = 1;
                 PopulateView(Convert.ToInt32(projKey), Convert.ToInt32(bundleKey), boxNumber);
                 PopulatePolicyList();
-                if(lstImage.Items.Count > 0)
+                if (lstImage.Items.Count > 0)
                 { button1.Enabled = true; deButton20.Enabled = true; }
                 else
                 { button1.Enabled = false; deButton20.Enabled = false; }
